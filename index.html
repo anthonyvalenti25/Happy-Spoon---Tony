@@ -182,61 +182,68 @@
     .tab-no { font-size: .76rem; letter-spacing: .08em; }
     .flavor-stage {
       --stage: var(--coral);
-      min-height: 31rem;
+      min-height: 33rem;
       position: relative;
       display: grid;
-      place-items: end start;
-      padding: clamp(2rem, 5vw, 4rem);
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+      align-items: center;
+      gap: 1rem;
+      padding: clamp(2rem, 4vw, 3.5rem);
       overflow: hidden;
       border: 2px solid var(--ink);
       border-radius: 2.2rem;
       background: var(--stage);
       transition: background .35s ease;
     }
-    .flavor-stage::before, .flavor-stage::after {
-      content: "";
+    .flavor-word {
       position: absolute;
+      left: 50%;
+      bottom: -.14em;
+      transform: translateX(-50%);
+      color: white;
+      font-size: clamp(6rem, 15vw, 12.5rem);
+      font-weight: 1000;
+      line-height: .8;
+      white-space: nowrap;
+      text-transform: uppercase;
+      opacity: .14;
+      pointer-events: none;
+    }
+    .flavor-copy { position: relative; z-index: 2; }
+    .flavor-copy .eyebrow { display: inline-block; padding: .35rem .6rem; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--paper); }
+    .flavor-title { font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: .86; margin-bottom: 1rem; }
+    .flavor-copy p { color: var(--ink); font-size: 1.1rem; font-weight: 650; max-width: 22rem; }
+    .flavor-showcase { position: relative; z-index: 1; width: calc(100% + 1.5rem); max-width: 27rem; aspect-ratio: 1; justify-self: end; margin-right: -1.5rem; }
+    .flavor-disc {
+      position: absolute;
+      inset: 4%;
       border: 2px solid var(--ink);
       border-radius: 50%;
       background: var(--paper);
+      box-shadow: .55rem .55rem 0 var(--ink);
     }
-    .flavor-stage::before { width: 24rem; height: 24rem; right: -7rem; top: -7rem; }
-    .flavor-stage::after { width: 6rem; height: 6rem; right: 3rem; bottom: 2rem; background: var(--ink); }
+    .flavor-floor {
+      position: absolute;
+      left: 20%;
+      right: 20%;
+      bottom: 9%;
+      height: 9%;
+      border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(40, 21, 17, .32), transparent);
+      animation: floor 5s ease-in-out infinite;
+    }
+    .flavor-lift { position: absolute; inset: -9% -7% 12%; animation: float 5s ease-in-out infinite; }
     .flavor-product {
-      position: absolute;
-      z-index: 1;
-      top: 50%;
-      right: clamp(-3.5rem, -3vw, -1rem);
-      width: min(53%, 31rem);
-      max-height: 94%;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
-      transform: translateY(-50%);
-      filter: drop-shadow(0 1.2rem 1.2rem rgba(53, 25, 20, .2));
-      transition: opacity .18s ease, transform .3s ease;
-      pointer-events: none;
+      object-position: center bottom;
+      filter: drop-shadow(0 .9rem 1rem rgba(53, 25, 20, .22));
+      transition: opacity .2s ease, transform .35s cubic-bezier(.2, .9, .3, 1.25);
     }
-    .flavor-product[src*="cookies-and-cream"] {
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .9) 24%, #000 40%);
-      mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, .9) 24%, #000 40%);
-    }
-    .flavor-word {
-      position: absolute;
-      right: -1rem;
-      top: 1rem;
-      max-width: 75%;
-      color: var(--ink);
-      font-size: clamp(4rem, 8.5vw, 8rem);
-      font-weight: 1000;
-      line-height: .76;
-      text-align: right;
-      text-transform: uppercase;
-      opacity: .11;
-      pointer-events: none;
-    }
-    .flavor-copy { position: relative; z-index: 2; max-width: min(29rem, 52%); }
-    .flavor-copy .eyebrow { display: inline-block; padding: .35rem .6rem; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--paper); }
-    .flavor-title { font-size: clamp(2.8rem, 6vw, 5.4rem); line-height: .84; margin-bottom: 1rem; }
-    .flavor-copy p { color: var(--ink); font-size: 1.1rem; font-weight: 650; }
+    .flavor-product.is-leaving { opacity: 0; transform: translateY(1.2rem) scale(.94); }
+    @keyframes float { 50% { transform: translateY(-.7rem); } }
+    @keyframes floor { 50% { transform: scaleX(.86); opacity: .75; } }
 
     .promise { position: relative; }
     .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--ink); border-radius: var(--radius); overflow: hidden; }
@@ -311,6 +318,11 @@
       .test-steps { border-left: 0; border-top: 2px solid var(--ink); }
       .footer-grid { align-items: start; flex-direction: column; }
     }
+    @media (max-width: 640px) {
+      .flavor-stage { grid-template-columns: 1fr; gap: .5rem; }
+      .flavor-showcase { order: -1; width: 100%; max-width: 19rem; margin: 0 auto; justify-self: center; }
+      .flavor-word { bottom: auto; top: 1.5rem; }
+    }
     @media (max-width: 540px) {
       .shell { width: min(100% - 1.25rem, 1180px); }
       h1 { font-size: clamp(3.25rem, 18vw, 5.2rem); }
@@ -321,8 +333,6 @@
       .flavor-tab { grid-template-columns: 1rem 1fr; font-size: .78rem; }
       .flavor-tab .tab-no { display: none; }
       .flavor-stage { min-height: 24rem; padding: 1.5rem; }
-      .flavor-product { top: 3.5rem; right: 50%; width: min(78%, 25rem); max-height: 67%; transform: translateX(50%); }
-      .flavor-copy { max-width: 100%; }
       .signup { border-radius: 1.2rem; flex-direction: column; }
       .signup .pill { width: 100%; }
     }
@@ -388,11 +398,17 @@
           </div>
           <div class="flavor-stage" role="tabpanel" aria-live="polite">
             <div class="flavor-word" id="flavorWord">Fudge</div>
-            <img class="flavor-product" id="flavorProduct" src="chocolate-fudge.png" alt="Open Happy Spoon Chocolate Fudge yogurt cup with thick chocolate yogurt on a spoon">
             <div class="flavor-copy">
               <p class="eyebrow">Flavor 01 / 05</p>
               <h3 class="flavor-title" id="flavorName">Chocolate Fudge</h3>
               <p id="flavorCopy">Deep cocoa flavor with the full dessert energy your nightly spoon deserves.</p>
+            </div>
+            <div class="flavor-showcase">
+              <div class="flavor-disc"></div>
+              <div class="flavor-floor"></div>
+              <div class="flavor-lift">
+                <img class="flavor-product" id="flavorProduct" src="chocolate-fudge.png" alt="Open Happy Spoon Chocolate Fudge yogurt cup with thick chocolate yogurt on a spoon">
+              </div>
             </div>
           </div>
         </div>
@@ -477,6 +493,8 @@
     const copy = document.getElementById('flavorCopy');
     const product = document.getElementById('flavorProduct');
     const count = stage.querySelector('.eyebrow');
+    let swapTimer;
+    tabs.forEach(tab => { new Image().src = tab.dataset.image; });
 
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => {
@@ -486,14 +504,13 @@
         name.textContent = tab.dataset.name;
         word.textContent = tab.dataset.word;
         copy.textContent = tab.dataset.copy;
-        product.style.opacity = '0';
-        product.style.transform = window.matchMedia('(max-width: 640px)').matches ? 'translateX(50%) scale(.96)' : 'translateY(-50%) scale(.96)';
-        product.src = tab.dataset.image;
-        product.alt = tab.dataset.alt;
-        requestAnimationFrame(() => {
-          product.style.opacity = '1';
-          product.style.transform = '';
-        });
+        product.classList.add('is-leaving');
+        clearTimeout(swapTimer);
+        swapTimer = setTimeout(() => {
+          product.src = tab.dataset.image;
+          product.alt = tab.dataset.alt;
+          product.decode().catch(() => {}).then(() => product.classList.remove('is-leaving'));
+        }, 180);
         count.textContent = `Flavor ${String(index + 1).padStart(2, '0')} / 05`;
       });
       tab.addEventListener('keydown', event => {
