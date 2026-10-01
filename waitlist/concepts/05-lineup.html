@@ -27,6 +27,7 @@
       .offer { margin-top: 14px; }
       .join, .done-msg { margin-top: 24px; }
       .note:empty { display: none; }
+      .consent { margin-top: 10px; }
       .note { margin-top: 10px; }
     }
     .top { height: 58px; }
@@ -39,7 +40,9 @@
     /* Signed-up state: same pill shape and height as the form it replaces */
     .done-msg { align-items: center; gap: 14px; padding: 6px 22px 6px 6px; border-radius: 999px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.35); }
     .app.joined .done-msg { display: flex; }
-    .app.joined .note { display: none; }
+    .app.joined .note, .app.joined .consent { display: none; }
+    .consent { font-size: 11.5px; line-height: 1.35; opacity: .72; text-align: center; }
+    .join button:disabled { opacity: .7; }
     .done-msg .tick { flex: 0 0 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--btn); transition: background-color .9s var(--ease); }
     .done-msg .tick svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
       stroke-dasharray: 24; stroke-dashoffset: 24; animation: tick .5s .35s var(--ease) forwards; }
@@ -126,7 +129,8 @@
       <p class="eyebrow">High-protein dessert yogurt</p>
       <h1 class="name"></h1>
       <p class="offer">Join the waitlist and get a <b>free 32&nbsp;oz tub</b> when we launch.</p>
-      <form class="join" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email"><button type="submit">Get my free tub</button></form>
+      <form class="join" data-kit-form="" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" name="email_address" inputmode="email" autocomplete="email" placeholder="Your email" required><input class="sr" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">Get my free tub</button></form>
+      <p class="consent">By joining, you agree to get emails from Happy Spoon. Unsubscribe anytime.</p>
       <div class="done-msg" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>You're on the list.</b>Watch your inbox for your free tub.</span></div>
       <p class="note" aria-live="polite"></p>
     </section>
@@ -139,7 +143,7 @@
     addEventListener('touchmove', e => { if (e.target.tagName !== 'INPUT') e.preventDefault(); }, { passive: false });
     document.addEventListener('focusout', () => setTimeout(() => scrollTo(0, 0), 50));
   </script>
-  <script src="shared.js?v=5"></script>
+  <script src="shared.js?v=8"></script>
   <script>
     const stage = document.getElementById('stage');
     const STYLE = ['glass', 'ledge', 'risers', 'floor'].find(v => v === new URLSearchParams(location.search).get('shelf')) || 'glass';
@@ -210,7 +214,7 @@
 
     layout();
     HS.start({
-      stage, paintDelay: 350,
+      stage, paintDelay: 350, tapOnly: true,
       onChange(i, prev) {
         if (i === prev || HS.reduced) { hero = i; place(); return; }
         place();

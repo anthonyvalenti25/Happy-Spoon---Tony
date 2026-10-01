@@ -36,7 +36,7 @@ const HS = (() => {
     return () => cancelAnimationFrame(raf);
   }
 
-  function start({ stage, onChange, turn = 3400, paintDelay = 0 }) {
+  function start({ stage, onChange, turn = 3400, paintDelay = 0, tapOnly = false }) {
     const app = document.querySelector('.app');
     const root = document.documentElement;
     const bars = document.querySelector('.bars');
@@ -106,12 +106,14 @@ const HS = (() => {
     document.addEventListener('visibilitychange', syncPause);
 
     // Swipe anywhere on the stage; a tap is passed to the concept (to pick a tub).
+    // With tapOnly, swipes do nothing and only a tap on a tub changes the flavor.
     let x0 = null, y0 = 0;
     stage.addEventListener('pointerdown', e => { x0 = e.clientX; y0 = e.clientY; });
     stage.addEventListener('pointerup', e => {
       if (x0 === null) return;
       const dx = e.clientX - x0, dy = e.clientY - y0;
       x0 = null;
+      if (tapOnly && Math.hypot(dx, dy) > 12) return;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
       else if (Math.abs(dy) > 40) go(index + (dy < 0 ? 1 : -1), dy < 0 ? 1 : -1);
       else {
@@ -120,26 +122,64 @@ const HS = (() => {
       }
     });
     addEventListener('keydown', e => {
-      if (e.target.tagName === 'INPUT') return;
+      if (tapOnly || e.target.tagName === 'INPUT') return;
       if (e.key === 'ArrowRight') go(index + 1, 1);
       if (e.key === 'ArrowLeft') go(index - 1, -1);
     });
 
-    // Waitlist form (design preview: nothing is sent or stored)
+    // Waitlist form. If the form has data-kit-form="<Kit form ID>", signups go to that Kit form
+    // (Kit's public form endpoint; no secret keys in the page). Without an ID it stays a design preview.
     const form = document.querySelector('.join');
-    const email = form.querySelector('input');
+    const email = form.querySelector('input[type="email"]');
+    const button = form.querySelector('button');
+    const trap = form.querySelector('[name="website"]');   // hidden field only bots fill in
     const note = document.querySelector('.note');
+    const kitId = () => (form.dataset.kitForm || '').trim();
+    let sending = false;
     email.addEventListener('focus', () => { typing = true; syncPause(); });
     email.addEventListener('blur', () => { typing = false; syncPause(); });
-    form.addEventListener('submit', e => {
+
+    async function subscribe(address) {
+      const body = new FormData();
+      body.append('email_address', address);
+      body.append('fields[flavor]', FLAVORS[index].name);   // which flavor was on screen
+      const res = await fetch(`https://app.kit.com/forms/${encodeURIComponent(kitId())}/subscriptions`, {
+        method: 'POST', body, headers: { Accept: 'application/json' },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || (data.status && data.status !== 'success')) throw new Error(data.error || res.status);
+    }
+
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
+      if (sending) return;
+      const address = email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(address)) {
         note.textContent = 'Enter a valid email address.';
         email.focus();
         return;
       }
       email.blur();
-      note.textContent = 'Design preview. Signups are not saved yet.';
+      note.textContent = '';
+      const kitForm = kitId();
+      if (kitForm && !(trap && trap.value)) {
+        sending = true;
+        const label = button.textContent;
+        button.textContent = 'Joining…';
+        button.disabled = true;
+        try {
+          await subscribe(address);
+        } catch (err) {
+          note.textContent = 'Something went wrong. Please try again.';
+          return;
+        } finally {
+          sending = false;
+          button.textContent = label;
+          button.disabled = false;
+        }
+      } else if (!kitForm) {
+        note.textContent = 'Design preview. Signups are not saved yet.';
+      }
       app.classList.add('joined');
     });
 
