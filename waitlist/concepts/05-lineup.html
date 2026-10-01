@@ -52,6 +52,34 @@
     [data-shelf="floor"] .face { background: linear-gradient(transparent, color-mix(in srgb, var(--deep) 80%, transparent) 30%, transparent);
       -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
     [data-shelf="floor"] .refl { opacity: .4; }
+
+    /* Desktop: text and form on the left, the stage on the right, color edge to edge */
+    @media (min-width: 900px) and (orientation: landscape) {
+      .app {
+        max-width: 1440px; column-gap: clamp(32px, 4vw, 72px);
+        padding: 24px clamp(32px, 4.5vw, 72px) 28px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+        grid-template-rows: auto 1fr auto auto 1fr;
+        grid-template-areas: "top top" ". stage" "bars stage" "bottom stage" ". stage";
+      }
+      .top { grid-area: top; height: 56px; }
+      .wordmark { width: 128px; }
+      .chip { font-size: 12px; padding: 8px 14px; }
+      .stage { grid-area: stage; margin-top: 12px; }
+      .bars { grid-area: bars; max-width: 420px; margin: 0 0 22px; }
+      .bottom { grid-area: bottom; max-width: 640px; container-type: inline-size; }
+      .eyebrow { font-size: 13px; }
+      .name { font-size: min(11.8cqi, 96px); margin-top: 10px; }   /* longest name fills the column */
+      .offer { font-size: 20px; margin-top: 16px; }
+      .join { margin-top: 26px; max-width: 520px; padding: 6px; }
+      .join input { font-size: 17px; padding: 0 18px; }
+      .join button { padding: 18px 24px; font-size: 16px; }
+      .done-msg { max-width: 520px; margin-top: 26px; }
+      .note { text-align: left; padding-left: 20px; max-width: 520px; }
+      .tub { cursor: pointer; }
+      .shelf { left: -48px; width: calc(100% + 48px + clamp(32px, 4.5vw, 72px));
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 140px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, transparent, #000 140px, #000 calc(100% - 48px), transparent); }
+    }
   </style>
 </head>
 <body>
@@ -93,25 +121,26 @@
     const px = n => `${n}px`;
     function layout() {
       W = stage.clientWidth; H = stage.clientHeight;
-      const pad = 8, sw = (W - pad * 4) / 5, stw = sw * 0.92, sth = stw * 1.2;
+      const pad = Math.max(8, W * 0.03), sw = (W - pad * 4) / 5, stw = sw * 0.92, sth = stw * 1.2;
       const below = { glass: 44, ledge: 46, risers: 34, floor: 30 }[STYLE];
       const shelfY = H - below;
       const heroRoom = shelfY - sth - 26;
-      th = Math.min(heroRoom * 0.94, W * 0.6 * 1.2); tw = th / 1.2;
+      th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.74 : 0.6) * 1.2); tw = th / 1.2;   // bigger hero on desktop
       const heroY = Math.min(heroRoom, heroRoom / 2 + th / 2 + 6);
       heroSpot = { x: W / 2, y: heroY, s: 1 };
       spots = HS.FLAVORS.map((_, k) => ({ x: sw / 2 + k * (sw + pad), y: shelfY, s: stw / tw }));
       tubs.forEach(t => { t.style.width = px(tw); });
 
-      // Shelf parts, in shelf coordinates (the shelf is 18px wider on each side than the stage)
+      // Shelf parts, in shelf coordinates (the shelf bleeds past the stage edges)
+      const off = -shelf.offsetLeft;
       const faceTop = STYLE === 'floor' ? shelfY - 8 : shelfY - 13, faceH = STYLE === 'floor' ? H - faceTop + 14 : STYLE === 'glass' ? 32 : 22;
       Object.assign(face.style, { top: px(faceTop), height: px(faceH) });
       Object.assign(edge.style, { top: px(faceTop + faceH), height: px(STYLE === 'ledge' ? 14 : 6) });
       Object.assign(under.style, { top: px(faceTop + faceH + (STYLE === 'ledge' ? 14 : 6)), height: px(30) });
       spots.forEach((p, k) => {
-        Object.assign(refls[k].style, { left: px(p.x + 18 - stw / 2), top: px(shelfY - faceTop - 2), width: px(stw), height: px(sth) });
-        Object.assign(shadows[k].style, { left: px(p.x + 18 - stw * 0.55), top: px(shelfY - 7), width: px(stw * 1.1), height: px(14) });
-        if (risers[k]) Object.assign(risers[k].style, { left: px(p.x + 18 - stw * 0.5), top: px(shelfY - 3), width: px(stw), height: px(below - 4) });
+        Object.assign(refls[k].style, { left: px(p.x + off - stw / 2), top: px(shelfY - faceTop - 2), width: px(stw), height: px(sth) });
+        Object.assign(shadows[k].style, { left: px(p.x + off - stw * 0.55), top: px(shelfY - 7), width: px(stw * 1.1), height: px(14) });
+        if (risers[k]) Object.assign(risers[k].style, { left: px(p.x + off - stw * 0.5), top: px(shelfY - 3), width: px(stw), height: px(below - 4) });
       });
       const d = Math.min(th * 1.02, W * 0.92);
       Object.assign(halo.style, { left: px(W / 2 - d / 2), top: px(heroY - th / 2 - d / 2 - th * 0.02), width: px(d), height: px(d) });
