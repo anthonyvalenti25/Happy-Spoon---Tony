@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#2b140e" data-fixed>
+  <meta name="theme-color" content="#ef4c3c">
   <meta name="robots" content="noindex">
   <title>05 Lineup | Happy Spoon waitlist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,18 +13,39 @@
   <style>
     /* Lineup: all five wait on a shelf. Each takes its turn leaping up to center stage, then hops back into line. */
 
-    /* Phone frame: a fixed chocolate-brown frame with the flavor color as a rounded panel inside.
-       iOS Safari picks its toolbar color once at load, so the toolbars load brown and blend into the frame. */
-    :root { --frame: #2b140e; --cream: #f7ecdd; }
-    html, body { background: var(--frame); }
-    .app { --top: max(env(safe-area-inset-top), 10px); --band: max(env(safe-area-inset-bottom), 10px);
-      padding-top: var(--top); padding-bottom: calc(var(--band) + 6px); }
-    .app::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0;
-      top: calc(var(--top) + 66px); bottom: 0; border-radius: 28px 28px 0 0; background: var(--bg); }
-    .top { color: var(--cream); height: 58px; }
+    /* Phones: iOS Safari only tints its toolbars once at load, so instead the page itself reaches
+       under the status bar and the floating search bar. The document is slightly taller than the
+       screen (a color strip after the app) and touch scrolling is blocked, so it still reads as one screen. */
+    @media (max-width: 899px), (orientation: portrait) {
+      html, body { height: auto; overflow: visible; }
+      body { position: static; min-height: 100%; }
+      .under-bar { height: 220px; background: var(--bg); }
+      /* Roomier text block, with the form sitting low near the thumb */
+      .app { padding-bottom: max(env(safe-area-inset-bottom), 10px); }
+      .eyebrow { margin-top: 4px; }
+      .name { margin-top: 10px; }
+      .offer { margin-top: 14px; }
+      .join, .done-msg { margin-top: 24px; }
+      .note:empty { display: none; }
+      .note { margin-top: 10px; }
+    }
+    .top { height: 58px; }
     .top .wordmark { width: 84px; }
-    .top .chip { background: rgba(247, 236, 221, .12); }
-    .bars { margin-top: 22px; }
+    /* The turn bars are hidden for a cleaner screen. They stay in the page (zero height, invisible)
+       because their fill animation is the rotation timer. */
+    .bars, .app .bars { height: 0; margin: 0; overflow: hidden; visibility: hidden; }
+    .stage { margin-top: 10px; }
+
+    /* Signed-up state: same pill shape and height as the form it replaces */
+    .done-msg { align-items: center; gap: 14px; padding: 6px 22px 6px 6px; border-radius: 999px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.35); }
+    .app.joined .done-msg { display: flex; }
+    .app.joined .note { display: none; }
+    .done-msg .tick { flex: 0 0 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--btn); transition: background-color .9s var(--ease); }
+    .done-msg .tick svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 24; stroke-dashoffset: 24; animation: tick .5s .35s var(--ease) forwards; }
+    @keyframes tick { to { stroke-dashoffset: 0; } }
+    .done-msg b { display: block; font-size: 16px; margin: 0 0 1px; color: #15191d; }
+    .done-msg span:last-child { font-size: 14px; line-height: 1.3; color: #4b555d; }
     .tub { transform-origin: 50% 100%; }
     .halo {
       position: absolute; border-radius: 50%;
@@ -68,10 +89,7 @@
 
     /* Desktop: text and form on the left, the stage on the right, color edge to edge */
     @media (min-width: 900px) and (orientation: landscape) {
-      html, body { background: var(--bg); }
-      .app::before { display: none; }
-      .top { color: var(--ink); }
-      .top .chip { background: color-mix(in srgb, var(--ink) 14%, transparent); }
+      .under-bar { display: none; }
       .app {
         max-width: 1440px; column-gap: clamp(32px, 4vw, 72px);
         padding: 24px clamp(32px, 4.5vw, 72px) 28px;
@@ -109,10 +127,18 @@
       <h1 class="name"></h1>
       <p class="offer">Join the waitlist and get a <b>free 32&nbsp;oz tub</b> when we launch.</p>
       <form class="join" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email"><button type="submit">Get my free tub</button></form>
-      <div class="done-msg" role="status"><b>You're on the list.</b>We'll email you at launch about your free 32&nbsp;oz tub.</div>
+      <div class="done-msg" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>You're on the list.</b>Watch your inbox for your free tub.</span></div>
       <p class="note" aria-live="polite"></p>
     </section>
   </main>
+  <div class="under-bar" aria-hidden="true"></div>
+  <script>
+    // Keep the page pinned at the top: block touch scrolling (typing in the email field still works)
+    // and return to the top after the keyboard closes.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    addEventListener('touchmove', e => { if (e.target.tagName !== 'INPUT') e.preventDefault(); }, { passive: false });
+    document.addEventListener('focusout', () => setTimeout(() => scrollTo(0, 0), 50));
+  </script>
   <script src="shared.js?v=5"></script>
   <script>
     const stage = document.getElementById('stage');
