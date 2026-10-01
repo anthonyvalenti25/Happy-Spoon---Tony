@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Happy Spoon high-protein dessert yogurt. Pick a pack size, subscribe and save.">
+  <meta name="theme-color" content="#fbfbfa">
+  <title>Happy Spoon | Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="shop.css">
+  <style>
+    .crumbs { padding-block: 1.2rem .4rem; font-size: .88rem; color: var(--ink-soft); }
+    .crumbs a { text-decoration: none; }
+    .crumbs a:hover { text-decoration: underline; }
+    .pdp { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(1.6rem, 4vw, 4rem); align-items: start; padding-bottom: clamp(3rem, 7vw, 5rem); }
+
+    .gallery { position: sticky; top: 5.2rem; display: grid; gap: .8rem; }
+    .stage { position: relative; aspect-ratio: 1 / 1; border-radius: 1.6rem; overflow: hidden; background: var(--f-bg); display: grid; place-items: center; }
+    .stage .word { position: absolute; inset: 12% 0 auto; text-align: center; font-weight: 800; font-variation-settings: "wdth" 125; font-size: clamp(2.6rem, 7.4vw, 6.6rem); line-height: .86; letter-spacing: -.025em; text-transform: uppercase; color: var(--f-deep); pointer-events: none; }
+    .stage img.cup { position: relative; width: 74%; height: 80%; object-fit: contain; margin-top: 6%; filter: drop-shadow(0 2rem 2rem rgba(20, 20, 40, .28)); }
+    .stage img.photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .stage.light { background: var(--mist); }
+    .stage.light .word { color: #e2e6ea; }
+    .thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; }
+    .thumbs button, .thumbs a { position: relative; aspect-ratio: 1; border: 0; padding: 0; border-radius: .9rem; overflow: hidden; display: grid; place-items: center; background: var(--mist); box-shadow: inset 0 0 0 2px transparent; text-decoration: none; }
+    .thumbs [aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
+    .thumbs .t-flavor { background: var(--f-bg); }
+    .thumbs img { width: 78%; height: 82%; object-fit: contain; }
+    .thumbs img.cover { width: 100%; height: 100%; object-fit: cover; }
+    .thumbs .t-3d { background: var(--ink); color: #fff; font-weight: 700; font-size: .85rem; display: grid; gap: .2rem; justify-items: center; align-content: center; }
+    .thumbs .t-3d svg { width: 1.6rem; height: 1.6rem; }
+
+    .buy { display: grid; gap: 1.35rem; align-content: start; padding-top: .4rem; }
+    .buy h1 { font-size: clamp(2.4rem, 4.6vw, 3.8rem); font-weight: 800; line-height: .98; letter-spacing: -.05em; }
+    .buy .desc { font-size: 1.08rem; color: var(--ink-soft); max-width: 34rem; }
+    .notes { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .notes span { padding: .35rem .75rem; border-radius: 999px; background: var(--mist); font-size: .84rem; font-weight: 600; }
+    .price-line { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+    .price-line b { font-size: 1.9rem; font-weight: 800; letter-spacing: -.03em; }
+    .price-line s { color: var(--ink-faint); font-size: 1.1rem; }
+    .price-line span { color: var(--ink-soft); font-size: .95rem; }
+    .group { display: grid; gap: .6rem; }
+    .group-label { display: flex; justify-content: space-between; font-size: .9rem; font-weight: 700; }
+    .group-label span { font-weight: 500; color: var(--ink-soft); }
+    .swatches { display: flex; gap: .55rem; flex-wrap: wrap; }
+    .swatches a { width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 3px #fff, 0 0 0 1.5px var(--rule); }
+    .swatches a[aria-current="true"] { box-shadow: inset 0 0 0 3px #fff, 0 0 0 2px var(--ink); }
+    .add-row { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .7rem; }
+    .add-row .stepper { height: 3.1rem; }
+    .add-row .stepper button { height: 3.1rem; width: 2.8rem; }
+
+    .mix-banner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; align-items: center; padding: clamp(1.4rem, 3vw, 2rem); border-radius: 1.4rem; background: var(--mist); }
+    .mix-banner h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 800; letter-spacing: -.035em; }
+    .mix-banner p { color: var(--ink-soft); }
+    .more { padding-block: clamp(3rem, 7vw, 5rem); }
+    .more h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -.045em; margin-bottom: 1.4rem; }
+    .more .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .sticky-buy { position: fixed; z-index: 60; left: 0; right: 0; bottom: 0; padding: .7rem var(--gutter) calc(.7rem + env(safe-area-inset-bottom, 0px)); background: rgba(255, 255, 255, .94); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 -10px 30px -18px rgba(0, 0, 0, .35); transform: translateY(110%); transition: transform .3s ease; }
+    .sticky-buy.show { transform: none; }
+    .sticky-buy .shell { display: flex; align-items: center; gap: 1rem; padding: 0; }
+    .sticky-buy img { width: 2.8rem; height: 2.8rem; object-fit: contain; border-radius: .6rem; background: var(--f-bg); padding: .2rem; }
+    .sticky-buy .sb-text { display: grid; line-height: 1.25; min-width: 0; }
+    .sticky-buy .sb-text b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sticky-buy .sb-text span { font-size: .85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .sticky-buy .btn { margin-left: auto; min-height: 2.8rem; padding: .6rem 1.3rem; white-space: nowrap; }
+
+    @media (max-width: 960px) {
+      .pdp { grid-template-columns: 1fr; }
+      .gallery { position: static; }
+      .more .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .thumbs { gap: .45rem; }
+      .mix-banner { grid-template-columns: 1fr; }
+      .sticky-buy img { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announce"><b>Design preview.</b> Prices, shipping and checkout are samples and not live yet.</div>
+  <header class="header">
+    <div class="shell">
+      <a class="wordmark" href="./">HAPPY SPOON</a>
+      <nav class="menu" aria-label="Main">
+        <a href="./#flavors" aria-current="page">Flavors</a>
+        <a href="./#box">Build a box</a>
+        <a href="./#how">Subscriptions</a>
+        <a href="./#faq">FAQ</a>
+        <a href="../viewer/">3D studio</a>
+      </nav>
+      <button class="cart-btn" type="button" data-open-cart aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="cart-label">Cart</span><span class="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <nav class="shell crumbs" aria-label="Breadcrumb"><a href="./">Shop</a> / <a href="./#flavors">Flavors</a> / <span id="crumbName">Chocolate Fudge</span></nav>
+
+    <div class="shell pdp">
+      <div class="gallery">
+        <div class="stage" id="stage"><div class="word" id="stageWord" aria-hidden="true"></div><img class="cup" id="stageImg" alt=""></div>
+        <div class="thumbs" id="thumbs" role="group" aria-label="Product images">
+          <button type="button" class="t-flavor" data-view="flavor" aria-pressed="true" aria-label="Cup on flavor color"><img id="tFlavor" alt=""></button>
+          <button type="button" data-view="light" aria-pressed="false" aria-label="Cup on light background"><img id="tLight" alt=""></button>
+          <button type="button" data-view="lineup" aria-pressed="false" aria-label="All five flavors"><img class="cover" src="../hero.jpg" alt=""></button>
+          <a class="t-3d" id="t3d" href="../viewer/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg>View in 3D</a>
+        </div>
+      </div>
+
+      <div class="buy">
+        <div style="display:grid;gap:.8rem">
+          <p class="eyebrow">High-protein dessert yogurt</p>
+          <h1 id="name">Chocolate Fudge</h1>
+          <p class="desc" id="desc"></p>
+          <div class="notes" id="notes"></div>
+        </div>
+
+        <div class="price-line" aria-live="polite"><b id="price"></b><s id="was"></s><span id="per"></span></div>
+
+        <div class="group">
+          <div class="group-label">Flavor <span id="flavorLabel"></span></div>
+          <div class="swatches" id="swatches"></div>
+        </div>
+
+        <fieldset class="group" style="border:0;padding:0;margin:0">
+          <legend class="group-label" style="width:100%;margin-bottom:.6rem">Pack size</legend>
+          <div class="seg" id="sizes"></div>
+        </fieldset>
+
+        <fieldset class="group" style="border:0;padding:0;margin:0">
+          <legend class="group-label" style="width:100%;margin-bottom:.6rem">How do you want it?</legend>
+          <div class="ptype" id="plan"></div>
+        </fieldset>
+
+        <div class="add-row" id="addRow">
+          <div class="stepper" role="group" aria-label="Quantity">
+            <button type="button" id="qtyDown" aria-label="Decrease quantity">&minus;</button><output id="qty">1</output><button type="button" id="qtyUp" aria-label="Increase quantity">+</button>
+          </div>
+          <button class="btn block" type="button" id="addBtn">Add to cart</button>
+        </div>
+
+        <div class="trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Ships cold</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Skip or cancel anytime</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Free shipping over $40</span>
+        </div>
+
+        <div class="acc">
+          <details open><summary>About this flavor</summary><div class="acc-body"><p id="about"></p><p>Thick, smooth, high-protein yogurt. Good for breakfast, after training, or as dessert.</p></div></details>
+          <details><summary>Nutrition and ingredients</summary><div class="acc-body"><p>Full nutrition facts and the ingredient list will be published when the final recipes are locked in.</p></div></details>
+          <details><summary>Shipping and storage</summary><div class="acc-body"><p>Ships cold in insulated packaging. Refrigerate when it arrives. The best-by date is printed on every lid.</p><p>Free shipping on orders over $40.</p></div></details>
+        </div>
+      </div>
+    </div>
+
+    <div class="shell">
+      <div class="mix-banner">
+        <div><h2>Can't pick one? Build a mixed box.</h2><p>Choose any combination of all five flavors in a box of 8 or 12.</p></div>
+        <a class="btn ghost" href="./#box">Build a box</a>
+      </div>
+    </div>
+
+    <section class="shell more" aria-labelledby="more-title">
+      <h2 id="more-title">More flavors</h2>
+      <div class="cards" id="moreCards"></div>
+    </section>
+  </main>
+
+  <div class="sticky-buy" id="stickyBuy" aria-hidden="true">
+    <div class="shell">
+      <img id="sbImg" alt="">
+      <div class="sb-text"><b id="sbName"></b><span id="sbPrice"></span></div>
+      <button class="btn" type="button" id="sbAdd" tabindex="-1">Add to cart</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="shell">
+      <div style="display:grid;gap:.8rem;align-content:start"><a class="wordmark" href="./">HAPPY SPOON</a><p>High-protein dessert yogurt.</p></div>
+      <div><h4>Shop</h4><ul><li><a href="./#flavors">All flavors</a></li><li><a href="./#box">Build a box</a></li><li><a href="./#how">Subscriptions</a></li></ul></div>
+      <div><h4>Flavors</h4><ul id="footFlavors"></ul></div>
+      <div><h4>More</h4><ul><li><a href="./#faq">FAQ</a></li><li><a href="../viewer/">3D studio</a></li><li><a href="../new/">Brand site</a></li></ul></div>
+      <p class="fine">Design preview. Prices, shipping and checkout shown here are samples.</p>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+  <script>
+    const { FLAVORS, PACK, IMG, money, perCup, unitPrice, flavorById, addToCart } = window.HS;
+    const id = new URLSearchParams(location.search).get('f');
+    const f = flavorById(id);
+    const state = { size: 8, sub: true, every: 4, qty: 1, view: 'flavor' };
+
+    // Theme the page with this flavor
+    const root = document.documentElement.style;
+    root.setProperty('--f-bg', f.bg); root.setProperty('--f-deep', f.deep); root.setProperty('--f-ink', f.ink); root.setProperty('--accent', f.accent);
+    document.title = `${f.name} | Happy Spoon`;
+    document.querySelector('meta[name="description"]').setAttribute('content', `${f.name} high-protein dessert yogurt from Happy Spoon. ${f.desc}`);
+
+    const src = IMG + f.img;
+    document.getElementById('crumbName').textContent = f.name;
+    document.getElementById('name').textContent = f.name;
+    document.getElementById('desc').textContent = f.desc;
+    document.getElementById('about').textContent = f.desc;
+    document.getElementById('notes').innerHTML = f.notes.map(n => `<span>${n}</span>`).join('');
+    document.getElementById('flavorLabel').textContent = f.name;
+    document.getElementById('stageWord').innerHTML = f.name.includes('&') ? f.name.replace(' & ', '<br>&amp; ') : f.name.replace(' ', '<br>');
+    ['stageImg', 'tFlavor', 'tLight', 'sbImg'].forEach(k => { document.getElementById(k).src = src; });
+    document.getElementById('stageImg').alt = `Happy Spoon ${f.name} cup`;
+    document.getElementById('sbName').textContent = f.name;
+    document.getElementById('t3d').href = `../viewer/#${f.id}`;
+
+    document.getElementById('swatches').innerHTML = FLAVORS.map(x =>
+      `<a href="product.html?f=${x.id}" style="--c:${x.bg}" aria-label="${x.name}" title="${x.name}" ${x.id === f.id ? 'aria-current="true"' : ''}></a>`).join('');
+    document.getElementById('footFlavors').innerHTML = FLAVORS.map(x => `<li><a href="product.html?f=${x.id}">${x.name}</a></li>`).join('');
+
+    // Gallery
+    const stage = document.getElementById('stage');
+    document.getElementById('thumbs').addEventListener('click', e => {
+      const b = e.target.closest('button[data-view]');
+      if (!b) return;
+      document.querySelectorAll('#thumbs button').forEach(t => t.setAttribute('aria-pressed', String(t === b)));
+      const v = b.dataset.view;
+      stage.classList.toggle('light', v === 'light');
+      const old = stage.querySelector('img.photo');
+      if (old) old.remove();
+      if (v === 'lineup') stage.insertAdjacentHTML('beforeend', '<img class="photo" src="../hero.jpg" alt="All five Happy Spoon flavors">');
+    });
+
+    // Pack size
+    document.getElementById('sizes').innerHTML = [4, 8, 12].map(s => `
+      <label>${s === 12 ? '<span class="flag">Best value</span>' : ''}<input type="radio" name="size" value="${s}" ${s === state.size ? 'checked' : ''}><b>${s}-pack</b><small>${money(perCup(s, false))} / cup</small></label>`).join('');
+    document.getElementById('sizes').addEventListener('change', e => { state.size = Number(e.target.value); renderPlan(); render(); });
+
+    function renderPlan() {
+      const once = unitPrice(state.size, false), sub = unitPrice(state.size, true);
+      document.getElementById('plan').innerHTML = `
+        <label><input type="radio" name="plan" value="sub" ${state.sub ? 'checked' : ''}>
+          <span class="pt-title">Subscribe &amp; save<em>Save 15%</em></span>
+          <span class="pt-price">${money(sub)}<s>${money(once)}</s></span>
+          <span class="pt-note">Delivered every <select id="every" aria-label="Delivery frequency">${[2, 4, 6].map(w => `<option value="${w}" ${w === state.every ? 'selected' : ''}>${w} weeks</option>`).join('')}</select>. Skip or cancel anytime.</span>
+        </label>
+        <label><input type="radio" name="plan" value="once" ${state.sub ? '' : 'checked'}>
+          <span class="pt-title">One-time purchase</span>
+          <span class="pt-price">${money(once)}</span>
+        </label>`;
+    }
+    document.getElementById('plan').addEventListener('change', e => {
+      if (e.target.name === 'plan') state.sub = e.target.value === 'sub';
+      if (e.target.id === 'every') state.every = Number(e.target.value);
+      render();
+    });
+
+    // Quantity
+    document.getElementById('qtyDown').addEventListener('click', () => { state.qty = Math.max(1, state.qty - 1); render(); });
+    document.getElementById('qtyUp').addEventListener('click', () => { state.qty = Math.min(9, state.qty + 1); render(); });
+
+    function render() {
+      const each = unitPrice(state.size, state.sub);
+      const total = each * state.qty;
+      document.getElementById('price').textContent = money(each);
+      document.getElementById('was').textContent = state.sub ? money(PACK[state.size]) : '';
+      document.getElementById('per').textContent = `${state.size}-pack · ${money(perCup(state.size, state.sub))} per cup`;
+      document.getElementById('qty').textContent = state.qty;
+      document.getElementById('qtyDown').disabled = state.qty <= 1;
+      const label = `Add to cart · ${money(total)}`;
+      document.getElementById('addBtn').textContent = label;
+      document.getElementById('sbAdd').textContent = label;
+      document.getElementById('sbPrice').textContent = `${state.size}-pack · ${state.sub ? 'Subscribe' : 'One-time'}`;
+    }
+    const add = () => addToCart({ kind: 'pack', flavor: f.id, size: state.size, sub: state.sub, every: state.every, qty: state.qty });
+    document.getElementById('addBtn').addEventListener('click', add);
+    document.getElementById('sbAdd').addEventListener('click', add);
+
+    // Sticky add-to-cart once the main button scrolls away
+    const sticky = document.getElementById('stickyBuy');
+    const addRow = document.getElementById('addRow');
+    function updateSticky() {
+      const show = addRow.getBoundingClientRect().bottom < 0;
+      if (show === sticky.classList.contains('show')) return;
+      sticky.classList.toggle('show', show);
+      sticky.setAttribute('aria-hidden', String(!show));
+      document.getElementById('sbAdd').tabIndex = show ? 0 : -1;
+    }
+    addEventListener('scroll', updateSticky, { passive: true });
+    addEventListener('resize', updateSticky);
+    updateSticky();
+
+    // Other flavors
+    document.getElementById('moreCards').innerHTML = FLAVORS.filter(x => x.id !== f.id).map(x => `
+      <article class="pcard">
+        <div class="pcard-img" style="--bg:${x.bg}"><img src="${IMG + x.img}" alt="${x.name} cup" loading="lazy"></div>
+        <div class="pcard-body">
+          <h3><a href="product.html?f=${x.id}">${x.name}</a></h3>
+          <p>${x.short}</p>
+          <p class="pcard-price">${money(PACK[4])} <span>&middot; 4-pack</span></p>
+          <button class="btn" type="button" data-quick="${x.id}">Add 4-pack</button>
+        </div>
+      </article>`).join('');
+    document.getElementById('moreCards').addEventListener('click', e => {
+      const b = e.target.closest('[data-quick]');
+      if (b) addToCart({ kind: 'pack', flavor: b.dataset.quick, size: 4, sub: false });
+    });
+
+    renderPlan(); render();
+  </script>
+</body>
+</html>

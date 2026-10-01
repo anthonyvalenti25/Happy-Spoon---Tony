@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Shop Happy Spoon high-protein dessert yogurt. Five dessert flavors, mixed boxes, and subscribe-and-save.">
+  <meta name="theme-color" content="#fbfbfa">
+  <title>Shop Happy Spoon | High-protein dessert yogurt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="shop.css">
+  <style>
+    /* Home-only layout */
+    .hero { padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem); }
+    .hero .shell { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+    .hero-copy { display: grid; gap: 1.4rem; align-content: center; }
+    .hero h1 { font-size: clamp(2.7rem, 5.8vw, 5rem); font-weight: 800; line-height: .96; letter-spacing: -.05em; }
+    .hero h1 span { color: var(--accent); }
+    .hero .sub { font-size: 1.18rem; color: var(--ink-soft); max-width: 31rem; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: .7rem; }
+    .anchor { font-size: .95rem; }
+    .anchor b { font-variant-numeric: tabular-nums; }
+    .anchor span { color: var(--good); font-weight: 600; }
+    .hero-visual { position: relative; border-radius: 1.6rem; overflow: hidden; background: #f3ece2; box-shadow: var(--shadow); }
+    .hero-visual img { width: 100%; height: auto; }
+    .hero-visual .chips { position: absolute; left: 1rem; right: 1rem; bottom: 1rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+    .hero-visual .chips a { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem .75rem .4rem .45rem; border-radius: 999px; background: rgba(255, 255, 255, .92); font-size: .8rem; font-weight: 600; text-decoration: none; box-shadow: 0 6px 16px -10px rgba(0, 0, 0, .4); }
+    .hero-visual .chips i { width: .85rem; height: .85rem; border-radius: 50%; background: var(--c); }
+
+    .section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+    .section.mist { background: var(--mist); }
+    .head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem 2rem; margin-bottom: clamp(1.6rem, 3vw, 2.4rem); }
+    .head h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; line-height: 1; letter-spacing: -.045em; }
+    .head p { color: var(--ink-soft); max-width: 32rem; }
+
+    .benefits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .benefit { padding: 1.8rem 1.6rem; border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); display: grid; gap: .6rem; align-content: start; }
+    .benefit svg { width: 2rem; height: 2rem; color: var(--accent); }
+    .benefit h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
+    .benefit p { color: var(--ink-soft); }
+
+    /* Build a box */
+    .box { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: start; }
+    .picks { display: grid; gap: .7rem; }
+    .pick { display: grid; grid-template-columns: 4.8rem minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: .7rem 1rem .7rem .7rem; border-radius: 1.1rem; background: var(--card); box-shadow: var(--shadow); }
+    .pick-img { width: 4.8rem; aspect-ratio: 1; border-radius: .85rem; background: var(--bg); display: grid; place-items: center; overflow: hidden; }
+    .pick-img img { width: 80%; height: 86%; object-fit: contain; }
+    .pick h3 { font-size: 1.05rem; font-weight: 700; }
+    .pick h3 a { text-decoration: none; }
+    .pick h3 a:hover { text-decoration: underline; text-underline-offset: .2em; }
+    .pick p { font-size: .88rem; color: var(--ink-soft); }
+    .pick.has { box-shadow: inset 0 0 0 2px var(--ink), var(--shadow); }
+    .summary { position: sticky; top: 5.5rem; display: grid; gap: 1.1rem; padding: 1.5rem; border-radius: 1.4rem; background: var(--card); box-shadow: var(--shadow); }
+    .summary h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -.03em; }
+    .meter { display: grid; gap: .5rem; }
+    .meter-top { display: flex; justify-content: space-between; font-size: .9rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .meter-bar { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 3px; height: .55rem; }
+    .meter-bar i { border-radius: 999px; background: var(--mist); transition: background .25s ease; }
+    .fill-btn { justify-self: start; border: 0; background: none; padding: 0; font-weight: 600; font-size: .88rem; text-decoration: underline; text-underline-offset: .22em; color: var(--ink-soft); }
+    .fill-btn:hover { color: var(--ink); }
+
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; counter-reset: s; }
+    .step { display: grid; gap: .55rem; padding-top: 1.1rem; border-top: 3px solid var(--ink); }
+    .step h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+    .step h3::before { counter-increment: s; content: counter(s) ". "; color: var(--accent); }
+    .step p { color: var(--ink-soft); }
+
+    .faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(1.5rem, 5vw, 5rem); }
+    .faq h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; line-height: 1; letter-spacing: -.045em; }
+
+    .launch { background: var(--accent); color: #fff; border-radius: 1.6rem; padding: clamp(2rem, 5vw, 3.5rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem 3rem; align-items: center; }
+    .launch h2 { font-size: clamp(2rem, 4.2vw, 3.2rem); font-weight: 800; font-variation-settings: "wdth" 125; line-height: .95; letter-spacing: -.035em; text-transform: uppercase; }
+    .launch p { opacity: .9; }
+    .signup { display: flex; gap: .4rem; padding: .35rem; border-radius: 999px; background: #fff; margin-top: .9rem; }
+    .signup input { flex: 1; min-width: 0; padding: .6rem 1rem; border: 0; outline: 0; background: transparent; color: var(--ink); }
+    .signup .btn { min-height: 2.7rem; padding: .5rem 1.2rem; }
+    .form-note { margin-top: .6rem; font-size: .84rem; opacity: .85; min-height: 1.3em; }
+
+    @media (max-width: 960px) {
+      .hero .shell, .box, .faq, .launch { grid-template-columns: 1fr; }
+      .summary { position: static; }
+      .benefits, .steps { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .hero-visual .chips { display: none; }
+      .pick { grid-template-columns: 3.8rem minmax(0, 1fr) auto; gap: .75rem; }
+      .pick-img { width: 3.8rem; }
+      .pick p { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announce"><b>Design preview.</b> Prices, shipping and checkout are samples and not live yet.</div>
+  <header class="header">
+    <div class="shell">
+      <a class="wordmark" href="./">HAPPY SPOON</a>
+      <nav class="menu" aria-label="Main">
+        <a href="#flavors">Flavors</a>
+        <a href="#box">Build a box</a>
+        <a href="#how">Subscriptions</a>
+        <a href="#faq">FAQ</a>
+        <a href="../viewer/">3D studio</a>
+      </nav>
+      <button class="cart-btn" type="button" data-open-cart aria-label="Open cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="cart-label">Cart</span><span class="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="hero-copy">
+          <p class="eyebrow">High-protein dessert yogurt</p>
+          <h1>Dessert that fits <span>your goals.</span></h1>
+          <p class="sub">Thick, creamy yogurt in five dessert flavors. Built with protein, made to taste like the dessert aisle.</p>
+          <div class="cta-row">
+            <a class="btn" href="#box">Build your box</a>
+            <a class="btn ghost" href="#flavors">Shop flavors</a>
+          </div>
+          <p class="anchor">Boxes from <b id="fromPrice">$3.00</b> a cup. <span>Save 15% when you subscribe.</span></p>
+          <div class="trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Ships cold</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Skip or cancel anytime</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Free shipping over $40</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="../hero.jpg" alt="All five Happy Spoon cups: Chocolate Fudge, Cookies and Cream, Salted Caramel, Mint Chip and Cookie Dough" width="1200" height="800">
+          <div class="chips" id="heroChips"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mist" id="flavors" aria-labelledby="flavors-title">
+      <div class="shell">
+        <div class="head">
+          <h2 id="flavors-title">Shop by flavor</h2>
+          <p>Every flavor comes in 4, 8 or 12-packs. Bigger packs cost less per cup.</p>
+        </div>
+        <div class="cards" id="cards"></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="why-title">
+      <div class="shell">
+        <div class="head"><h2 id="why-title">Why it works</h2></div>
+        <div class="benefits">
+          <article class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h16M6 18V9m4 9V5m4 13v-7m4 7V7"/></svg>
+            <h3>High protein</h3>
+            <p>Designed to make protein easier to look forward to. Every cup counts toward your daily goal.</p>
+          </article>
+          <article class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 3 5 5.5 5 9a5 5 0 0 1-10 0c0-3.5 2-6 5-9Z"/></svg>
+            <h3>Real dessert flavors</h3>
+            <p>Every flavor starts with a dessert you actually crave: fudge, caramel, cookie dough and more.</p>
+          </article>
+          <article class="benefit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h16a8 8 0 0 1-16 0Z"/><path d="M15 11V4"/></svg>
+            <h3>Thick and smooth</h3>
+            <p>Spoon-standing thick. Never thin, never chalky. Good for breakfast, after training or late night.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mist" id="box" aria-labelledby="box-title">
+      <div class="shell">
+        <div class="head">
+          <h2 id="box-title">Build your box</h2>
+          <p>Mix any flavors you want. Pick a box size, add cups, and we'll ship it cold.</p>
+        </div>
+        <div class="box">
+          <div class="picks" id="picks"></div>
+          <aside class="summary" aria-labelledby="sum-title">
+            <h3 id="sum-title">Your box</h3>
+            <fieldset class="seg" style="border:0;padding:0;margin:0">
+              <legend class="sr">Box size</legend>
+              <label><input type="radio" name="boxSize" value="8"><b>8 cups</b><small id="per8"></small></label>
+              <label><span class="flag">Best value</span><input type="radio" name="boxSize" value="12" checked><b>12 cups</b><small id="per12"></small></label>
+            </fieldset>
+            <div class="meter">
+              <div class="meter-top"><span id="meterText">0 of 12 cups</span><button class="fill-btn" type="button" id="fillBtn">Fill the rest evenly</button></div>
+              <div class="meter-bar" id="meterBar" aria-hidden="true"></div>
+            </div>
+            <div class="ptype" id="boxPlan"></div>
+            <button class="btn block" type="button" id="addBox" disabled>Pick 12 more cups</button>
+            <div class="trust" style="justify-content:center;font-size:.82rem">
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Swap flavors before each delivery</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how" aria-labelledby="how-title">
+      <div class="shell">
+        <div class="head">
+          <h2 id="how-title">How subscriptions work</h2>
+          <p>Save 15% on every box. You stay in control of what comes and when.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><h3>Pick your flavors</h3><p>Choose a single-flavor pack or build a mixed box of 8 or 12.</p></div>
+          <div class="step"><h3>We ship it cold</h3><p>Your box arrives every 2, 4 or 6 weeks, whichever you choose.</p></div>
+          <div class="step"><h3>Change it anytime</h3><p>Swap flavors, skip a delivery or cancel from your account. No calls, no fees.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section mist" id="faq" aria-labelledby="faq-title">
+      <div class="shell faq">
+        <h2 id="faq-title">Questions</h2>
+        <div class="acc">
+          <details open><summary>How much protein is in each cup?</summary><div class="acc-body"><p>Full nutrition facts will be published when the final recipes are locked in. Every flavor is built to be high in protein.</p></div></details>
+          <details><summary>How does it ship?</summary><div class="acc-body"><p>Boxes ship cold in insulated packaging so they arrive ready for the fridge. Shipping is free on orders over $40.</p></div></details>
+          <details><summary>How long does it keep?</summary><div class="acc-body"><p>Keep cups refrigerated. The best-by date is printed on every lid.</p></div></details>
+          <details><summary>Can I change or cancel my subscription?</summary><div class="acc-body"><p>Yes. Swap flavors, change how often it arrives, skip a delivery or cancel anytime from your account.</p></div></details>
+          <details><summary>Can I mix flavors?</summary><div class="acc-body"><p>Yes. Build a mixed box of 8 or 12 with any combination of the five flavors.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="launch-title">
+      <div class="shell">
+        <div class="launch">
+          <h2 id="launch-title">Get first access</h2>
+          <div>
+            <p>Join the launch list for first access to boxes, new flavors and sampling events.</p>
+            <form class="signup" id="signupForm" novalidate>
+              <label class="sr" for="email">Email address</label>
+              <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+              <button class="btn" type="submit">Join</button>
+            </form>
+            <p class="form-note" id="formNote"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div style="display:grid;gap:.8rem;align-content:start"><a class="wordmark" href="./">HAPPY SPOON</a><p>High-protein dessert yogurt.</p></div>
+      <div><h4>Shop</h4><ul><li><a href="#flavors">All flavors</a></li><li><a href="#box">Build a box</a></li><li><a href="#how">Subscriptions</a></li></ul></div>
+      <div><h4>Flavors</h4><ul id="footFlavors"></ul></div>
+      <div><h4>More</h4><ul><li><a href="#faq">FAQ</a></li><li><a href="../viewer/">3D studio</a></li><li><a href="../new/">Brand site</a></li></ul></div>
+      <p class="fine">Design preview. Prices, shipping and checkout shown here are samples.</p>
+    </div>
+  </footer>
+
+  <script src="shop.js"></script>
+  <script>
+    const { FLAVORS, PACK, SUB_OFF, IMG, money, perCup, unitPrice, addToCart } = window.HS;
+
+    document.getElementById('fromPrice').textContent = money(perCup(12, false));
+
+    // Hero chips + footer links
+    document.getElementById('heroChips').innerHTML = FLAVORS.map(f => `<a href="product.html?f=${f.id}" style="--c:${f.bg}"><i></i>${f.name}</a>`).join('');
+    document.getElementById('footFlavors').innerHTML = FLAVORS.map(f => `<li><a href="product.html?f=${f.id}">${f.name}</a></li>`).join('');
+
+    // Flavor cards
+    document.getElementById('cards').innerHTML = FLAVORS.map(f => `
+      <article class="pcard">
+        <div class="pcard-img" style="--bg:${f.bg}"><img src="${IMG + f.img}" alt="${f.name} cup" loading="lazy"></div>
+        <div class="pcard-body">
+          <h3><a href="product.html?f=${f.id}">${f.name}</a></h3>
+          <p>${f.short}</p>
+          <p class="pcard-price">${money(PACK[4])} <span>&middot; 4-pack</span></p>
+          <button class="btn" type="button" data-quick="${f.id}">Add 4-pack</button>
+        </div>
+      </article>`).join('');
+    document.getElementById('cards').addEventListener('click', e => {
+      const b = e.target.closest('[data-quick]');
+      if (b) addToCart({ kind: 'pack', flavor: b.dataset.quick, size: 4, sub: false });
+    });
+
+    // ---------- Build a box ----------
+    const box = { size: 12, mix: Object.fromEntries(FLAVORS.map(f => [f.id, 0])), sub: true, every: 4 };
+    const picks = document.getElementById('picks');
+    picks.innerHTML = FLAVORS.map(f => `
+      <div class="pick" data-id="${f.id}">
+        <div class="pick-img" style="--bg:${f.bg}"><img src="${IMG + f.img}" alt="" loading="lazy"></div>
+        <div><h3><a href="product.html?f=${f.id}">${f.name}</a></h3><p>${f.short}</p></div>
+        <div class="stepper" role="group" aria-label="${f.name} cups">
+          <button type="button" data-step="-1" aria-label="Remove a ${f.name} cup">&minus;</button><output>0</output><button type="button" data-step="1" aria-label="Add a ${f.name} cup">+</button>
+        </div>
+      </div>`).join('');
+
+    document.getElementById('per8').textContent = money(perCup(8, false)) + ' / cup';
+    document.getElementById('per12').textContent = money(perCup(12, false)) + ' / cup';
+
+    const total = () => Object.values(box.mix).reduce((a, b) => a + b, 0);
+
+    function renderPlan() {
+      const once = unitPrice(box.size, false), sub = unitPrice(box.size, true);
+      document.getElementById('boxPlan').innerHTML = `
+        <label><input type="radio" name="boxPlan" value="sub" ${box.sub ? 'checked' : ''}>
+          <span class="pt-title">Subscribe &amp; save<em>Save 15%</em></span>
+          <span class="pt-price">${money(sub)}<s>${money(once)}</s></span>
+          <span class="pt-note">Delivered every <select id="boxEvery" aria-label="Delivery frequency">${[2, 4, 6].map(w => `<option value="${w}" ${w === box.every ? 'selected' : ''}>${w} weeks</option>`).join('')}</select></span>
+        </label>
+        <label><input type="radio" name="boxPlan" value="once" ${box.sub ? '' : 'checked'}>
+          <span class="pt-title">One-time purchase</span>
+          <span class="pt-price">${money(once)}</span>
+        </label>`;
+    }
+
+    function renderBox() {
+      const t = total();
+      picks.querySelectorAll('.pick').forEach(row => {
+        const n = box.mix[row.dataset.id];
+        row.querySelector('output').textContent = n;
+        row.querySelector('[data-step="-1"]').disabled = n === 0;
+        row.querySelector('[data-step="1"]').disabled = t >= box.size;
+        row.classList.toggle('has', n > 0);
+      });
+      document.getElementById('meterText').textContent = `${t} of ${box.size} cups`;
+      const bar = document.getElementById('meterBar');
+      bar.style.setProperty('--n', box.size);
+      const colors = [];
+      FLAVORS.forEach(f => { for (let i = 0; i < box.mix[f.id]; i++) colors.push(f.bg); });
+      bar.innerHTML = Array.from({ length: box.size }, (_, i) => `<i style="${colors[i] ? `background:${colors[i]}` : ''}"></i>`).join('');
+      const btn = document.getElementById('addBox');
+      const left = box.size - t;
+      btn.disabled = left > 0;
+      btn.textContent = left > 0 ? `Pick ${left} more cup${left === 1 ? '' : 's'}` : `Add box to cart · ${money(unitPrice(box.size, box.sub))}`;
+      document.getElementById('fillBtn').hidden = left === 0;
+    }
+
+    picks.addEventListener('click', e => {
+      const b = e.target.closest('[data-step]');
+      if (!b) return;
+      const id = b.closest('.pick').dataset.id;
+      const d = Number(b.dataset.step);
+      if (d > 0 && total() >= box.size) return;
+      box.mix[id] = Math.max(0, box.mix[id] + d);
+      renderBox();
+    });
+    document.querySelectorAll('input[name="boxSize"]').forEach(r => r.addEventListener('change', () => {
+      box.size = Number(r.value);
+      // Trim from the end if the new box is smaller than what's picked
+      let over = total() - box.size;
+      for (let i = FLAVORS.length - 1; i >= 0 && over > 0; i--) {
+        const id = FLAVORS[i].id, take = Math.min(box.mix[id], over);
+        box.mix[id] -= take; over -= take;
+      }
+      renderPlan(); renderBox();
+    }));
+    document.getElementById('boxPlan').addEventListener('change', e => {
+      if (e.target.name === 'boxPlan') box.sub = e.target.value === 'sub';
+      if (e.target.id === 'boxEvery') box.every = Number(e.target.value);
+      renderBox();
+    });
+    document.getElementById('fillBtn').addEventListener('click', () => {
+      let i = 0;
+      while (total() < box.size) { box.mix[FLAVORS[i % FLAVORS.length].id]++; i++; }
+      renderBox();
+    });
+    document.getElementById('addBox').addEventListener('click', () => {
+      addToCart({ kind: 'box', size: box.size, mix: { ...box.mix }, sub: box.sub, every: box.every });
+      FLAVORS.forEach(f => { box.mix[f.id] = 0; });
+      renderBox();
+    });
+    renderPlan(); renderBox();
+
+    document.getElementById('signupForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('email');
+      const note = document.getElementById('formNote');
+      if (!email.value || !email.checkValidity()) { note.textContent = 'Enter an email address like name@example.com.'; email.focus(); return; }
+      note.textContent = "Thanks! The launch list isn't live yet, so nothing was sent.";
+      email.value = '';
+    });
+  </script>
+</body>
+</html>
