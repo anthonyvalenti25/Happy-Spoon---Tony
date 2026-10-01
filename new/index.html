@@ -57,15 +57,16 @@
     .hero-word { position: absolute; inset: 15% 0 auto; text-align: center; font-weight: 800; font-variation-settings: "wdth" 125; font-size: clamp(3rem, 11.5vw, 11.5rem); line-height: .86; letter-spacing: -.025em; text-transform: uppercase; color: var(--f-deep); transition: color .6s ease, opacity .3s ease; pointer-events: none; user-select: none; }
     .hero-cup { position: absolute; left: 50%; top: 52%; height: min(60svh, 560px, 105vw); width: auto; max-width: none; transform: translate(-50%, -50%); filter: drop-shadow(0 2.4rem 2.4rem rgba(20, 20, 40, .28)); transition: opacity .25s ease, transform .55s cubic-bezier(.2, .8, .2, 1); }
     .hero-cup.out { opacity: 0; transform: translate(-50%, calc(-50% + 1.6rem)) scale(.96); }
-    .hero-bottom { position: relative; z-index: 3; align-self: end; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 1.5rem 3rem; padding-block: 0 2.2rem; }
+    .hero-bottom { position: relative; z-index: 3; align-self: end; display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; gap: 1.5rem 3rem; padding-block: 0 6.2rem; }
     .hero-bottom::before { content: ""; position: absolute; left: var(--gutter); right: var(--gutter); top: -1.4rem; border-top: 1px solid color-mix(in srgb, var(--f-ink) 40%, transparent); }
     .hero h1 { font-size: .8rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; opacity: .85; }
     .hero-desc { margin-top: .5rem; max-width: 30rem; font-size: 1.05rem; font-weight: 500; }
-    .picker { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: flex-end; }
-    .picker button { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem .95rem .55rem .6rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--f-ink) 45%, transparent); background: transparent; color: var(--f-ink); font-size: .88rem; font-weight: 600; cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
-    .picker button i { width: 1rem; height: 1rem; border-radius: 50%; background: var(--sw); box-shadow: 0 0 0 2px color-mix(in srgb, var(--f-ink) 70%, transparent); }
-    .picker button:hover { border-color: var(--f-ink); }
-    .picker button[aria-pressed="true"] { background: var(--f-ink); color: var(--f-bg); border-color: var(--f-ink); }
+    .dock { position: fixed; z-index: 50; left: 50%; bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; gap: .3rem; padding: .35rem; border-radius: 999px; background: rgba(21, 25, 29, .88); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 14px 34px -12px rgba(0, 0, 0, .45), inset 0 0 0 1px rgba(255, 255, 255, .08); max-width: calc(100vw - 2rem); }
+    .dock button { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem .95rem .55rem .55rem; border: 0; border-radius: 999px; background: transparent; color: #e7ebee; font-size: .88rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background .3s ease, color .3s ease; }
+    .dock button i { flex: none; width: 1.15rem; height: 1.15rem; border-radius: 50%; background: var(--sw); box-shadow: 0 0 0 2px rgba(255, 255, 255, .85); }
+    .dock button:hover { background: rgba(255, 255, 255, .1); }
+    .dock button[aria-pressed="true"] { background: var(--f-bg); color: var(--f-ink); }
+    .dock button[aria-pressed="true"] i { box-shadow: 0 0 0 2px var(--f-ink); }
 
     /* ---------- Section rhythm ---------- */
     section { scroll-margin-top: 1rem; }
@@ -116,7 +117,7 @@
     .cover-top { display: flex; justify-content: space-between; gap: 1rem; font-size: .76rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
     .masthead { margin-top: .4rem; text-align: center; font-weight: 900; font-variation-settings: "wdth" 62; font-size: clamp(3.4rem, 13.6vw, 11.8rem); line-height: .86; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap; }
     .cover-body { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; gap: 2rem; margin-top: calc(clamp(3.4rem, 13.6vw, 11.8rem) * -.5); }
-    .cover-star { grid-column: 2; position: relative; z-index: 2; width: 100%; height: auto; filter: drop-shadow(0 2rem 2rem rgba(0, 0, 0, .16)); }
+    .cover-star { grid-column: 2; position: relative; z-index: 2; width: 100%; height: auto; filter: drop-shadow(0 2rem 2rem rgba(0, 0, 0, .16)); transition: opacity .25s ease; }
     .lines { display: grid; gap: 2.2rem; padding-top: clamp(5rem, 13vw, 11rem); }
     .lines.right { text-align: right; }
     .line { display: grid; gap: .35rem; text-decoration: none; }
@@ -146,7 +147,7 @@
     .signup button { background: var(--ink); color: #fff; }
     .form-note { min-height: 1.5rem; margin-top: .8rem; font-size: .85rem; opacity: .85; }
 
-    footer { background: var(--ink); color: #c9d0d6; padding-block: 2.6rem; font-size: .92rem; }
+    footer { background: var(--ink); color: #c9d0d6; padding-block: 2.6rem calc(6.5rem + env(safe-area-inset-bottom, 0px)); font-size: .92rem; }
     footer .shell { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2rem 2rem; }
     footer .wordmark { color: #fff; }
     footer nav { display: flex; flex-wrap: wrap; gap: 1.4rem; }
@@ -168,9 +169,10 @@
       .hero-word { inset: 17% 0 auto; }
       .hero-cup { top: 47%; height: min(46svh, 92vw); }
       .hero-bottom { grid-template-columns: 1fr; gap: 1.1rem; }
-      .picker { justify-content: flex-start; }
-      .picker button span { display: none; }
-      .picker button { padding: .55rem; }
+      .dock button span { display: none; }
+      .dock button { padding: .6rem; }
+      .dock button[aria-pressed="true"] span { display: inline; }
+      .dock button[aria-pressed="true"] { padding-right: .95rem; }
       .moments { grid-template-columns: 1fr; }
       .stats div { padding-right: 1.4rem; }
       .steps { grid-template-columns: 1fr; }
@@ -205,13 +207,6 @@
         <div>
           <h1>High-protein dessert yogurt</h1>
           <p class="hero-desc" id="heroDesc">Deep cocoa flavor with the full dessert energy your nightly spoon deserves.</p>
-        </div>
-        <div class="picker" role="group" aria-label="Choose a flavor">
-          <button type="button" data-flavor="0" aria-pressed="true" style="--sw:#5a211b"><i></i><span>Chocolate Fudge</span></button>
-          <button type="button" data-flavor="1" aria-pressed="false" style="--sw:#262323"><i></i><span>Cookies &amp; Cream</span></button>
-          <button type="button" data-flavor="2" aria-pressed="false" style="--sw:#c26914"><i></i><span>Salted Caramel</span></button>
-          <button type="button" data-flavor="3" aria-pressed="false" style="--sw:#15384a"><i></i><span>Mint Chip</span></button>
-          <button type="button" data-flavor="4" aria-pressed="false" style="--sw:#d7ab77"><i></i><span>Cookie Dough</span></button>
         </div>
       </div>
     </section>
@@ -263,7 +258,7 @@
             <a class="line" href="#origin"><strong class="hit">4 friends</strong><span>One nightly dessert problem</span></a>
             <a class="line" href="#test"><strong>The spoon test</strong><span>Open. Scoop. Finish.</span></a>
           </div>
-          <img class="cover-star" src="img/cookie-dough.webp" alt="Happy Spoon Cookie Dough cup with cookie dough pieces" width="633" height="760" loading="lazy">
+          <img class="cover-star" id="coverCup" src="img/chocolate-fudge.webp" alt="Happy Spoon Chocolate Fudge cup with thick chocolate yogurt on a spoon" width="744" height="760" loading="lazy">
           <div class="lines right">
             <a class="line" href="#top"><strong>Five flavors</strong><span>No fruit at the party</span></a>
             <a class="line" href="#waitlist"><strong>Launching soon</strong><span>Get the first spoonful</span></a>
@@ -304,6 +299,14 @@
     </section>
   </main>
 
+  <nav class="dock" role="group" aria-label="Choose a flavor for the site">
+    <button type="button" data-flavor="0" aria-pressed="true" style="--sw:#5a211b"><i></i><span>Chocolate Fudge</span></button>
+    <button type="button" data-flavor="1" aria-pressed="false" style="--sw:#262323"><i></i><span>Cookies &amp; Cream</span></button>
+    <button type="button" data-flavor="2" aria-pressed="false" style="--sw:#c26914"><i></i><span>Salted Caramel</span></button>
+    <button type="button" data-flavor="3" aria-pressed="false" style="--sw:#15384a"><i></i><span>Mint Chip</span></button>
+    <button type="button" data-flavor="4" aria-pressed="false" style="--sw:#d7ab77"><i></i><span>Cookie Dough</span></button>
+  </nav>
+
   <footer>
     <div class="shell">
       <a class="wordmark" href="#top">HAPPY SPOON</a>
@@ -335,12 +338,14 @@
     const logCup = document.getElementById('logCup');
     const logName = document.getElementById('logName');
     const themeMeta = document.querySelector('meta[name="theme-color"]');
-    const buttons = [...document.querySelectorAll('.picker button')];
+    const buttons = [...document.querySelectorAll('.dock button')];
+    const coverCup = document.getElementById('coverCup');
     let current = 0;
     let swapTimer;
 
     function setFlavor(i) {
       current = (i + flavors.length) % flavors.length;
+      try { localStorage.setItem('hs-flavor', String(current)); } catch (e) {}
       const f = flavors[current];
       buttons.forEach((b, n) => b.setAttribute('aria-pressed', String(n === current)));
       root.style.setProperty('--f-bg', f.bg);
@@ -352,6 +357,7 @@
       word.style.opacity = '0';
       cup.classList.add('out');
       ringCup.style.opacity = '0';
+      coverCup.style.opacity = '0';
       clearTimeout(swapTimer);
       swapTimer = setTimeout(() => {
         word.innerHTML = f.word;
@@ -361,15 +367,28 @@
         cup.alt = f.alt;
         ringCup.src = src;
         logCup.src = src;
+        coverCup.src = src;
+        coverCup.alt = f.alt;
         logName.textContent = f.name;
         cup.decode().catch(() => {}).then(() => {
           cup.classList.remove('out');
           ringCup.style.opacity = '1';
+          coverCup.style.opacity = '1';
         });
       }, 220);
     }
 
     buttons.forEach(b => b.addEventListener('click', () => setFlavor(Number(b.dataset.flavor))));
+    buttons.forEach(b => b.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      setFlavor(current + (e.key === 'ArrowRight' ? 1 : -1));
+      buttons[current].focus();
+    }));
+
+    let saved = 0;
+    try { saved = Number(localStorage.getItem('hs-flavor')) || 0; } catch (e) {}
+    if (saved > 0 && saved < flavors.length) setFlavor(saved);
 
     const hero = document.getElementById('top');
     hero.addEventListener('keydown', e => {
