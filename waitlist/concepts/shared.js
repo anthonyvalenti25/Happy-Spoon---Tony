@@ -57,7 +57,7 @@ const HS = (() => {
     function colors(i) {
       const f = FLAVORS[i];
       for (const k of ['bg', 'deep', 'glow', 'ink', 'btn']) root.style.setProperty(`--${k}`, f[k]);
-      meta.content = f.bg;
+      if (!('fixed' in meta.dataset)) meta.content = f.bg;   // a page can pin its toolbar color
     }
     // A flavor someone picks (tap, swipe, bar, arrow key) stays twice as long as an automatic turn.
     function paint(i, first, picked) {
