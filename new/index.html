@@ -78,9 +78,6 @@
     /* ---------- When: Recovery Lab ---------- */
     .when { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
     .when-copy { display: grid; gap: 1.5rem; align-content: start; }
-    .stats { display: flex; margin-top: 1rem; }
-    .stats div { padding: 0 2.2rem 0 1.1rem; border-left: 1px solid var(--rule); font-size: .9rem; color: var(--ink-soft); }
-    .stats b { display: block; font-size: 2.4rem; font-weight: 600; line-height: 1.1; letter-spacing: -.04em; color: var(--ink); }
     .moments { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
     .moment { position: relative; display: grid; gap: .5rem; align-content: start; padding: 1.6rem 1.5rem 1.7rem; border-radius: 1.4rem; background: var(--card); box-shadow: 0 1px 0 rgba(21, 25, 29, .04), 0 20px 40px -30px rgba(30, 50, 70, .35); }
     .moment time { font-size: .85rem; font-weight: 600; color: var(--ink-soft); }
@@ -174,7 +171,6 @@
       .dock button[aria-pressed="true"] span { display: inline; }
       .dock button[aria-pressed="true"] { padding-right: .95rem; }
       .moments { grid-template-columns: 1fr; }
-      .stats div { padding-right: 1.4rem; }
       .steps { grid-template-columns: 1fr; }
       .cover-top span:last-child { display: none; }
       .line strong.hit { font-size: clamp(2rem, 9vw, 2.6rem); }
@@ -217,7 +213,6 @@
           <p class="eyebrow">Made for real routines</p>
           <h2 class="h-light" id="when-title">Recovery,<br>with a <b>spoon.</b></h2>
           <p class="lede">Or breakfast. Or the afternoon slump. Or the craving that shows up at 10 p.m. Happy Spoon fits wherever dessert usually breaks the plan.</p>
-          <div class="stats tnum"><div><b>5</b>flavors</div><div><b>0</b>fruit</div><div><b>1</b>spoon</div></div>
         </div>
         <div class="moments">
           <article class="moment" data-start="5" data-end="11"><span class="now">Now</span><time>7:30 am</time><h3>Breakfast</h3><p>Cold, thick and done in five minutes.</p></article>
@@ -255,12 +250,12 @@
         <h2 class="masthead" id="story-title">Happy Spoon</h2>
         <div class="cover-body">
           <div class="lines">
-            <a class="line" href="#origin"><strong class="hit">4 friends</strong><span>One nightly dessert problem</span></a>
+            <a class="line" href="#protein"><strong class="hit">High protein</strong><span>Every cup counts toward your daily goal</span></a>
             <a class="line" href="#test"><strong>The spoon test</strong><span>Open. Scoop. Finish.</span></a>
           </div>
           <img class="cover-star" id="coverCup" src="img/chocolate-fudge.webp" alt="Happy Spoon Chocolate Fudge cup with thick chocolate yogurt on a spoon" width="744" height="760" loading="lazy">
           <div class="lines right">
-            <a class="line" href="#top"><strong>Five flavors</strong><span>No fruit at the party</span></a>
+            <a class="line" href="#when"><strong>Any time of day</strong><span>Breakfast, post-workout or late night</span></a>
             <a class="line" href="#waitlist"><strong>Launching soon</strong><span>Get the first spoonful</span></a>
           </div>
           <div class="barcode" aria-hidden="true"></div>
