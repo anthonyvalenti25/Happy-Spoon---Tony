@@ -17,7 +17,7 @@ const path = require("node:path");
     const ids = await page.evaluate(async () =>
       (await import("./model.js")).flavors.map((f) => f.id),
     );
-    const output = path.resolve(__dirname, "../models");
+    const output = path.resolve(__dirname, "../../assets");
     await fs.mkdir(output, { recursive: true });
     for (const id of ids) {
       const base64 = await page.evaluate(async (id) => {

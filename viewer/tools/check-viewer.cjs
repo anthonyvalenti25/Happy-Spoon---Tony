@@ -49,7 +49,7 @@ const ids = [
         new RegExp(`${id}.glb$`),
       );
       const response = await page.request.get(
-        new URL(`models/${id}.glb`, url).href,
+        new URL(`../assets/${id}.glb`, url).href,
       );
       assert.equal(response.status(), 200);
       const glb = await response.body();

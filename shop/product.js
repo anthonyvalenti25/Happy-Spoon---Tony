@@ -8,7 +8,7 @@
   ];
   const params = new URLSearchParams(location.search);
   const flavor = flavors.find(f => f.id === params.get('f')) || flavors[0];
-  const imgRoot = '../new/img/';
+  const imgRoot = '../assets/';
   const title = `${flavor.name} | Happy Spoon`;
   document.title = title;
   document.querySelector('meta[name="description"]').content = `${flavor.name} is one of five Happy Spoon high-protein dessert yogurt flavors in 32 oz tubs.`;

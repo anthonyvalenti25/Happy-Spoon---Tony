@@ -145,7 +145,7 @@ img { display: block; max-width: 100%; }
 
 .site-footer { background: var(--ink); color: #f3e8d9; }
 .footer-main { min-height: 10rem; display: grid; grid-template-columns: .65fr 1.1fr 1.5fr; align-items: center; gap: 2rem; padding-block: 2.3rem; }
-.brand-full { width: 10rem; display: block; }
+.brand-full { width: 10rem; display: block; padding: .35rem; border-radius: .35rem; background: var(--paper); }
 .brand-full img { width: 100%; height: auto; }
 .footer-main > p { color: #c4b3a1; font-size: .74rem; }
 .footer-main nav { display: flex; flex-wrap: wrap; justify-content: end; gap: .65rem 1.3rem; }

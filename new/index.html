@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
-  <link rel="preload" as="image" href="img/chocolate-fudge.webp">
+  <link rel="preload" as="image" href="../assets/chocolate-fudge.webp">
   <style>
     /* One family (Archivo) stretched three ways: expanded for flavor names, condensed for the masthead, light for calm headlines.
        The flavor picked in the hero sets --f-* and --accent for the whole page. */
@@ -203,7 +203,7 @@
   <main>
     <section class="hero" id="top" aria-label="Flavors">
       <div class="hero-word" id="heroWord" aria-hidden="true">Chocolate<br>fudge</div>
-      <img class="hero-cup" id="heroCup" src="img/chocolate-fudge.webp" alt="Happy Spoon Chocolate Fudge tub with thick chocolate yogurt on a spoon" width="744" height="760">
+      <img class="hero-cup" id="heroCup" src="../assets/chocolate-fudge.webp" alt="Happy Spoon Chocolate Fudge tub with thick chocolate yogurt on a spoon" width="744" height="760">
       <div class="hero-bottom shell">
         <div>
           <h1>High-protein dessert yogurt</h1>
@@ -235,7 +235,7 @@
           <h2 id="protein-title">Hit your number.<br><span>With dessert.</span></h2>
           <p class="lede">Every serving counts toward your daily protein. It just doesn't taste like it. Designed to make protein easier to look forward to, one cold spoonful at a time.</p>
           <div class="log" aria-label="Example snack log">
-            <img id="logCup" src="img/chocolate-fudge.webp" alt="" width="744" height="760">
+            <img id="logCup" src="../assets/chocolate-fudge.webp" alt="" width="744" height="760">
             <div><b id="logName">Chocolate Fudge</b><small id="logTime">Logged tonight</small></div>
             <em>+ protein</em>
           </div>
@@ -243,7 +243,7 @@
         </div>
         <div class="ring-wrap" id="ring">
           <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="44" fill="none" stroke-width="4.5"/><circle class="prog" cx="50" cy="50" r="44" fill="none" stroke-width="4.5" stroke-linecap="round"/></svg>
-          <img class="ring-cup" id="ringCup" src="img/chocolate-fudge.webp" alt="" width="744" height="760">
+          <img class="ring-cup" id="ringCup" src="../assets/chocolate-fudge.webp" alt="" width="744" height="760">
           <p class="ring-label">Daily protein goal</p>
         </div>
       </div>
@@ -258,7 +258,7 @@
             <a class="line" href="#protein"><strong class="hit">High protein</strong><span>Every serving counts toward your daily goal</span></a>
             <a class="line" href="#test"><strong>The spoon test</strong><span>Open. Scoop. Finish.</span></a>
           </div>
-          <img class="cover-star" id="coverCup" src="img/chocolate-fudge.webp" alt="Happy Spoon Chocolate Fudge tub with thick chocolate yogurt on a spoon" width="744" height="760" loading="lazy">
+          <img class="cover-star" id="coverCup" src="../assets/chocolate-fudge.webp" alt="Happy Spoon Chocolate Fudge tub with thick chocolate yogurt on a spoon" width="744" height="760" loading="lazy">
           <div class="lines right">
             <a class="line" href="#when"><strong>Any time of day</strong><span>Breakfast, post-workout or late night</span></a>
             <a class="line" href="#waitlist"><strong>Launching soon</strong><span>Get the first spoonful</span></a>
@@ -328,7 +328,7 @@
       { name: 'Cookie Dough', word: 'Cookie<br>dough', img: 'cookie-dough', bg: '#7a45b5', deep: '#6d3aa6', ink: '#ffffff', accent: '#6c3aa5',
         desc: 'Brown-sugar nostalgia and chocolate-chip flavor made for one-more-bite people.', alt: 'Happy Spoon Cookie Dough tub with cookie dough pieces' }
     ];
-    flavors.forEach(f => { new Image().src = `img/${f.img}.webp`; });
+    flavors.forEach(f => { new Image().src = `../assets/${f.img}.webp`; });
 
     const root = document.documentElement;
     const word = document.getElementById('heroWord');
@@ -362,7 +362,7 @@
       swapTimer = setTimeout(() => {
         word.innerHTML = f.word;
         word.style.opacity = '1';
-        const src = `img/${f.img}.webp`;
+        const src = `../assets/${f.img}.webp`;
         cup.src = src;
         cup.alt = f.alt;
         ringCup.src = src;

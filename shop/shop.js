@@ -6,7 +6,7 @@
     { id: 'mint-chip', name: 'Mint Chip', line: 'Mint and dark chocolate.', short: 'Cool mint yogurt with dark chocolate pieces.', color: '#62c79a', swatch: '#15384a', image: 'mint-chip.webp' },
     { id: 'cookie-dough', name: 'Cookie Dough', line: 'Brown sugar and chocolate chips.', short: 'Cookie dough flavor with chocolate chips.', color: '#7a45b5', swatch: '#d7ab77', image: 'cookie-dough.webp' }
   ];
-  const imgRoot = '../new/img/';
+  const imgRoot = '../assets/';
   const grid = document.getElementById('flavorGrid');
   const builder = document.getElementById('builderList');
   const counts = Object.fromEntries(flavors.map(f => [f.id, 0]));

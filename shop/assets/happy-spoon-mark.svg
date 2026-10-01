@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 78" role="img" aria-labelledby="title">
-  <title id="title">Happy Spoon smile mark</title>
-  <g fill="none" stroke="#351b11" stroke-width="9" stroke-linecap="round">
-    <ellipse cx="31" cy="28" rx="12" ry="15"/>
-    <ellipse cx="65" cy="28" rx="12" ry="15"/>
-  </g>
-  <path d="M17 49c8 14 18 21 31 21s23-7 31-21" fill="none" stroke="#d9533b" stroke-width="9" stroke-linecap="round"/>
-</svg>
