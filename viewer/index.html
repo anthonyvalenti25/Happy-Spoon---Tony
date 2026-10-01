@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f1e9" />
+    <title>Happy Spoon · The 3D flavor studio</title>
+    <link rel="stylesheet" href="studio.css" />
+    <script type="importmap">
+      { "imports": { "three": "./vendor/three.module.js" } }
+    </script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="../">HAPPY<br />SPOON<span class="smile"></span></a
+      ><span class="header-note">THE FLAVOR STUDIO</span
+      ><a class="back" href="../new/">Back to the flavors ↗</a>
+    </header>
+    <main>
+      <section class="intro">
+        <p class="eyebrow">FIVE FLAVORS. EVERY ANGLE.</p>
+        <h1>A little closer.<br /><em>A lot happier.</em></h1>
+        <p>Pick your flavor. Give it a spin.</p>
+      </section>
+      <section class="studio" aria-label="Interactive 3D container studio">
+        <div class="stage" id="stage">
+          <span class="stage-tag"><i></i> INTERACTIVE 3D</span>
+          <span class="stage-number" id="stage-number">01 / 05</span>
+          <div class="background-word" id="background-word" aria-hidden="true">
+            FUDGE
+          </div>
+          <div
+            id="viewport"
+            tabindex="0"
+            role="img"
+            aria-label="Chocolate Fudge 3D container. Drag to rotate, scroll to zoom. Arrow keys rotate; plus and minus zoom."
+          ></div>
+          <p class="loading" id="loading" role="status">
+            Preparing your spoonful…
+          </p>
+          <div class="zoom-tools" aria-label="Zoom controls">
+            <button id="zoom-in" aria-label="Zoom in">+</button
+            ><button id="zoom-out" aria-label="Zoom out">−</button
+            ><button id="reset" aria-label="Reset camera view">↺</button>
+          </div>
+          <div class="stage-bottom">
+            <span
+              >↔ Drag to rotate
+              <span class="desktop-hint">· Scroll to zoom</span
+              ><span class="touch-hint">· Pinch to zoom</span></span
+            ><button id="spin" aria-pressed="false">↻ Auto spin</button>
+          </div>
+        </div>
+        <aside>
+          <div class="flavor-heading">
+            <span class="eyebrow">YOUR CURRENT CRAVING</span>
+            <h2 id="flavor-name">Chocolate<br />Fudge</h2>
+            <p id="flavor-description">
+              Deep cocoa. Rich, creamy chocolate. Full dessert energy.
+            </p>
+          </div>
+          <div
+            class="flavor-list"
+            id="flavors"
+            aria-label="Choose a flavor"
+          ></div>
+          <div class="inspection">
+            <p class="eyebrow">TAKE A LOOK AROUND</p>
+            <div class="view-buttons" aria-label="Camera views">
+              <button data-view="front" aria-pressed="true">Front</button
+              ><button data-view="back" aria-pressed="false">Back</button
+              ><button data-view="top" aria-pressed="false">Lid</button
+              ><button data-view="base" aria-pressed="false">Base</button>
+            </div>
+            <button class="lid-toggle" id="lid" aria-pressed="false">
+              <span>Lift the lid</span><span aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <a
+            class="download"
+            id="download"
+            href="models/chocolate-fudge.glb"
+            download
+            >Download 3D model <span>↓</span></a
+          >
+          <p class="concept-note">
+            Packaging study using the original flavor artwork. Back, lid and
+            base are illustrative, not final production packaging.
+          </p>
+        </aside>
+      </section>
+      <footer>
+        <span>HAPPY SPOON · MADE TO MAKE YOU SMILE.</span
+        ><span>360° OF HAPPY.</span>
+      </footer>
+    </main>
+    <script type="module" src="studio.js"></script>
+  </body>
+</html>
