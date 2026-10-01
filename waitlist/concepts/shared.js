@@ -59,7 +59,8 @@ const HS = (() => {
       for (const k of ['bg', 'deep', 'glow', 'ink', 'btn']) root.style.setProperty(`--${k}`, f[k]);
       meta.content = f.bg;
     }
-    function paint(i, first) {
+    // A flavor someone picks (tap, swipe, bar, arrow key) stays twice as long as an automatic turn.
+    function paint(i, first, picked) {
       const f = FLAVORS[i];
       clearTimeout(colorTimer);
       if (first || !paintDelay || reduced) colors(i);
@@ -68,6 +69,8 @@ const HS = (() => {
         s.classList.toggle('done', k < i);
         s.classList.remove('on');
       });
+      segs.forEach(s => s.style.removeProperty('--turn'));
+      if (picked) segs[i].style.setProperty('--turn', `${turn * 2}ms`);
       void segs[i].offsetWidth; // restart the fill animation
       segs[i].classList.add('on');
       const old = nameBox.querySelector('span:not(.out)');
@@ -79,18 +82,18 @@ const HS = (() => {
       nameBox.setAttribute('aria-label', f.name);
     }
 
-    function go(n, dir) {
+    function go(n, dir, auto) {
       const prev = index;
       index = mod(n);
       if (index === prev) return;
       dir ??= n > prev ? 1 : -1;
-      paint(index);
+      paint(index, false, !auto);
       onChange(index, prev, dir, n);
     }
 
     segs.forEach((s, k) => {
       s.addEventListener('click', () => go(k, k > index ? 1 : -1));
-      s.addEventListener('animationend', () => { if (k === index) go(index + 1, 1); });
+      s.addEventListener('animationend', () => { if (k === index) go(index + 1, 1, true); });
     });
     pauseBtn.addEventListener('click', () => {
       held = !held;
