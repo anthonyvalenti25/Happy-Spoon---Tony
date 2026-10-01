@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ef4c3c">
+  <meta name="robots" content="noindex">
+  <title>04 Drop | Happy Spoon waitlist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="shared.css?v=1">
+  <style>
+    /* Drop: the next tub falls in from above and lands. The impact floods the screen with its ribbon color. */
+    html, body { background: var(--paint); }
+    .flood { position: fixed; left: 0; top: 0; z-index: 0; border-radius: 50%; pointer-events: none; transform: scale(0); }
+    .app { z-index: 1; overflow: hidden; }
+    .tub { transform-origin: 50% 100%; visibility: hidden; }
+    .tub.show { visibility: visible; }
+    .shadow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.34), rgba(0,0,0,0)); }
+    .word { position: absolute; left: 0; right: 0; pointer-events: none; }
+    .word div {
+      position: absolute; left: 50%; top: 0; transform: translateX(-50%); text-align: center; white-space: nowrap;
+      line-height: .84; font-weight: 900; font-variation-settings: "wdth" 62; text-transform: uppercase; letter-spacing: -.01em;
+      color: color-mix(in srgb, var(--deep) 85%, transparent);
+    }
+  </style>
+</head>
+<body style="--paint:#ef4c3c">
+  <div class="flood" id="flood"></div>
+  <main class="app">
+    <header class="top"><span class="wordmark" role="img" aria-label="Happy Spoon"></span><span class="chip">Launching soon</span></header>
+    <nav class="bars" aria-label="Flavors"></nav>
+    <section class="stage" id="stage" aria-hidden="true"></section>
+    <section class="bottom">
+      <p class="eyebrow">High-protein dessert yogurt</p>
+      <h1 class="name"></h1>
+      <p class="sub">Five dessert flavors, made high-protein. Get first access at launch.</p>
+      <form class="join" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email"><button type="submit">Join the waitlist</button></form>
+      <div class="done-msg" role="status"><b>You're on the list.</b>We'll email you before launch.</div>
+      <p class="note" aria-live="polite"></p>
+    </section>
+  </main>
+  <script src="shared.js?v=2"></script>
+  <script>
+    const stage = document.getElementById('stage');
+    const flood = document.getElementById('flood');
+    const word = document.createElement('div'); word.className = 'word';
+    const shadow = document.createElement('div'); shadow.className = 'shadow';
+    stage.append(word, shadow);
+    const tubs = HS.FLAVORS.map((f, k) => { const t = HS.tub(f); stage.append(t); return t; });
+
+    const FALL = 900, LAND = 0.68;     // landing happens 68% into the fall
+    let W, H, tw, th, cx, landY, cur = 0;
+    const rest = () => `translate(${cx - tw / 2}px, ${landY - th}px)`;
+    function layout() {
+      W = stage.clientWidth; H = stage.clientHeight; cx = W / 2;
+      th = Math.min(H * 0.76, W * 0.64 * 1.2); tw = th / 1.2;
+      landY = Math.min(H - 14, H / 2 + th / 2 + 4);
+      tubs.forEach(t => { t.style.width = `${tw}px`; t.style.transform = rest(); });
+      Object.assign(shadow.style, { left: `${cx - tw * 0.5}px`, width: `${tw}px`, top: `${landY - tw * 0.07}px`, height: `${tw * 0.16}px` });
+      word.style.top = `${landY - th * 0.9}px`;
+      word.querySelectorAll('div').forEach(fit);
+    }
+    function fit(el) {
+      el.style.fontSize = '100px';
+      const size = Math.min(100 * (W + 40) / el.offsetWidth, th * 0.42);
+      el.style.fontSize = `${size}px`;
+    }
+
+    function setWord(i, dir) {
+      const el = document.createElement('div');
+      el.innerHTML = HS.FLAVORS[i].name.replace(' ', '<br>');
+      word.append(el); fit(el);
+      const old = [...word.children].slice(0, -1);
+      if (!dir || HS.reduced) { old.forEach(o => o.remove()); return; }
+      const y = dir > 0 ? -1 : 1, opts = { duration: 800, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'both' };
+      el.animate([{ transform: `translate(-50%, ${y * 70}%)`, opacity: 0 }, { transform: 'translate(-50%, 0)', opacity: 1 }], { ...opts, delay: FALL * LAND });
+      old.forEach(o => o.animate([{ transform: 'translate(-50%, 0)', opacity: 1 }, { transform: `translate(-50%, ${-y * 50}%)`, opacity: 0 }], { ...opts, duration: 500 }).finished.then(() => o.remove()));
+    }
+
+    let floodId = 0;
+    const setPaint = c => document.body.style.setProperty('--paint', c);
+    function splash(i) {
+      const id = ++floodId, c = HS.FLAVORS[i].bg, r = stage.getBoundingClientRect();
+      const x = r.left + cx, y = r.top + landY - th * 0.05, R = Math.hypot(innerWidth, innerHeight);
+      flood.getAnimations().forEach(a => a.cancel());
+      Object.assign(flood.style, { background: c, left: `${x - R}px`, top: `${y - R}px`, width: `${R * 2}px`, height: `${R * 2}px` });
+      flood.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }],
+        { duration: 800, delay: FALL * LAND, easing: 'cubic-bezier(.25,.8,.3,1)', fill: 'both' })
+        .finished.then(() => { if (id !== floodId) return; setPaint(c); flood.getAnimations().forEach(a => a.cancel()); }).catch(() => {});
+    }
+
+    function drop(i, prev, dir) {
+      const inT = tubs[i], outT = tubs[prev];
+      tubs.forEach(t => { t.getAnimations().forEach(a => a.cancel()); t.style.transform = rest(); t.classList.toggle('show', t === inT || t === outT); });
+      const top = -(landY - th) - th - 120, bottom = H - (landY - th) + 80;
+      const base = `translate(${cx - tw / 2}px, ${landY - th}px)`;
+      const from = dir > 0 ? top : bottom, to = dir > 0 ? bottom : top;
+      outT.animate([{ transform: base }, { transform: `${base} translateY(${to}px) rotate(${dir * 7}deg)` }],
+        { duration: 560, easing: 'cubic-bezier(.5,0,.9,.4)', fill: 'forwards' })
+        .finished.then(() => { if (cur !== prev) outT.classList.remove('show'); }).catch(() => {});
+      inT.animate([
+        { transform: `${base} translateY(${from}px)`, easing: 'cubic-bezier(.45,0,.85,.4)' },
+        { transform: `${base} scale(1.07, .9)`, offset: LAND, easing: 'cubic-bezier(.2,.7,.3,1)' },
+        { transform: `${base} translateY(-5%) scale(.97, 1.04)`, offset: .84 },
+        { transform: base }
+      ], { duration: FALL, delay: 120, fill: 'backwards' });
+      shadow.animate([{ transform: 'scaleX(.25)', opacity: 0 }, { transform: 'scaleX(1.12)', opacity: 1, offset: LAND }, { transform: 'scaleX(1)', opacity: 1 }], { duration: FALL, delay: 120, fill: 'backwards' });
+    }
+
+    layout();
+    HS.start({
+      stage, paintDelay: 120 + FALL * LAND,
+      onChange(i, prev, dir) {
+        cur = i;
+        setWord(i, dir);
+        if (!dir || HS.reduced) { tubs.forEach((t, k) => t.classList.toggle('show', k === i)); setPaint(HS.FLAVORS[i].bg); return; }
+        drop(i, prev, dir);
+        splash(i);
+      }
+    });
+    new ResizeObserver(() => layout()).observe(stage);
+    document.fonts?.ready.then(() => word.querySelectorAll('div').forEach(fit));
+  </script>
+</body>
+</html>

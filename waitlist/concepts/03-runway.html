@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ef4c3c">
+  <meta name="robots" content="noindex">
+  <title>03 Runway | Happy Spoon waitlist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="shared.css?v=1">
+  <style>
+    /* Runway: the tubs glide across in a line. The one that reaches the middle steps up onto the plinth,
+       and its color sweeps across the screen in the direction of travel. */
+    html, body { background: var(--paint); }
+    .wipe { position: fixed; inset: 0; z-index: 0; pointer-events: none; transform: translateX(100%); }
+    .app { z-index: 1; overflow: hidden; }
+    .tub { transform-origin: 50% 100%; }
+    .tub::after { content: ""; position: absolute; left: 14%; right: 14%; bottom: -2.5%; height: 6%; border-radius: 50%; background: rgba(0,0,0,.3); filter: blur(5px); z-index: -1; }
+    .floor { position: absolute; left: -18px; right: -18px; height: 2px; background: color-mix(in srgb, var(--ink) 22%, transparent); }
+    .plinth { position: absolute; border-radius: 14px 14px 6px 6px; background: linear-gradient(var(--glow), color-mix(in srgb, var(--glow) 50%, var(--deep)) 22%, var(--deep)); box-shadow: 0 22px 40px -16px rgba(0,0,0,.4); }
+    .bigword { position: absolute; left: 0; right: 0; overflow: visible; pointer-events: none; }
+    .bigword span {
+      position: absolute; left: 50%; top: 0; white-space: nowrap; line-height: .8;
+      font-weight: 900; font-variation-settings: "wdth" 62; text-transform: uppercase; letter-spacing: -.01em;
+      color: color-mix(in srgb, var(--deep) 75%, transparent);
+    }
+  </style>
+</head>
+<body style="--paint:#ef4c3c">
+  <div class="wipe" id="wipe"></div>
+  <main class="app">
+    <header class="top"><span class="wordmark" role="img" aria-label="Happy Spoon"></span><span class="chip">Launching soon</span></header>
+    <nav class="bars" aria-label="Flavors"></nav>
+    <section class="stage" id="stage" aria-hidden="true"></section>
+    <section class="bottom">
+      <p class="eyebrow">High-protein dessert yogurt</p>
+      <h1 class="name"></h1>
+      <p class="sub">Five dessert flavors, made high-protein. Get first access at launch.</p>
+      <form class="join" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Your email"><button type="submit">Join the waitlist</button></form>
+      <div class="done-msg" role="status"><b>You're on the list.</b>We'll email you before launch.</div>
+      <p class="note" aria-live="polite"></p>
+    </section>
+  </main>
+  <script src="shared.js?v=2"></script>
+  <script>
+    const stage = document.getElementById('stage');
+    const wipe = document.getElementById('wipe');
+    const word = document.createElement('div'); word.className = 'bigword';
+    const floor = document.createElement('div'); floor.className = 'floor';
+    const plinth = document.createElement('div'); plinth.className = 'plinth';
+    stage.append(word, floor, plinth);
+    const tubs = HS.FLAVORS.map((f, k) => { const t = HS.tub(f); t.dataset.flavor = k; stage.append(t); return t; });
+
+    let pos = 0, W, H, tw, th, cx, floorY, ph, gap, cancel = () => {};
+    function layout() {
+      W = stage.clientWidth; H = stage.clientHeight; cx = W / 2;
+      th = Math.min(H * 0.66, W * 0.6 * 1.2); tw = th / 1.2;
+      ph = Math.min(H * 0.1, 56); gap = W * 0.6;
+      floorY = Math.min(H - 10, H / 2 + (th + ph) / 2 + 6);
+      tubs.forEach(t => { t.style.width = `${tw}px`; });
+      Object.assign(floor.style, { top: `${floorY}px` });
+      Object.assign(plinth.style, { left: `${cx - tw * 0.56}px`, width: `${tw * 1.12}px`, top: `${floorY - ph}px`, height: `${ph}px` });
+      word.style.top = `${floorY - ph - th * 0.92}px`;
+      word.querySelectorAll('span').forEach(s => { s.style.fontSize = `${th * 0.62}px`; });
+      render();
+    }
+    function render() {
+      tubs.forEach((t, k) => {
+        const d = ((k - pos) % HS.N + HS.N + HS.N / 2) % HS.N - HS.N / 2;   // -2.5..2.5 from center
+        const ad = Math.abs(d), near = Math.min(1, ad);
+        const s = 1 - 0.42 * near;
+        const up = ph * Math.max(0, 1 - ad * 1.8);
+        t.style.transform = `translate(${cx + d * gap - tw / 2}px, ${floorY - up - th}px) scale(${s})`;
+        t.style.opacity = ad > 1.9 ? 0 : 1;
+        t.style.zIndex = 10 - Math.round(near * 5);
+        t.dataset.dir = d > 0 ? 1 : -1;
+      });
+    }
+    function setWord(i, dir) {
+      const s = document.createElement('span');
+      s.textContent = HS.FLAVORS[i].name.split(' ')[0].replace('&', '');
+      s.style.fontSize = `${th * 0.62}px`;
+      word.append(s);
+      const old = [...word.children].slice(0, -1);
+      if (!dir || HS.reduced) { old.forEach(o => o.remove()); s.style.transform = 'translateX(-50%)'; return; }
+      const opts = { duration: 1250, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' };
+      s.animate([{ transform: `translateX(${dir * 60 - 50}%)` }, { transform: 'translateX(-50%)' }], opts);
+      old.forEach(o => o.animate([{ transform: getComputedStyle(o).transform }, { transform: `translateX(${-dir * 60 - 50}%)`, opacity: 0 }], opts).finished.then(() => o.remove()));
+    }
+    // The new color sweeps over the old one in the direction of travel, then becomes the page color.
+    let sweepId = 0, pending = null;
+    const setPaint = c => document.body.style.setProperty('--paint', c);
+    function sweep(i, dir) {
+      const c = HS.FLAVORS[i].bg, id = ++sweepId;
+      if (pending) setPaint(pending);       // an unfinished sweep counts as done
+      wipe.getAnimations().forEach(a => a.cancel());
+      if (!dir || HS.reduced) { setPaint(c); pending = null; wipe.style.background = 'none'; return; }
+      pending = c;
+      wipe.style.background = c;
+      wipe.animate([{ transform: `translateX(${dir > 0 ? 100 : -100}%)` }, { transform: 'translateX(0)' }], { duration: 900, delay: 250, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'both' })
+        .finished.then(() => {
+          if (id !== sweepId) return;
+          setPaint(c); pending = null;
+          wipe.getAnimations().forEach(a => a.cancel());
+          wipe.style.background = 'none';
+        }).catch(() => {});
+    }
+
+    layout();
+    HS.start({
+      stage, paintDelay: 450,
+      onChange(i, prev, dir) {
+        const steps = dir >= 0 ? HS.mod(i - prev) : -HS.mod(prev - i);
+        const from = pos, to = Math.round(pos) + steps;
+        cancel();
+        cancel = HS.tween(from, to, 1250, v => { pos = v; render(); });
+        setWord(i, dir);
+        sweep(i, dir);
+      }
+    });
+    new ResizeObserver(() => layout()).observe(stage);
+  </script>
+</body>
+</html>
