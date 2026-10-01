@@ -67,7 +67,8 @@ body {
 .name span.out { animation: nameOut .8s var(--ease) both; }
 @keyframes nameIn { from { transform: translateY(105%); } }
 @keyframes nameOut { to { transform: translateY(-105%); } }
-.sub { margin-top: 8px; font-size: 15px; line-height: 1.35; font-weight: 450; opacity: .92; }
+.offer { margin-top: 8px; font-size: 16px; line-height: 1.35; font-weight: 500; }
+.offer b { font-weight: 800; white-space: nowrap; padding: 1px 7px 2px; border-radius: 7px; background: color-mix(in srgb, var(--ink) 16%, transparent); }
 
 .join { display: flex; gap: 6px; margin-top: 14px; padding: 5px; border-radius: 999px; background: #fff; box-shadow: 0 10px 30px -12px rgba(0,0,0,.35); }
 .join input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; padding: 0 14px; font: 500 16px/1 "Archivo", system-ui, sans-serif; color: #15191d; user-select: text; -webkit-user-select: text; }
@@ -84,7 +85,7 @@ body {
 
 /* Short phones (iPhone SE, Safari with toolbars) */
 @media (max-height: 640px) {
-  .sub { display: none; }
+  .offer { font-size: 14px; margin-top: 6px; }
   .bars { margin-top: 4px; }
   .name { font-size: min(10vw, 48px); }
 }
