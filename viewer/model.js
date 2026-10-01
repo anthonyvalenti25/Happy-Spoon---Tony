@@ -183,8 +183,12 @@ function bodyTexture(f, im) {
   ctx.fillStyle = f.cream;
   ctx.fillRect(0, 1010, w, 14);
 
-  // A solid, curved flavor ribbon gives the left side its own designed face
-  // and covers the photographic return fold without fading any artwork away.
+  // Keep the side ribbon narrow so the flavor artwork remains the main feature.
+  // Scale the ribbon horizontally without distorting the lettering or smile.
+  ctx.save();
+  ctx.translate(494, 0);
+  ctx.scale(0.62, 1);
+  ctx.translate(-494, 0);
   ctx.fillStyle = f.color;
   ctx.beginPath();
   ctx.moveTo(315, 0);
@@ -194,19 +198,30 @@ function bodyTexture(f, im) {
   ctx.bezierCurveTo(380, 690, 325, 340, 315, 0);
   ctx.closePath();
   ctx.fill();
+  ctx.restore();
   ctx.save();
   ctx.translate(494, 520);
   ctx.rotate(-Math.PI / 2);
-  text(ctx, f.lines[0].toUpperCase(), 0, -17, 63, f.cream, 900);
-  text(ctx, f.lines[1].toUpperCase(), 0, 58, 63, f.cream, 900);
+  text(ctx, f.lines[0].toUpperCase(), 0, -13, 49, f.cream, 800);
+  text(ctx, f.lines[1].toUpperCase(), 0, 45, 49, f.cream, 800);
   ctx.restore();
-  ctx.strokeStyle = f.cream;
-  ctx.lineWidth = 7;
-  ctx.lineCap = "round";
+  // Filled, asymmetric smile traced from the front brand mark: a fine left
+  // tip and a broad, lifted right end, reversed in cream on the flavor color.
+  ctx.save();
+  ctx.translate(425, 817);
+  ctx.scale(0.86, 0.86);
+  ctx.fillStyle = f.cream;
   ctx.beginPath();
-  ctx.moveTo(420, 822);
-  ctx.quadraticCurveTo(490, 883, 559, 816);
-  ctx.stroke();
+  ctx.moveTo(0, 16);
+  ctx.bezierCurveTo(3, 10, 10, 12, 16, 15);
+  ctx.bezierCurveTo(50, 31, 68, 41, 98, 16);
+  ctx.bezierCurveTo(126, -4, 151, -3, 158, 5);
+  ctx.bezierCurveTo(168, 18, 142, 44, 111, 48);
+  ctx.bezierCurveTo(72, 56, 26, 34, 4, 24);
+  ctx.bezierCurveTo(0, 22, -3, 18, 0, 16);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
 
   // Keep the back story and hierarchy, now on a bordered cream badge with
   // flavor artwork visible around every edge. Split exactly at the UV seam.
