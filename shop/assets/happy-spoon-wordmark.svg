@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 432 218" role="img" aria-labelledby="title">
+  <title id="title">Happy Spoon</title>
+  <g fill="#351b11" font-family="Arial Rounded MT Bold, Trebuchet MS, Arial, sans-serif" font-weight="900" text-anchor="middle">
+    <text x="216" y="84" font-size="91" textLength="360" lengthAdjust="spacingAndGlyphs">HAPPY</text>
+    <text x="216" y="166" font-size="91" textLength="360" lengthAdjust="spacingAndGlyphs">SPOON</text>
+  </g>
+  <path d="M196 177c12 13 27 20 42 20s30-7 42-20" fill="none" stroke="#d9533b" stroke-width="10" stroke-linecap="round"/>
+</svg>
