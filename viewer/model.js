@@ -114,9 +114,9 @@ async function imageFor(f) {
   return im;
 }
 
-// Reproject the photographed front onto the tapered cup, instead of wrapping the
-// entire cutout (spoon, peeled foil and background) around a cylinder. Unseen
-// surfaces are a distinct concept design, with no invented regulatory details.
+// Reproject the original front and reflect its outer artwork around the sides.
+// The print remains opaque across the entire circumference; back and nutrition
+// panels are intentional printed shapes, rather than a fade into an empty wrap.
 function bodyTexture(f, im) {
   const w = 2048,
     h = 1024,
@@ -124,44 +124,24 @@ function bodyTexture(f, im) {
     ctx = c.getContext("2d");
   ctx.fillStyle = f.cream;
   ctx.fillRect(0, 0, w, h);
-  ctx.fillStyle = f.dark;
-  ctx.fillRect(0, 810, w, 180);
-  ctx.fillStyle = f.color;
-  ctx.fillRect(0, 785, w, 25);
-  // Back panel straddles the UV seam. Render once and repeat on both edges.
-  const back = canvas(620, h),
-    b = back.getContext("2d");
-  b.fillStyle = f.cream;
-  b.fillRect(0, 0, 620, h);
-  logo(b, 310, 210, 0.85, "#3b1d13", f.color);
-  text(b, "A LITTLE CUP OF HAPPY.", 310, 465, 25, f.dark);
-  text(b, "HIGH-PROTEIN", 310, 531, 21, f.dark, 600);
-  text(b, "DESSERT YOGURT", 310, 565, 21, f.dark, 600);
-  b.fillStyle = f.color;
-  b.fillRect(115, 620, 390, 3);
-  text(b, f.lines[0].toUpperCase(), 310, 699, 36, f.dark);
-  text(b, f.lines[1].toUpperCase(), 310, 744, 36, f.dark);
-  text(b, "PACKAGING CONCEPT", 310, 863, 19, f.dark, 500);
-  text(b, "BACK ARTWORK TO BE FINALIZED", 310, 897, 15, f.dark, 500);
-  ctx.drawImage(back, -310, 0);
-  ctx.drawImage(back, w - 310, 0);
-  // Blend the front artwork into the concept wrap at the side seams only.
-  const src = canvas(im.width, im.height),
-    s = src.getContext("2d", { willReadFrequently: true });
+  const src = canvas(im.width, im.height);
+  const s = src.getContext("2d", { willReadFrequently: true });
   s.drawImage(im, 0, 0);
   const pixels = s.getImageData(0, 0, im.width, im.height).data;
   const out = ctx.getImageData(0, 0, w, h),
     d = out.data;
   const [top, bottom, cxTop, cxBottom, rTop, rBottom] = f.crop;
   for (let y = 0; y < h; y++) {
-    const v = y / (h - 1),
-      center = (cxTop + (cxBottom - cxTop) * v) * im.width,
-      radius = (rTop + (rBottom - rTop) * v) * im.width;
-    for (let x = 530; x < 1518; x++) {
-      const a = (x / w - 0.5) * Math.PI * 2,
-        side = Math.abs(a),
-        alpha = Math.min(1, Math.max(0, (1.5 - side) / 0.21));
-      if (!alpha) continue;
+    const v = y / (h - 1);
+    const center = (cxTop + (cxBottom - cxTop) * v) * im.width;
+    const radius = (rTop + (rBottom - rTop) * v) * im.width;
+    for (let x = 0; x < w; x++) {
+      const angle = (x / w - 0.5) * Math.PI * 2;
+      const side = Math.abs(angle);
+      // Keep the photographed face intact. Continue its ingredient artwork on
+      // both flanks; the central lettering on the return is covered by the back.
+      const a =
+        Math.sign(angle) * (side <= 1.46 ? side : 1.46 - (side - 1.46) * 0.58);
       const sy = Math.max(
         0,
         Math.min(
@@ -180,14 +160,138 @@ function bodyTexture(f, im) {
         Math.min(im.width - 1, Math.round(center + Math.sin(a) * radius)),
       );
       const si = (sy * im.width + sx) * 4,
-        di = (y * w + x) * 4,
-        blend = (alpha * pixels[si + 3]) / 255;
+        di = (y * w + x) * 4;
+      // Source transparency only, never an angle-dependent fade.
+      const alpha = pixels[si + 3] / 255;
       for (let k = 0; k < 3; k++)
-        d[di + k] = pixels[si + k] * blend + d[di + k] * (1 - blend);
+        d[di + k] = pixels[si + k] * alpha + d[di + k] * (1 - alpha);
     }
   }
   ctx.putImageData(out, 0, 0);
+
+  // A continuous flavor-color ribbon ties the photographic wrap together at
+  // the base, including the UV seam at the center of the back.
+  ctx.fillStyle = f.color;
+  ctx.beginPath();
+  ctx.moveTo(0, 947);
+  for (let x = 0; x <= w; x += 8)
+    ctx.lineTo(x, 958 + 13 * Math.cos((x / w) * Math.PI * 4));
+  ctx.lineTo(w, h);
+  ctx.lineTo(0, h);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = f.cream;
+  ctx.fillRect(0, 1010, w, 14);
+
+  // A solid, curved flavor ribbon gives the left side its own designed face
+  // and covers the photographic return fold without fading any artwork away.
+  ctx.fillStyle = f.color;
+  ctx.beginPath();
+  ctx.moveTo(315, 0);
+  ctx.lineTo(690, 0);
+  ctx.bezierCurveTo(590, 275, 635, 605, 670, h);
+  ctx.lineTo(310, h);
+  ctx.bezierCurveTo(380, 690, 325, 340, 315, 0);
+  ctx.closePath();
+  ctx.fill();
+  ctx.save();
+  ctx.translate(494, 520);
+  ctx.rotate(-Math.PI / 2);
+  text(ctx, f.lines[0].toUpperCase(), 0, -17, 63, f.cream, 900);
+  text(ctx, f.lines[1].toUpperCase(), 0, 58, 63, f.cream, 900);
+  ctx.restore();
+  ctx.strokeStyle = f.cream;
+  ctx.lineWidth = 7;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(420, 822);
+  ctx.quadraticCurveTo(490, 883, 559, 816);
+  ctx.stroke();
+
+  // Keep the back story and hierarchy, now on a bordered cream badge with
+  // flavor artwork visible around every edge. Split exactly at the UV seam.
+  const back = canvas(560, h),
+    b = back.getContext("2d");
+  b.fillStyle = f.cream;
+  b.strokeStyle = f.color;
+  b.lineWidth = 6;
+  b.beginPath();
+  b.roundRect(12, 55, 536, 890, 70);
+  b.fill();
+  b.stroke();
+  logo(b, 280, 205, 0.8, "#3b1d13", f.color);
+  text(b, "A LITTLE CUP OF HAPPY.", 280, 450, 25, f.dark);
+  text(b, "HIGH-PROTEIN", 280, 516, 21, f.dark, 600);
+  text(b, "DESSERT YOGURT", 280, 550, 21, f.dark, 600);
+  b.fillStyle = f.color;
+  b.fillRect(105, 601, 350, 3);
+  text(b, f.lines[0].toUpperCase(), 280, 680, 36, f.dark);
+  text(b, f.lines[1].toUpperCase(), 280, 726, 36, f.dark);
+  text(b, "PACKAGING CONCEPT", 280, 839, 19, f.dark, 500);
+  text(b, "BACK ARTWORK TO BE FINALIZED", 280, 872, 15, f.dark, 500);
+  ctx.drawImage(back, -280, 0);
+  ctx.drawImage(back, w - 280, 0);
+  drawMockNutrition(ctx, 1458, 146, 300, 748, f);
   return texture(c);
+}
+
+// All values are fictional layout examples, identical for all five flavors.
+// The disclosure is part of the texture, so it travels with exported GLB files.
+function drawMockNutrition(ctx, x, y, width, height, f) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.fillStyle = "#fffdf5";
+  ctx.fillRect(0, 0, width, height);
+  ctx.strokeStyle = "#201b17";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(1.5, 1.5, width - 3, height - 3);
+  const label = (value, py, size = 19, bold = false, right = false) => {
+    ctx.font = `${bold ? 800 : 500} ${size}px Arial, sans-serif`;
+    ctx.textAlign = right ? "right" : "left";
+    ctx.fillStyle = "#201b17";
+    ctx.fillText(value, right ? width - 14 : 14, py);
+  };
+  const rule = (py, thick = 1) => {
+    ctx.fillStyle = "#201b17";
+    ctx.fillRect(12, py, width - 24, thick);
+  };
+  ctx.fillStyle = f.color;
+  ctx.fillRect(3, 3, width - 6, 39);
+  text(ctx, "MOCK • NOT PRODUCT DATA", width / 2, 29, 16, "#201b17", 800);
+  label("Nutrition Facts", 86, 35, true);
+  rule(100, 2);
+  label("1 serving per container", 129, 19);
+  label("Serving size", 158, 19, true);
+  label("1 cup (170g)", 183, 20, true, true);
+  rule(196, 10);
+  label("Amount per serving", 233, 17, true);
+  label("Calories", 277, 29, true);
+  label("180", 277, 42, true, true);
+  rule(291, 6);
+  label("% Daily Value*", 322, 16, true, true);
+  const rows = [
+    ["Total Fat 5g", "6%", true],
+    ["  Saturated Fat 3g", "15%"],
+    ["  Trans Fat 0g", ""],
+    ["Cholesterol 15mg", "5%", true],
+    ["Sodium 95mg", "4%", true],
+    ["Total Carb. 17g", "6%", true],
+    ["  Dietary Fiber 1g", "4%"],
+    ["  Total Sugars 10g", ""],
+    ["  Incl. 4g Added Sugars", "8%"],
+    ["Protein 17g", "", true],
+  ];
+  rows.forEach(([name, value, bold], i) => {
+    const py = 351 + i * 28;
+    rule(py - 21);
+    label(name, py, 17, bold);
+    if (value) label(value, py, 17, true, true);
+  });
+  rule(617, 7);
+  label("*Illustrative values only.", 653, 17, true);
+  label("Not measured or verified.", 679, 17);
+  label("Not for dietary decisions.", 705, 17);
+  ctx.restore();
 }
 function lidTexture(f) {
   const c = canvas(1024, 1024),
@@ -271,7 +375,7 @@ export async function createContainer(f) {
   group.name = `Happy Spoon — ${f.name}`;
   group.userData = {
     flavor: f.name,
-    note: "Concept reconstruction from front artwork. Back, lid and base illustrative. Geometry uses approximate proportions, not manufacturing dimensions.",
+    note: "Concept reconstruction from front artwork. Back, lid and base illustrative. Nutrition values are fictional mock data, not measured product information. Geometry uses approximate proportions, not manufacturing dimensions.",
   };
   const plastic = material("#fff4db", { roughness: 0.29 }),
     foil = material("#dadbd8", { metalness: 0.8, roughness: 0.36 });

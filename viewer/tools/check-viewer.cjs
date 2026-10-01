@@ -61,6 +61,10 @@ const ids = [
       );
       assert.ok(json.nodes.some((n) => n.name === "Printed tapered cup"));
       assert.ok(json.nodes.some((n) => n.name === "Recessed base"));
+      assert.ok(
+        json.nodes.some((n) => n.extras?.note?.includes("fictional mock data")),
+        "Downloaded models must retain the mock nutrition disclosure",
+      );
       assert.ok(json.nodes.some((n) => n.name === "Removable foil lid"));
       assert.ok(
         json.images.length >= 3 &&
@@ -70,7 +74,7 @@ const ids = [
     }
     assert.equal(fronts.size, 5, "All five flavors should render distinctly");
     const views = new Set();
-    for (const view of ["front", "back", "top", "base"]) {
+    for (const view of ["front", "back", "nutrition", "top", "base"]) {
       await page.locator(`[data-view="${view}"]`).click();
       views.add(await frame());
       assert.equal(
@@ -82,7 +86,7 @@ const ids = [
     }
     assert.equal(
       views.size,
-      4,
+      5,
       "Camera presets should show different surfaces",
     );
     await page.locator('[data-view="front"]').click();
@@ -157,6 +161,8 @@ const ids = [
       await mobile.locator('[data-view="base"]').getAttribute("aria-pressed"),
       "true",
     );
+    await mobile.locator('[data-view="nutrition"]').tap();
+    assert.equal(await mobile.locator('[data-view="nutrition"]').getAttribute("aria-pressed"), "true");
     await mobile.locator("#reset").tap();
     await mobile.evaluate(() => scrollTo(0, 0));
     await mobile.waitForTimeout(400);
@@ -185,7 +191,7 @@ const ids = [
     );
     assert.deepEqual(errors, [], "No application errors or missing assets");
     console.log(
-      "PASS: five distinct flavors and embedded GLB models; four camera views; lid; reset; zoom; drag; keyboard; auto spin; mobile layout/touch selection; reduced motion; WebGL fallback.",
+      "PASS: five distinct flavors and embedded GLB models; five camera views; lid; reset; zoom; drag; keyboard; auto spin; mobile layout/touch selection; reduced motion; WebGL fallback.",
     );
   } finally {
     await browser.close();

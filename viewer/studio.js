@@ -62,6 +62,7 @@ function view(name) {
   const positions = {
     front: [0, 1.55, 6.4],
     back: [0, 1.2, -6.4],
+    nutrition: [6.15, 0.9, -1.77],
     top: [0, 6.6, 0.001],
     base: [0, -6.5, 0.001],
   };
