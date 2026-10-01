@@ -211,6 +211,14 @@ function bodyTexture(f, im) {
   ctx.translate(425, 817);
   ctx.scale(0.86, 0.86);
   ctx.fillStyle = f.cream;
+  // The two chunky, open O shapes from SPOON become the face's eyes.
+  // Cut out the centers so the flavor color shows through each letter.
+  for (const [x, y, tilt] of [[49, -28, -0.1], [108, -30, 0.08]]) {
+    ctx.beginPath();
+    ctx.ellipse(x, y, 19, 24, tilt, 0, Math.PI * 2);
+    ctx.ellipse(x, y, 7, 11, tilt, 0, Math.PI * 2);
+    ctx.fill("evenodd");
+  }
   ctx.beginPath();
   ctx.moveTo(0, 16);
   ctx.bezierCurveTo(3, 10, 10, 12, 16, 15);
