@@ -18,9 +18,9 @@
     :root { --frame: #2b140e; --cream: #f7ecdd; }
     html, body { background: var(--frame); }
     .app { --top: max(env(safe-area-inset-top), 10px); --band: max(env(safe-area-inset-bottom), 10px);
-      padding-top: var(--top); padding-bottom: calc(var(--band) + 18px); }
+      padding-top: var(--top); padding-bottom: calc(var(--band) + 6px); }
     .app::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0;
-      top: calc(var(--top) + 66px); bottom: var(--band); border-radius: 28px; background: var(--bg); }
+      top: calc(var(--top) + 66px); bottom: 0; border-radius: 28px 28px 0 0; background: var(--bg); }
     .top { color: var(--cream); height: 58px; }
     .top .wordmark { width: 84px; }
     .top .chip { background: rgba(247, 236, 221, .12); }
