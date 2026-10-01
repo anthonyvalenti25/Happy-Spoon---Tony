@@ -26,17 +26,19 @@
       notes: ['Brown sugar', 'Cookie dough pieces', 'Chocolate chips'] }
   ];
 
-  // Sample pricing for the design. Swap these when real prices are set.
-  const PACK = { 4: 13.99, 8: 25.99, 12: 35.99 };
+  // Sample pricing for the design, per pack of 32 oz tubs. Swap these when real prices are set.
+  const OZ = 32;
+  const PACK = { 2: 16.99, 4: 31.99, 6: 44.99 };
   const SUB_OFF = 0.15;
   const FREE_SHIP = 40;
-  const KEY = 'hs-cart-v1';
+  const KEY = 'hs-cart-v2';
 
   const money = n => '$' + n.toFixed(2);
   const round = n => Math.round(n * 100) / 100;
   const flavorById = id => FLAVORS.find(f => f.id === id) || FLAVORS[0];
   const unitPrice = (size, sub) => round(PACK[size] * (sub ? 1 - SUB_OFF : 1));
-  const perCup = (size, sub) => unitPrice(size, sub) / size;
+  const perTub = (size, sub) => unitPrice(size, sub) / size;
+  const perOz = (size, sub) => perTub(size, sub) / OZ;
 
   let cart = [];
   try { cart = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { cart = []; }
@@ -84,7 +86,7 @@
       const parts = Object.entries(l.mix).filter(([, n]) => n > 0).map(([id, n]) => `${n} ${flavorById(id).name}`);
       return parts.join(', ');
     }
-    return `${l.size}-pack`;
+    return `${l.size} × 32 oz tubs`;
   }
 
   function render() {
@@ -109,7 +111,7 @@
     }
     linesEl.innerHTML = cart.map((l, i) => {
       const f = l.kind === 'box' ? null : flavorById(l.flavor);
-      const title = l.kind === 'box' ? `Mixed box of ${l.size}` : f.name;
+      const title = l.kind === 'box' ? `Mixed box of ${l.size} tubs` : f.name;
       const img = l.kind === 'box' ? FLAVORS.find(x => l.mix[x.id] > 0) : f;
       const plan = l.sub ? `Subscribe &middot; every ${l.every} weeks` : 'One-time purchase';
       return `<div class="line">
@@ -154,5 +156,5 @@
 
   render();
 
-  window.HS = { FLAVORS, PACK, SUB_OFF, FREE_SHIP, IMG, money, perCup, unitPrice, flavorById, addToCart, openCart };
+  window.HS = { FLAVORS, PACK, OZ, SUB_OFF, FREE_SHIP, IMG, money, perTub, perOz, unitPrice, flavorById, addToCart, openCart };
 })();

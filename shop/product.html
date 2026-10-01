@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Happy Spoon high-protein dessert yogurt. Pick a pack size, subscribe and save.">
+  <meta name="description" content="Happy Spoon high-protein dessert yogurt in 32 oz tubs. Pick a pack size, subscribe and save.">
   <meta name="theme-color" content="#fbfbfa">
   <title>Happy Spoon | Shop</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -105,8 +105,8 @@
       <div class="gallery">
         <div class="stage" id="stage"><div class="word" id="stageWord" aria-hidden="true"></div><img class="cup" id="stageImg" alt=""></div>
         <div class="thumbs" id="thumbs" role="group" aria-label="Product images">
-          <button type="button" class="t-flavor" data-view="flavor" aria-pressed="true" aria-label="Cup on flavor color"><img id="tFlavor" alt=""></button>
-          <button type="button" data-view="light" aria-pressed="false" aria-label="Cup on light background"><img id="tLight" alt=""></button>
+          <button type="button" class="t-flavor" data-view="flavor" aria-pressed="true" aria-label="Tub on flavor color"><img id="tFlavor" alt=""></button>
+          <button type="button" data-view="light" aria-pressed="false" aria-label="Tub on light background"><img id="tLight" alt=""></button>
           <button type="button" data-view="lineup" aria-pressed="false" aria-label="All five flavors"><img class="cover" src="../hero.jpg" alt=""></button>
           <a class="t-3d" id="t3d" href="../viewer/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg>View in 3D</a>
         </div>
@@ -114,7 +114,7 @@
 
       <div class="buy">
         <div style="display:grid;gap:.8rem">
-          <p class="eyebrow">High-protein dessert yogurt</p>
+          <p class="eyebrow">High-protein dessert yogurt &middot; 32 oz tub</p>
           <h1 id="name">Chocolate Fudge</h1>
           <p class="desc" id="desc"></p>
           <div class="notes" id="notes"></div>
@@ -160,7 +160,7 @@
 
     <div class="shell">
       <div class="mix-banner">
-        <div><h2>Can't pick one? Build a mixed box.</h2><p>Choose any combination of all five flavors in a box of 8 or 12.</p></div>
+        <div><h2>Can't pick one? Build a mixed box.</h2><p>Choose any combination of all five flavors in a box of 4 or 6 tubs.</p></div>
         <a class="btn ghost" href="./#box">Build a box</a>
       </div>
     </div>
@@ -191,10 +191,10 @@
 
   <script src="shop.js"></script>
   <script>
-    const { FLAVORS, PACK, IMG, money, perCup, unitPrice, flavorById, addToCart } = window.HS;
+    const { FLAVORS, PACK, IMG, money, perTub, perOz, unitPrice, flavorById, addToCart } = window.HS;
     const id = new URLSearchParams(location.search).get('f');
     const f = flavorById(id);
-    const state = { size: 8, sub: true, every: 4, qty: 1, view: 'flavor' };
+    const state = { size: 4, sub: true, every: 4, qty: 1, view: 'flavor' };
 
     // Theme the page with this flavor
     const root = document.documentElement.style;
@@ -211,7 +211,7 @@
     document.getElementById('flavorLabel').textContent = f.name;
     document.getElementById('stageWord').innerHTML = f.name.includes('&') ? f.name.replace(' & ', '<br>&amp; ') : f.name.replace(' ', '<br>');
     ['stageImg', 'tFlavor', 'tLight', 'sbImg'].forEach(k => { document.getElementById(k).src = src; });
-    document.getElementById('stageImg').alt = `Happy Spoon ${f.name} cup`;
+    document.getElementById('stageImg').alt = `Happy Spoon ${f.name} 32 oz tub`;
     document.getElementById('sbName').textContent = f.name;
     document.getElementById('t3d').href = `../viewer/#${f.id}`;
 
@@ -233,8 +233,8 @@
     });
 
     // Pack size
-    document.getElementById('sizes').innerHTML = [4, 8, 12].map(s => `
-      <label>${s === 12 ? '<span class="flag">Best value</span>' : ''}<input type="radio" name="size" value="${s}" ${s === state.size ? 'checked' : ''}><b>${s}-pack</b><small>${money(perCup(s, false))} / cup</small></label>`).join('');
+    document.getElementById('sizes').innerHTML = [2, 4, 6].map(s => `
+      <label>${s === 6 ? '<span class="flag">Best value</span>' : ''}<input type="radio" name="size" value="${s}" ${s === state.size ? 'checked' : ''}><b>${s} tubs</b><small>${money(perTub(s, false))} / tub</small></label>`).join('');
     document.getElementById('sizes').addEventListener('change', e => { state.size = Number(e.target.value); renderPlan(); render(); });
 
     function renderPlan() {
@@ -265,13 +265,13 @@
       const total = each * state.qty;
       document.getElementById('price').textContent = money(each);
       document.getElementById('was').textContent = state.sub ? money(PACK[state.size]) : '';
-      document.getElementById('per').textContent = `${state.size}-pack · ${money(perCup(state.size, state.sub))} per cup`;
+      document.getElementById('per').textContent = `${state.size} × 32 oz tubs · ${money(perTub(state.size, state.sub))} per tub (${money(perOz(state.size, state.sub))}/oz)`;
       document.getElementById('qty').textContent = state.qty;
       document.getElementById('qtyDown').disabled = state.qty <= 1;
       const label = `Add to cart · ${money(total)}`;
       document.getElementById('addBtn').textContent = label;
       document.getElementById('sbAdd').textContent = label;
-      document.getElementById('sbPrice').textContent = `${state.size}-pack · ${state.sub ? 'Subscribe' : 'One-time'}`;
+      document.getElementById('sbPrice').textContent = `${state.size} tubs · ${state.sub ? 'Subscribe' : 'One-time'}`;
     }
     const add = () => addToCart({ kind: 'pack', flavor: f.id, size: state.size, sub: state.sub, every: state.every, qty: state.qty });
     document.getElementById('addBtn').addEventListener('click', add);
@@ -294,17 +294,17 @@
     // Other flavors
     document.getElementById('moreCards').innerHTML = FLAVORS.filter(x => x.id !== f.id).map(x => `
       <article class="pcard">
-        <div class="pcard-img" style="--bg:${x.bg}"><img src="${IMG + x.img}" alt="${x.name} cup" loading="lazy"></div>
+        <div class="pcard-img" style="--bg:${x.bg}"><img src="${IMG + x.img}" alt="${x.name} 32 oz tub" loading="lazy"></div>
         <div class="pcard-body">
           <h3><a href="product.html?f=${x.id}">${x.name}</a></h3>
           <p>${x.short}</p>
-          <p class="pcard-price">${money(PACK[4])} <span>&middot; 4-pack</span></p>
-          <button class="btn" type="button" data-quick="${x.id}">Add 4-pack</button>
+          <p class="pcard-price">${money(PACK[2])} <span>&middot; 2 × 32 oz tubs</span></p>
+          <button class="btn" type="button" data-quick="${x.id}">Add 2-pack</button>
         </div>
       </article>`).join('');
     document.getElementById('moreCards').addEventListener('click', e => {
       const b = e.target.closest('[data-quick]');
-      if (b) addToCart({ kind: 'pack', flavor: b.dataset.quick, size: 4, sub: false });
+      if (b) addToCart({ kind: 'pack', flavor: b.dataset.quick, size: 2, sub: false });
     });
 
     renderPlan(); render();

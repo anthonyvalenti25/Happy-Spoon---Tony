@@ -115,12 +115,12 @@
         <div class="hero-copy">
           <p class="eyebrow">High-protein dessert yogurt</p>
           <h1>Dessert that fits <span>your goals.</span></h1>
-          <p class="sub">Thick, creamy yogurt in five dessert flavors. Built with protein, made to taste like the dessert aisle.</p>
+          <p class="sub">Thick, creamy yogurt in five dessert flavors, in 32 oz tubs. Built with protein, made to taste like the dessert aisle.</p>
           <div class="cta-row">
             <a class="btn" href="#box">Build your box</a>
             <a class="btn ghost" href="#flavors">Shop flavors</a>
           </div>
-          <p class="anchor">Boxes from <b id="fromPrice">$3.00</b> a cup. <span>Save 15% when you subscribe.</span></p>
+          <p class="anchor">32 oz tubs from <b id="fromPrice">$7.50</b> each. <span>Save 15% when you subscribe.</span></p>
           <div class="trust">
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Ships cold</span>
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Skip or cancel anytime</span>
@@ -128,7 +128,7 @@
           </div>
         </div>
         <div class="hero-visual">
-          <img src="../hero.jpg" alt="All five Happy Spoon cups: Chocolate Fudge, Cookies and Cream, Salted Caramel, Mint Chip and Cookie Dough" width="1200" height="800">
+          <img src="../hero.jpg" alt="All five Happy Spoon flavors: Chocolate Fudge, Cookies and Cream, Salted Caramel, Mint Chip and Cookie Dough" width="1200" height="800">
           <div class="chips" id="heroChips"></div>
         </div>
       </div>
@@ -138,7 +138,7 @@
       <div class="shell">
         <div class="head">
           <h2 id="flavors-title">Shop by flavor</h2>
-          <p>Every flavor comes in 4, 8 or 12-packs. Bigger packs cost less per cup.</p>
+          <p>Every flavor comes in 32 oz tubs, in packs of 2, 4 or 6. Bigger packs cost less per tub.</p>
         </div>
         <div class="cards" id="cards"></div>
       </div>
@@ -151,7 +151,7 @@
           <article class="benefit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h16M6 18V9m4 9V5m4 13v-7m4 7V7"/></svg>
             <h3>High protein</h3>
-            <p>Designed to make protein easier to look forward to. Every cup counts toward your daily goal.</p>
+            <p>Designed to make protein easier to look forward to. Every serving counts toward your daily goal.</p>
           </article>
           <article class="benefit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 3 5 5.5 5 9a5 5 0 0 1-10 0c0-3.5 2-6 5-9Z"/></svg>
@@ -171,7 +171,7 @@
       <div class="shell">
         <div class="head">
           <h2 id="box-title">Build your box</h2>
-          <p>Mix any flavors you want. Pick a box size, add cups, and we'll ship it cold.</p>
+          <p>Mix any flavors you want. Pick a box size, add 32 oz tubs, and we'll ship it cold.</p>
         </div>
         <div class="box">
           <div class="picks" id="picks"></div>
@@ -179,15 +179,15 @@
             <h3 id="sum-title">Your box</h3>
             <fieldset class="seg" style="border:0;padding:0;margin:0">
               <legend class="sr">Box size</legend>
-              <label><input type="radio" name="boxSize" value="8"><b>8 cups</b><small id="per8"></small></label>
-              <label><span class="flag">Best value</span><input type="radio" name="boxSize" value="12" checked><b>12 cups</b><small id="per12"></small></label>
+              <label><input type="radio" name="boxSize" value="4"><b>4 tubs</b><small id="perA"></small></label>
+              <label><span class="flag">Best value</span><input type="radio" name="boxSize" value="6" checked><b>6 tubs</b><small id="perB"></small></label>
             </fieldset>
             <div class="meter">
-              <div class="meter-top"><span id="meterText">0 of 12 cups</span><button class="fill-btn" type="button" id="fillBtn">Fill the rest evenly</button></div>
+              <div class="meter-top"><span id="meterText">0 of 6 tubs</span><button class="fill-btn" type="button" id="fillBtn">Fill the rest evenly</button></div>
               <div class="meter-bar" id="meterBar" aria-hidden="true"></div>
             </div>
             <div class="ptype" id="boxPlan"></div>
-            <button class="btn block" type="button" id="addBox" disabled>Pick 12 more cups</button>
+            <button class="btn block" type="button" id="addBox" disabled>Pick 6 more tubs</button>
             <div class="trust" style="justify-content:center;font-size:.82rem">
               <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7"/></svg>Swap flavors before each delivery</span>
             </div>
@@ -203,7 +203,7 @@
           <p>Save 15% on every box. You stay in control of what comes and when.</p>
         </div>
         <div class="steps">
-          <div class="step"><h3>Pick your flavors</h3><p>Choose a single-flavor pack or build a mixed box of 8 or 12.</p></div>
+          <div class="step"><h3>Pick your flavors</h3><p>Choose a single-flavor pack or build a mixed box of 4 or 6 tubs.</p></div>
           <div class="step"><h3>We ship it cold</h3><p>Your box arrives every 2, 4 or 6 weeks, whichever you choose.</p></div>
           <div class="step"><h3>Change it anytime</h3><p>Swap flavors, skip a delivery or cancel from your account. No calls, no fees.</p></div>
         </div>
@@ -214,11 +214,11 @@
       <div class="shell faq">
         <h2 id="faq-title">Questions</h2>
         <div class="acc">
-          <details open><summary>How much protein is in each cup?</summary><div class="acc-body"><p>Full nutrition facts will be published when the final recipes are locked in. Every flavor is built to be high in protein.</p></div></details>
+          <details open><summary>How much protein is in each serving?</summary><div class="acc-body"><p>Full nutrition facts will be published when the final recipes are locked in. Every flavor is built to be high in protein.</p></div></details>
           <details><summary>How does it ship?</summary><div class="acc-body"><p>Boxes ship cold in insulated packaging so they arrive ready for the fridge. Shipping is free on orders over $40.</p></div></details>
-          <details><summary>How long does it keep?</summary><div class="acc-body"><p>Keep cups refrigerated. The best-by date is printed on every lid.</p></div></details>
+          <details><summary>How long does it keep?</summary><div class="acc-body"><p>Keep tubs refrigerated. The best-by date is printed on every lid.</p></div></details>
           <details><summary>Can I change or cancel my subscription?</summary><div class="acc-body"><p>Yes. Swap flavors, change how often it arrives, skip a delivery or cancel anytime from your account.</p></div></details>
-          <details><summary>Can I mix flavors?</summary><div class="acc-body"><p>Yes. Build a mixed box of 8 or 12 with any combination of the five flavors.</p></div></details>
+          <details><summary>Can I mix flavors?</summary><div class="acc-body"><p>Yes. Build a mixed box of 4 or 6 tubs with any combination of the five flavors.</p></div></details>
         </div>
       </div>
     </section>
@@ -253,9 +253,9 @@
 
   <script src="shop.js"></script>
   <script>
-    const { FLAVORS, PACK, SUB_OFF, IMG, money, perCup, unitPrice, addToCart } = window.HS;
+    const { FLAVORS, PACK, SUB_OFF, IMG, money, perTub, unitPrice, addToCart } = window.HS;
 
-    document.getElementById('fromPrice').textContent = money(perCup(12, false));
+    document.getElementById('fromPrice').textContent = money(perTub(6, false));
 
     // Hero chips + footer links
     document.getElementById('heroChips').innerHTML = FLAVORS.map(f => `<a href="product.html?f=${f.id}" style="--c:${f.bg}"><i></i>${f.name}</a>`).join('');
@@ -264,33 +264,33 @@
     // Flavor cards
     document.getElementById('cards').innerHTML = FLAVORS.map(f => `
       <article class="pcard">
-        <div class="pcard-img" style="--bg:${f.bg}"><img src="${IMG + f.img}" alt="${f.name} cup" loading="lazy"></div>
+        <div class="pcard-img" style="--bg:${f.bg}"><img src="${IMG + f.img}" alt="${f.name} 32 oz tub" loading="lazy"></div>
         <div class="pcard-body">
           <h3><a href="product.html?f=${f.id}">${f.name}</a></h3>
           <p>${f.short}</p>
-          <p class="pcard-price">${money(PACK[4])} <span>&middot; 4-pack</span></p>
-          <button class="btn" type="button" data-quick="${f.id}">Add 4-pack</button>
+          <p class="pcard-price">${money(PACK[2])} <span>&middot; 2 × 32 oz tubs</span></p>
+          <button class="btn" type="button" data-quick="${f.id}">Add 2-pack</button>
         </div>
       </article>`).join('');
     document.getElementById('cards').addEventListener('click', e => {
       const b = e.target.closest('[data-quick]');
-      if (b) addToCart({ kind: 'pack', flavor: b.dataset.quick, size: 4, sub: false });
+      if (b) addToCart({ kind: 'pack', flavor: b.dataset.quick, size: 2, sub: false });
     });
 
     // ---------- Build a box ----------
-    const box = { size: 12, mix: Object.fromEntries(FLAVORS.map(f => [f.id, 0])), sub: true, every: 4 };
+    const box = { size: 6, mix: Object.fromEntries(FLAVORS.map(f => [f.id, 0])), sub: true, every: 4 };
     const picks = document.getElementById('picks');
     picks.innerHTML = FLAVORS.map(f => `
       <div class="pick" data-id="${f.id}">
         <div class="pick-img" style="--bg:${f.bg}"><img src="${IMG + f.img}" alt="" loading="lazy"></div>
         <div><h3><a href="product.html?f=${f.id}">${f.name}</a></h3><p>${f.short}</p></div>
-        <div class="stepper" role="group" aria-label="${f.name} cups">
-          <button type="button" data-step="-1" aria-label="Remove a ${f.name} cup">&minus;</button><output>0</output><button type="button" data-step="1" aria-label="Add a ${f.name} cup">+</button>
+        <div class="stepper" role="group" aria-label="${f.name} tubs">
+          <button type="button" data-step="-1" aria-label="Remove a ${f.name} tub">&minus;</button><output>0</output><button type="button" data-step="1" aria-label="Add a ${f.name} tub">+</button>
         </div>
       </div>`).join('');
 
-    document.getElementById('per8').textContent = money(perCup(8, false)) + ' / cup';
-    document.getElementById('per12').textContent = money(perCup(12, false)) + ' / cup';
+    document.getElementById('perA').textContent = money(perTub(4, false)) + ' / tub';
+    document.getElementById('perB').textContent = money(perTub(6, false)) + ' / tub';
 
     const total = () => Object.values(box.mix).reduce((a, b) => a + b, 0);
 
@@ -317,7 +317,7 @@
         row.querySelector('[data-step="1"]').disabled = t >= box.size;
         row.classList.toggle('has', n > 0);
       });
-      document.getElementById('meterText').textContent = `${t} of ${box.size} cups`;
+      document.getElementById('meterText').textContent = `${t} of ${box.size} tubs`;
       const bar = document.getElementById('meterBar');
       bar.style.setProperty('--n', box.size);
       const colors = [];
@@ -326,7 +326,7 @@
       const btn = document.getElementById('addBox');
       const left = box.size - t;
       btn.disabled = left > 0;
-      btn.textContent = left > 0 ? `Pick ${left} more cup${left === 1 ? '' : 's'}` : `Add box to cart · ${money(unitPrice(box.size, box.sub))}`;
+      btn.textContent = left > 0 ? `Pick ${left} more tub${left === 1 ? '' : 's'}` : `Add box to cart · ${money(unitPrice(box.size, box.sub))}`;
       document.getElementById('fillBtn').hidden = left === 0;
     }
 
