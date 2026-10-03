@@ -248,7 +248,7 @@ dialog.promo[open] { display: flex; animation: promoIn .55s var(--ease); }
 dialog.promo::backdrop { background: transparent; }
 /* The dim layer behind the popup and drawer. It runs past the top and bottom of the screen so the
    areas under Safari's status bar and toolbar dim too (a dialog backdrop stops at the screen edge). */
-.dimmer { position: fixed; left: 0; right: 0; top: -150px; bottom: -150px; z-index: 50; background: rgba(10, 12, 14, .55); opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+.dimmer { position: fixed; left: 0; right: 0; top: -150px; bottom: -150px; z-index: 50; background-color: rgba(10, 12, 14, .72);   /* one solid layer: Safari only lets plain solid layers reach under its bars */ opacity: 0; pointer-events: none; transition: opacity .35s ease; }
 .dimmer.on { opacity: 1; pointer-events: auto; }
 @keyframes promoIn { from { opacity: 0; transform: translateY(24px) scale(.96); } }
 /* The deal isn't tied to a flavor, so the art is just the logo (white on the page's color) */

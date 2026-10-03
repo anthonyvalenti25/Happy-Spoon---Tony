@@ -109,7 +109,7 @@
   // Safari's status bar and bottom toolbar on iPhone, so a separate dim layer reaches under both bars.
   let dimmed = false;
   const dimColor = hex => {
-    const n = parseInt(hex.slice(1), 16), a = .55, d = [10, 12, 14];   // same as the dialog backdrop
+    const n = parseInt(hex.slice(1), 16), a = .72, d = [10, 12, 14];   // same as the dialog backdrop
     return '#' + [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v, i) => Math.round(v * (1 - a) + d[i] * a).toString(16).padStart(2, '0')).join('');
   };
   function dim(on) {
