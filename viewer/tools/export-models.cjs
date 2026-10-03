@@ -20,6 +20,7 @@ const path = require("node:path");
     const output = path.resolve(__dirname, "../../assets");
     await fs.mkdir(output, { recursive: true });
     for (const id of ids) {
+      await fs.mkdir(path.join(output, id), { recursive: true });
       const base64 = await page.evaluate(async (id) => {
         const { flavors, createContainer } = await import("./model.js");
         const { GLTFExporter } = await import("./vendor/GLTFExporter.js");
@@ -39,7 +40,7 @@ const path = require("node:path");
         return btoa(binary);
       }, id);
       await fs.writeFile(
-        path.join(output, `${id}.glb`),
+        path.join(output, id, `${id}.glb`),
         Buffer.from(base64, "base64"),
       );
       console.log(`Exported ${id}.glb`);

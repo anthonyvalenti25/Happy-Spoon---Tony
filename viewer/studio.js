@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "./vendor/OrbitControls.js";
-import { flavors, createContainer } from "./model.js";
+import { flavors, createContainer } from "./model.js?v=2";
 
 const $ = (s) => document.querySelector(s),
   viewport = $("#viewport"),
@@ -109,7 +109,7 @@ async function select(f) {
   );
   $("#background-word").textContent = f.word;
   $("#stage-number").textContent = `0${flavors.indexOf(f) + 1} / 05`;
-  $("#download").href = `../assets/${f.id}.glb`;
+  $("#download").href = `../assets/${f.id}/${f.id}.glb`;
   viewport.setAttribute(
     "aria-label",
     `${f.name} 3D container. Drag to rotate, scroll to zoom. Arrow keys rotate; plus and minus zoom.`,

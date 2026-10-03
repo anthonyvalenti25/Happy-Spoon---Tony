@@ -14,7 +14,7 @@
     { id: 'cookie-dough',      name: 'Cookie Dough',    two: 'Cookie <br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38' },
   ];
   const ASSETS = new URL('../assets/', document.currentScript.src).href;   // works wherever the page lives
-  const TUB = id => `${ASSETS}${id}-tub-600.webp`;
+  const TUB = id => `${ASSETS}${id}/${id}-tub-600.webp`;
     const money = n => `$${n.toFixed(2)}`;
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   const byId = id => FLAVORS.find(f => f.id === id);
@@ -171,7 +171,7 @@
     // Why Happy Spoon tub follows the spotlight (fades out, swaps, fades back in)
     const whyTub = $('.why-tub');
     if (whyTub) {
-      const src = `${ASSETS}flavor-displays-open/${f.id}.webp`;
+      const src = `${ASSETS}${f.id}/${f.id}-display-open.webp`;
       if (first) { whyTub.src = src; whyTub.alt = `Happy Spoon ${f.name} tub`; }
       else if (!whyTub.src.endsWith(src.split('/').pop())) {
         whyTub.classList.add('swap');
@@ -212,7 +212,7 @@
   const STATS = `<div class="stats"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">180</b><small>Calories</small></div></div>`;
   $('.cards').innerHTML = FLAVORS.map(f => `
     <article class="card" style="--c-bg:${f.bg};--c-btn:${f.btn}" data-card="${f.id}" id="card-${f.id}">
-      <div class="art"><img src="${ASSETS}flavor-displays/${f.id}.webp" alt="Happy Spoon ${f.name} tub" width="900" height="900" loading="lazy" decoding="async"></div>
+      <div class="art"><img src="${ASSETS}${f.id}/${f.id}-display-closed.webp" alt="Happy Spoon ${f.name} tub" width="900" height="900" loading="lazy" decoding="async"></div>
       <div class="body">
         <h3 class="wide">${f.name}</h3>
         ${STATS}
@@ -470,7 +470,7 @@
   }
 
   // Preload the Why section's tub art once the page is idle, so flavor swaps don't flash empty
-  addEventListener('load', () => setTimeout(() => FLAVORS.forEach(f => { new Image().src = `${ASSETS}flavor-displays-open/${f.id}.webp`; }), 1500));
+  addEventListener('load', () => setTimeout(() => FLAVORS.forEach(f => { new Image().src = `${ASSETS}${f.id}/${f.id}-display-open.webp`; }), 1500));
   paint(true);
   layout();
   render();

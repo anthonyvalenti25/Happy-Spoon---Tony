@@ -100,7 +100,7 @@ function logo(ctx, x, y, scale, color, smileColor) {
 }
 async function imageFor(f) {
   const im = new Image();
-  im.src = `../assets/${f.id}.webp`;
+  im.src = `../assets/${f.id}/${f.id}.webp`;
   await im.decode();
   return im;
 }

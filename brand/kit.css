@@ -10,13 +10,13 @@ img { display: block; max-width: 100%; }
 /* Logo built from two masks so letters and smile color separately */
 .logo { position: relative; display: block; aspect-ratio: 640 / 422; width: 120px; flex: 0 0 auto; }
 .logo::before, .logo::after { content: ""; position: absolute; inset: 0; -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
-.logo::before { background: var(--l, currentColor); -webkit-mask-image: url(img/letters-mask.png); mask-image: url(img/letters-mask.png); }
-.logo::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(img/smile-mask.png); mask-image: url(img/smile-mask.png); }
-.smile { display: block; aspect-ratio: 338 / 103; background: var(--s, currentColor); -webkit-mask: url(img/smile-crop.png) center / contain no-repeat; mask: url(img/smile-crop.png) center / contain no-repeat; }
+.logo::before { background: var(--l, currentColor); -webkit-mask-image: url(../assets/logos/letters-mask.png); mask-image: url(../assets/logos/letters-mask.png); }
+.logo::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(../assets/logos/smile-mask.png); mask-image: url(../assets/logos/smile-mask.png); }
+.smile { display: block; aspect-ratio: 338 / 103; background: var(--s, currentColor); -webkit-mask: url(../assets/logos/smile-crop.png) center / contain no-repeat; mask: url(../assets/logos/smile-crop.png) center / contain no-repeat; }
 .mark { position: relative; display: block; aspect-ratio: 469 / 345; width: 80px; }
 .mark::before, .mark::after { content: ""; position: absolute; inset: 0; -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
-.mark::before { background: var(--l, currentColor); -webkit-mask-image: url(img/mark-eyes.png); mask-image: url(img/mark-eyes.png); }
-.mark::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(img/mark-smile.png); mask-image: url(img/mark-smile.png); }
+.mark::before { background: var(--l, currentColor); -webkit-mask-image: url(../assets/logos/mark-eyes.png); mask-image: url(../assets/logos/mark-eyes.png); }
+.mark::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(../assets/logos/mark-smile.png); mask-image: url(../assets/logos/mark-smile.png); }
 
 /* Sticky top bar */
 .top { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--page) 90%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }

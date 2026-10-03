@@ -14,13 +14,13 @@ Drag or swipe to orbit the entire container; scroll or pinch to zoom. The Front,
 Back, Nutrition, Lid, and Base buttons provide inspection views. Lift the lid to
 inspect the interior. Keyboard users can focus the canvas and use the arrow keys, plus/minus,
 and Home. Auto spin is opt-in. Each flavor also has a downloadable, self-contained
-GLB in `assets/`, including embedded textures and a separately named lid mesh.
+GLB in `assets/<flavor>/`, including embedded textures and a separately named lid mesh.
 
 ## Artwork and geometry
 
 `model.js` builds the tapered cup, rolled lip, foil lid and pull tab, internal wall,
 yogurt surface, and recessed base. The front texture is reprojected from the
-repository's original flavor images in `assets/`. The original front photography
+repository's original flavor images in `assets/<flavor>/`. The original front photography
 limits texture sharpness and contains baked-in lighting. Back, lid, base, and
 interior are concept reconstructions, not verified production artwork. Dimensions
 are approximate proportions, not manufacturing measurements. The nutrition panel

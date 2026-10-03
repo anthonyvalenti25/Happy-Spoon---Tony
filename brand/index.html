@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<link rel="icon" href="../assets/happy-spoon-icon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/happy-spoon-icon-32.png">
-<link rel="apple-touch-icon" href="../assets/happy-spoon-icon-180.png">
+<link rel="icon" href="../assets/logos/happy-spoon-icon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/logos/happy-spoon-icon-32.png">
+<link rel="apple-touch-icon" href="../assets/logos/happy-spoon-icon-180.png">
 <title>Brand Guidelines · Happy Spoon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
-<link rel="stylesheet" href="kit.css?v=3">
+<link rel="stylesheet" href="kit.css?v=4">
 <style>
 :root {
   --page: #ffffff; --text: #15191d; --sub: #5d6870; --card: #f3f3f1; --line: #e3e3df; --accent: #1497ec;
@@ -249,7 +249,7 @@
       <figure><div class="m" style="background:#1497ec"><span class="logo" style="--l:#410e01;--s:#f74532"></span></div><figcaption>Full-color logo on a flood</figcaption></figure>
       <figure><div class="m" style="background:#f39c1e"><span class="logo" style="--l:#ef4c3c"></span></div><figcaption>One flavor's color on another flavor</figcaption></figure>
       <figure><div class="m" style="background:#8740cf"><span class="logo" style="--l:#fff;transform:scaleX(1.35)"></span></div><figcaption>Stretched or squashed</figcaption></figure>
-      <figure><div class="m" style="background:url(../assets/mint-chip-fun-sealed-mint-orbit.webp) center/cover"><span class="logo" style="--l:#fff"></span></div><figcaption>On a busy photo with no flood behind it</figcaption></figure>
+      <figure><div class="m" style="background:url(../assets/mint-chip/mint-chip-fun-sealed-mint-orbit.webp) center/cover"><span class="logo" style="--l:#fff"></span></div><figcaption>On a busy photo with no flood behind it</figcaption></figure>
       <figure><div class="m" style="background:#4fc690"><span class="logo" style="--l:#fff;filter:drop-shadow(0 3px 0 #0d2c3d)"></span></div><figcaption>Shadows, outlines or effects</figcaption></figure>
     </div></div>
   </div>
@@ -384,7 +384,7 @@ const F = [
   { id: 'cookie-dough', name: 'Cookie Dough', two: 'Cookie<br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38', fun: 'fun-open-cookie-swirl' }
 ];
 const esc = s => s.replace(/&/g, '&amp;');
-const tub = f => A + f.id + '-tub-600.webp';
+const tub = f => A + f.id + "/" + f.id + '-tub-600.webp';
 let cur = 1;
 
 // Static pieces built from the flavor list
@@ -412,8 +412,8 @@ document.getElementById('ig').innerHTML = ig.map(([i, kind]) => {
   const f = F[i], bg = `background:${f.bg};color:${f.ink}`;
   if (kind === 'cut') return `<div style="${bg}"><img src="${tub(f)}" alt=""></div>`;
   if (kind === 'name') return `<div style="${bg}"><div class="w wide">${f.two}</div><img src="${tub(f)}" alt="" style="width:46%;position:relative"></div>`;
-  if (kind === 'open') return `<div style="${bg}" class="framed"><img class="full" src="${A + f.id}-open-serving-720.webp" alt="" style="border-radius:3cqi"></div>`;
-  if (kind === 'fun') return `<div><img class="full" src="${A + f.id}-${f.fun}.webp" alt=""></div>`;
+  if (kind === 'open') return `<div style="${bg}" class="framed"><img class="full" src="${A + f.id + "/" + f.id}-open-serving-720.webp" alt="" style="border-radius:3cqi"></div>`;
+  if (kind === 'fun') return `<div><img class="full" src="${A + f.id + "/" + f.id}-${f.fun}.webp" alt=""></div>`;
   if (kind === 'stats') return `<div style="${bg};align-content:center;justify-items:start;padding:10%"><span class="logo mini" style="--l:${f.ink}"></span><div class="stats" style="--ss:22cqi;flex-direction:column;align-items:flex-start;gap:7cqi"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat" style="padding:0;box-shadow:none"><b class="wide">180</b><small>Calories</small></div></div></div>`;
   if (kind === 'tag') return `<div style="${bg}"><span class="logo mini" style="--l:${f.ink}"></span><div class="t cond">Same dessert. Different feeling.</div></div>`;
 }).join('');
@@ -441,8 +441,8 @@ function setFlavor(i) {
   document.querySelectorAll('[data-name2]').forEach(el => el.innerHTML = f.two);
   document.querySelectorAll('[data-cta]').forEach(el => el.textContent = 'Get ' + f.name);
   document.querySelectorAll('[data-img="tub"]').forEach(el => el.src = tub(f));
-  document.querySelectorAll('[data-img="open"]').forEach(el => el.src = A + f.id + '-open-serving-720.webp');
-  document.querySelectorAll('[data-img="fun"]').forEach(el => el.src = A + f.id + '-' + f.fun + '.webp');
+  document.querySelectorAll('[data-img="open"]').forEach(el => el.src = A + f.id + "/" + f.id + '-open-serving-720.webp');
+  document.querySelectorAll('[data-img="fun"]').forEach(el => el.src = A + f.id + "/" + f.id + '-' + f.fun + '.webp');
   document.querySelectorAll('#switch button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === i));
   document.querySelectorAll('#shelf img').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
   document.querySelector('meta[name=theme-color]')?.setAttribute('content', f.bg);

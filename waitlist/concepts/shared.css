@@ -32,8 +32,8 @@ body {
 .top { display: flex; align-items: center; justify-content: space-between; height: 44px; position: relative; z-index: 5; }
 .wordmark {
   display: block; width: 104px; aspect-ratio: 640 / 460; background: currentColor;
-  -webkit-mask: url(../../assets/happy-spoon-wordmark-mask.png) center / contain no-repeat;
-  mask: url(../../assets/happy-spoon-wordmark-mask.png) center / contain no-repeat;
+  -webkit-mask: url(../../assets/logos/happy-spoon-wordmark-mask.png) center / contain no-repeat;
+  mask: url(../../assets/logos/happy-spoon-wordmark-mask.png) center / contain no-repeat;
 }
 .chip { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 7px 11px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 14%, transparent); }
 
