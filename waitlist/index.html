@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ef4c3c">
+  <meta name="description" content="Happy Spoon is high-protein dessert yogurt for cravings that fit your goals. Join the waitlist and get a free 32 oz tub when we launch.">
+  <title>Happy Spoon | Join the waitlist</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="./concepts/shared.css?v=3">
+  <link rel="stylesheet" href="../assets/site-header.css?v=7">
+  <link rel="stylesheet" href="../assets/site-footer.css?v=1">
+  <style>
+    /* Lineup: all five wait on a shelf. Each takes its turn leaping up to center stage, then hops back into line. */
+
+    /* Phones: iOS Safari only tints its toolbars once at load, so instead the page itself reaches
+       under the status bar and the floating search bar. The document is slightly taller than the
+       screen (a color strip after the app) and touch scrolling is blocked, so it still reads as one screen. */
+    @media (max-width: 899px), (orientation: portrait) {
+      html, body { height: auto; overflow: visible; }
+      body { position: static; min-height: 100%; }
+      .under-bar { height: 220px; background: var(--bg); }
+      /* Roomier text block, with the form sitting low near the thumb */
+      .app { padding-bottom: max(env(safe-area-inset-bottom), 10px);
+        /* One column exactly as wide as the screen. Without this, iOS Safari sizes the column to fit the
+           full-width header, the page spills past the right edge and everything shifts sideways. */
+        grid-template-columns: minmax(0, 1fr); }
+      .eyebrow { margin-top: 4px; }
+      .name { margin-top: 10px; }
+      .offer { margin-top: 14px; }
+      .join, .done-msg { margin-top: 24px; }
+      .note:empty { display: none; }
+      .consent { margin-top: 10px; }
+      .note { margin-top: 10px; }
+    }
+    /* The turn bars are hidden for a cleaner screen. They stay in the page (zero height, invisible)
+       because their fill animation is the rotation timer. */
+    .bars, .app .bars { height: 0; margin: 0; overflow: hidden; visibility: hidden; }
+    .stage { margin-top: 10px; }
+
+    /* Signed-up state: same pill shape and height as the form it replaces */
+    .done-msg { align-items: center; gap: 14px; padding: 6px 22px 6px 6px; border-radius: 999px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.35); }
+    .app.joined .done-msg { display: flex; }
+    .app.joined .note, .app.joined .consent { display: none; }
+    .consent { font-size: 11.5px; line-height: 1.35; opacity: .72; text-align: center; }
+    .join button:disabled { opacity: .7; }
+    .done-msg .tick { flex: 0 0 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--btn); transition: background-color .9s var(--ease); }
+    .done-msg .tick svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 24; stroke-dashoffset: 24; animation: tick .5s .35s var(--ease) forwards; }
+    @keyframes tick { to { stroke-dashoffset: 0; } }
+    .done-msg b { display: block; font-size: 16px; margin: 0 0 1px; color: #15191d; }
+    .done-msg span:last-child { font-size: 14px; line-height: 1.3; color: #4b555d; }
+    .tub { transform-origin: 50% 100%; }
+    .halo {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--glow) 85%, var(--bg)), color-mix(in srgb, var(--glow) 35%, var(--bg)) 70%);
+      box-shadow: inset 0 -30px 60px -30px color-mix(in srgb, var(--deep) 60%, transparent);
+    }
+    .halo.pulse { animation: pulse 1.1s var(--ease); }
+    @keyframes pulse { 40% { transform: scale(.94); } 70% { transform: scale(1.025); } }
+
+    /* The shelf. ?shelf=glass (default) | ledge | risers | floor picks a style for comparison. */
+    .shelf { position: absolute; top: 0; left: -18px; width: calc(100% + 36px); height: 100%; pointer-events: none; z-index: 1; }
+    .shelf > * { position: absolute; }
+    .face { left: 0; right: 0; overflow: hidden; }
+    .edge, .under { left: 0; right: 0; }
+    .refl { position: absolute; opacity: .32; transform: scaleY(-1); transition: opacity .35s ease .8s;
+      -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 38%); mask-image: linear-gradient(to top, #000 0%, transparent 38%); }
+    .cshadow { border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.32), rgba(0,0,0,0)); transition: opacity .35s ease .8s; }
+    .gone { opacity: 0 !important; transition-delay: 0s !important; }
+
+    /* Glass: a clear ledge that reflects the tubs, with a bright front edge */
+    [data-shelf="glass"] .face { background: linear-gradient(rgba(255,255,255,.05), rgba(255,255,255,.22)); }
+    [data-shelf="glass"] .edge { background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.22)); }
+    [data-shelf="glass"] .under { background: radial-gradient(60% 100% at 50% 0, rgba(0,0,0,.2), transparent); }
+
+    /* Ledge: a solid display shelf, lit from underneath */
+    [data-shelf="ledge"] .face { background: linear-gradient(color-mix(in srgb, var(--glow) 55%, var(--bg)), color-mix(in srgb, var(--glow) 80%, #fff)); }
+    [data-shelf="ledge"] .edge { background: linear-gradient(var(--deep), color-mix(in srgb, var(--deep) 75%, #000)); }
+    [data-shelf="ledge"] .under { background: radial-gradient(55% 100% at 50% 0, color-mix(in srgb, var(--glow) 90%, #fff), transparent); opacity: .8; }
+    [data-shelf="ledge"] .refl { display: none; }
+
+    /* Risers: each flavor waits on its own little pedestal */
+    .riser { border-radius: 0 0 50% 50% / 0 0 9px 9px;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--deep) 70%, #000), var(--deep) 30%, color-mix(in srgb, var(--glow) 40%, var(--deep)) 55%, var(--deep) 75%, color-mix(in srgb, var(--deep) 70%, #000)); }
+    .riser::before { content: ""; position: absolute; left: 0; right: 0; top: -6px; height: 12px; border-radius: 50%; background: color-mix(in srgb, var(--glow) 70%, var(--bg)); }
+    [data-shelf="risers"] .refl { display: none; }
+
+    /* Floor: no shelf, just a glossy floor that reflects */
+    [data-shelf="floor"] .face { background: linear-gradient(transparent, color-mix(in srgb, var(--deep) 80%, transparent) 30%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+    [data-shelf="floor"] .refl { opacity: .4; }
+
+    /* Desktop: text and form on the left, the stage on the right, color edge to edge */
+    @media (min-width: 900px) and (orientation: landscape) {
+      .under-bar { display: none; }
+      .app {
+        max-width: 1440px; column-gap: clamp(32px, 4vw, 72px);
+        padding: 20px clamp(32px, 4.5vw, 72px) 28px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+        grid-template-rows: auto 1fr auto auto 1fr;
+        grid-template-areas: "top top" ". stage" "bars stage" "bottom stage" ". stage";
+      }
+      .top { grid-area: top; }
+      .stage { grid-area: stage; margin-top: 12px; }
+      .bars { grid-area: bars; max-width: 420px; margin: 0 0 22px; }
+      .bottom { grid-area: bottom; max-width: 640px; container-type: inline-size; }
+      .eyebrow { font-size: 13px; }
+      .name { font-size: min(11.8cqi, 96px); margin-top: 10px; }   /* longest name fills the column */
+      .offer { font-size: 20px; margin-top: 16px; }
+      .join { margin-top: 26px; max-width: 520px; padding: 6px; }
+      .join input { font-size: 17px; padding: 0 18px; }
+      .join button { padding: 18px 24px; font-size: 16px; }
+      .done-msg { max-width: 520px; margin-top: 26px; }
+      .note { text-align: left; padding-left: 20px; max-width: 520px; }
+      .tub { cursor: pointer; }
+      .shelf { left: -48px; width: calc(100% + 48px + clamp(32px, 4.5vw, 72px));
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 140px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, transparent, #000 140px, #000 calc(100% - 48px), transparent); }
+    }
+    /* Keep the flavor experience in its first screen, with the contact footer below. */
+    html, body { height: auto; overflow-x: hidden; overflow-y: auto; }
+    body { position: static; min-height: 100%; }
+    .stage { touch-action: pan-y; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top site-head bleed"><a class="site-logo" href="../" aria-label="Happy Spoon home"></a><nav class="site-nav" aria-label="Main"><a href="../">Shop</a><a href="./" aria-current="page">Waitlist</a><a href="../about/">Our story</a><a class="site-contact" href="#contact">Contact us</a></nav><a class="site-box" href="../?box" aria-label="Your box"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 12 4l8.5 4.5v7L12 20l-8.5-4.5z"/><path d="M3.5 8.5 12 13l8.5-4.5M12 13v7"/></svg><span class="box-count">0</span></span></a></header>
+    <nav class="bars" aria-label="Flavors"></nav>
+    <section class="stage" id="stage" aria-hidden="true"></section>
+    <section class="bottom">
+      <p class="eyebrow">High-protein dessert yogurt</p>
+      <h1 class="name"></h1>
+      <p class="offer">Join the waitlist and get a <b>free 32&nbsp;oz tub</b> when we launch.</p>
+      <form class="join" data-kit-form="9989336" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" name="email_address" inputmode="email" autocomplete="email" placeholder="Your email" required><input class="sr" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">Get my free tub</button></form>
+      <p class="consent">By joining, you agree to get emails from Happy Spoon. Unsubscribe anytime.</p>
+      <div class="done-msg" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>You're on the list.</b>Watch your inbox for your free tub.</span></div>
+      <p class="note" aria-live="polite"></p>
+    </section>
+  </main>
+  <footer id="contact" class="site-footer">
+    <div class="site-footer-inner">
+      <a class="footer-logo" href="../" aria-label="Happy Spoon home"></a>
+      <nav class="footer-nav" aria-label="Footer"><a href="../">Shop</a><a href="./">Waitlist</a><a href="../about/">Our story</a></nav>
+      <div class="footer-contact">
+        <a class="contact-button" href="mailto:hello@happyspoonyogurt.com">Contact us</a>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/happyspoonyogurt/" target="_blank" rel="noopener noreferrer" aria-label="Happy Spoon on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="social-dot" cx="17.5" cy="6.5" r="1"/></svg><span>Instagram</span></a>
+          <a href="https://www.tiktok.com/@happyspoonyogurt" target="_blank" rel="noopener noreferrer" aria-label="Happy Spoon on TikTok (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v12.5a4.5 4.5 0 1 1-4-4.47M14 3c0 4 3 6 6 6"/></svg><span>TikTok</span></a>
+        </div>
+      </div>
+      <a class="footer-email" href="mailto:hello@happyspoonyogurt.com">hello@happyspoonyogurt.com</a>
+      <p class="footer-copyright">© 2026 Happy Spoon</p>
+    </div>
+  </footer>
+  <script src="../assets/site-header.js?v=3"></script>
+  <script>
+    // Start at the top on navigation; visitors can scroll down to the contact footer.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  </script>
+  <script src="./concepts/shared.js?v=10"></script>
+  <script>
+    const stage = document.getElementById('stage');
+    const STYLE = ['glass', 'ledge', 'risers', 'floor'].find(v => v === new URLSearchParams(location.search).get('shelf')) || 'glass';
+    document.body.dataset.shelf = STYLE;
+    const halo = document.createElement('div'); halo.className = 'halo';
+    const shelf = document.createElement('div'); shelf.className = 'shelf';
+    const face = document.createElement('div'); face.className = 'face';
+    const edge = document.createElement('div'); edge.className = 'edge';
+    const under = document.createElement('div'); under.className = 'under';
+    if (STYLE === 'glass' || STYLE === 'ledge') shelf.append(under, face, edge);
+    if (STYLE === 'floor') shelf.append(face);
+    stage.append(halo, shelf);
+    // Per-flavor extras that stay on the shelf: a reflection, a contact shadow, and (risers) a pedestal
+    const refls = HS.FLAVORS.map(f => { const r = document.createElement('img'); r.className = 'refl'; r.src = HS.src(f); r.alt = ''; face.append(r); return r; });
+    const shadows = HS.FLAVORS.map(() => { const d = document.createElement('div'); d.className = 'cshadow'; shelf.append(d); return d; });
+    const risers = STYLE === 'risers' ? HS.FLAVORS.map(() => { const d = document.createElement('div'); d.className = 'riser'; shelf.prepend(d); return d; }) : [];
+    const tubs = HS.FLAVORS.map((f, k) => { const t = HS.tub(f); t.dataset.flavor = k; stage.append(t); return t; });
+
+    let W, H, tw, th, hero = 0, spots = [], heroSpot;
+    // A spot is where a tub's bottom center sits, plus its scale relative to the hero size.
+    const tf = p => `translate(${p.x - tw / 2}px, ${p.y - th}px) scale(${p.s})`;
+    const px = n => `${n}px`;
+    function layout() {
+      W = stage.clientWidth; H = stage.clientHeight;
+      const pad = Math.max(8, W * 0.03), sw = (W - pad * 4) / 5, stw = sw * 0.92, sth = stw * 1.2;
+      const below = { glass: 44, ledge: 46, risers: 34, floor: 30 }[STYLE];
+      const shelfY = H - below;
+      const heroRoom = shelfY - sth - 26;
+      th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.74 : 0.6) * 1.2); tw = th / 1.2;   // bigger hero on desktop
+      const heroY = Math.min(heroRoom, heroRoom / 2 + th / 2 + 6);
+      heroSpot = { x: W / 2, y: heroY, s: 1 };
+      spots = HS.FLAVORS.map((_, k) => ({ x: sw / 2 + k * (sw + pad), y: shelfY, s: stw / tw }));
+      tubs.forEach(t => { t.style.width = px(tw); });
+
+      // Shelf parts, in shelf coordinates (the shelf bleeds past the stage edges)
+      const off = -shelf.offsetLeft;
+      const faceTop = STYLE === 'floor' ? shelfY - 8 : shelfY - 13, faceH = STYLE === 'floor' ? H - faceTop + 14 : STYLE === 'glass' ? 32 : 22;
+      Object.assign(face.style, { top: px(faceTop), height: px(faceH) });
+      Object.assign(edge.style, { top: px(faceTop + faceH), height: px(STYLE === 'ledge' ? 14 : 6) });
+      Object.assign(under.style, { top: px(faceTop + faceH + (STYLE === 'ledge' ? 14 : 6)), height: px(30) });
+      spots.forEach((p, k) => {
+        Object.assign(refls[k].style, { left: px(p.x + off - stw / 2), top: px(shelfY - faceTop - 2), width: px(stw), height: px(sth) });
+        Object.assign(shadows[k].style, { left: px(p.x + off - stw * 0.55), top: px(shelfY - 7), width: px(stw * 1.1), height: px(14) });
+        if (risers[k]) Object.assign(risers[k].style, { left: px(p.x + off - stw * 0.5), top: px(shelfY - 3), width: px(stw), height: px(below - 4) });
+      });
+      const d = Math.min(th * 1.02, W * 0.92);
+      Object.assign(halo.style, { left: px(W / 2 - d / 2), top: px(heroY - th / 2 - d / 2 - th * 0.02), width: px(d), height: px(d) });
+      place();
+    }
+    function mark() {
+      refls.forEach((r, k) => r.classList.toggle('gone', k === hero));
+      shadows.forEach((d, k) => d.classList.toggle('gone', k === hero));
+    }
+    function place() {
+      tubs.forEach((t, k) => {
+        t.getAnimations().forEach(a => a.cancel());
+        t.style.transform = tf(k === hero ? heroSpot : spots[k]);
+        t.style.zIndex = k === hero ? 3 : 2;
+      });
+      mark();
+    }
+    // Fly along an arc rather than a straight line.
+    function fly(t, a, b, delay, lift) {
+      const mid = { x: (a.x + b.x) / 2, y: Math.min(a.y, b.y) - lift, s: (a.s + b.s) / 2 };
+      return t.animate([{ transform: tf(a) }, { transform: tf(mid), offset: .45 }, { transform: tf(b) }],
+        { duration: 1000, delay, easing: 'cubic-bezier(.6,0,.3,1)', fill: 'backwards' });
+    }
+
+    layout();
+    HS.start({
+      stage, paintDelay: 350, tapOnly: true,
+      onChange(i, prev) {
+        if (i === prev || HS.reduced) { hero = i; place(); return; }
+        place();
+        hero = i;
+        const up = tubs[i], down = tubs[prev];
+        up.style.transform = tf(heroSpot); up.style.zIndex = 4;
+        down.style.transform = tf(spots[prev]); down.style.zIndex = 3;
+        mark();
+        fly(down, heroSpot, spots[prev], 0, th * 0.12);
+        fly(up, spots[i], heroSpot, 180, th * 0.18);
+        halo.classList.remove('pulse'); void halo.offsetWidth; halo.classList.add('pulse');
+      }
+    });
+    new ResizeObserver(() => layout()).observe(stage);
+  </script>
+</body>
+</html>

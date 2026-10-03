@@ -8,14 +8,14 @@ The site is published with GitHub Pages from the `main` branch. After a push, ch
 
 | Name | Link | Source |
 | --- | --- | --- |
-| Home page (Lineup waitlist, connected to Kit) | [/](https://happyspoonyogurt.com/) | `index.html` |
+| Home page (Shop, 4 tub minimum, Flavor Flood brand) | [/](https://happyspoonyogurt.com/) | `index.html` (styles and script in `shop/`) |
+| Waitlist (Lineup, connected to Kit) | [/waitlist/](https://happyspoonyogurt.com/waitlist/) | `waitlist/index.html` |
 | Our story (About page) | [/about/](https://happyspoonyogurt.com/about/) | `about/index.html` |
-| Shop mockup (4 tub minimum, Flavor Flood brand) | [/shop/](https://happyspoonyogurt.com/shop/) | `shop/index.html` |
 | Brand guidelines (Flavor Flood, the official brand) | [/brand/](https://happyspoonyogurt.com/brand/) | `brand/index.html` |
 | 3D Flavor Studio | [/viewer/](https://happyspoonyogurt.com/viewer/) | `viewer/index.html` |
-| Old waitlist link (forwards to the home page) | [/waitlist/concepts/05-lineup.html](https://happyspoonyogurt.com/waitlist/concepts/05-lineup.html) | `waitlist/concepts/05-lineup.html` |
+| Old links that forward | /shop/ → home, /waitlist/concepts/05-lineup.html → /waitlist/ | `shop/index.html`, `waitlist/concepts/05-lineup.html` |
 
-The home page's flavor shelf code lives in `waitlist/concepts/shared.js` and `shared.css`, so keep those files.
+The waitlist's flavor shelf code lives in `waitlist/concepts/shared.js` and `shared.css`, and the shop's in `shop/shop.css` and `shop/shop.js`, so keep those files.
 
 When you add a new page, add a row here too.
 

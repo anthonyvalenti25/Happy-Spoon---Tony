@@ -13,7 +13,8 @@
     { id: 'mint-chip',         name: 'Mint Chip',       two: 'Mint <br>Chip', short: 'Mint Chip',  bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#ffffff', btn: '#0d2c3d' },
     { id: 'cookie-dough',      name: 'Cookie Dough',    two: 'Cookie <br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38' },
   ];
-  const TUB = id => `../assets/${id}-tub-600.webp`;
+  const ASSETS = new URL('../assets/', document.currentScript.src).href;   // works wherever the page lives
+  const TUB = id => `${ASSETS}${id}-tub-600.webp`;
     const money = n => `$${n.toFixed(2)}`;
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   const byId = id => FLAVORS.find(f => f.id === id);
