@@ -304,11 +304,12 @@ dialog.promo::backdrop { background: transparent; }
 @media (min-width: 900px) {
   :root { --gutter: clamp(32px, 4.5vw, 72px); }
   .hero {
-    min-height: min(100svh, 900px); padding-top: 20px; padding-bottom: 72px; column-gap: clamp(32px, 4vw, 72px);
+    /* Desktop: stop ~150px short of the window so the next section peeks in and it's clear the page scrolls */
+    min-height: 0; height: clamp(560px, calc(100svh - 150px), 820px); padding-top: 20px; padding-bottom: 40px; column-gap: clamp(32px, 4vw, 72px);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     grid-template-rows: auto 1fr; grid-template-areas: "top top" "panel stage";
   }
-  .stage { height: auto; min-height: 520px; margin-top: 12px; }
+  .stage { height: auto; min-height: 0; margin-top: 12px; }
   .panel { align-self: center; max-width: 600px; padding-top: 20px; }
   .eyebrow { font-size: 13px; }
   .name { font-size: min(10.5cqi, 84px); height: 1.74em; margin-top: 14px; }
