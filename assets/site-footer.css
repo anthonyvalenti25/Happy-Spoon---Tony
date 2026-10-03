@@ -1,0 +1,20 @@
+/* Shared contact footer for the waitlist, Shop and Our Story pages. */
+.site-footer { background: #2a1712; color: #fff6f1; padding: 60px clamp(18px, 5vw, 72px) max(48px, env(safe-area-inset-bottom)); font-family: "Archivo", system-ui, sans-serif; text-align: left; }
+.site-footer-inner { max-width: 1120px; margin: 0 auto; }
+.site-footer a { color: inherit; text-decoration: none; }
+.footer-logo { display: block; width: clamp(160px, 24vw, 240px); aspect-ratio: 640 / 422; background: currentColor; -webkit-mask: url(happy-spoon-wordmark-mask.png) center / contain no-repeat; mask: url(happy-spoon-wordmark-mask.png) center / contain no-repeat; }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 28px; font-size: 16px; font-weight: 600; }
+.footer-contact { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 36px; margin-top: 32px; }
+.contact-button { display: inline-flex; align-items: center; justify-content: center; border: 2px solid currentColor; border-radius: 999px; padding: 18px 34px; min-height: 60px; font-size: clamp(20px, 3vw, 28px); font-weight: 800; text-transform: uppercase; }
+.footer-socials { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.footer-socials a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; font-weight: 600; }
+.footer-socials svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.footer-socials .social-dot { fill: currentColor; stroke: none; }
+.footer-email { display: inline-block; margin-top: 24px; font-size: clamp(14px, 2vw, 18px); overflow-wrap: anywhere; }
+.footer-copyright, .footer-note { font-size: 14px; line-height: 1.5; margin: 24px 0 0; opacity: .75; }
+.site-footer a:hover { color: #ffad91; }
+.site-footer a:focus-visible { outline: 3px solid #f39c1e; outline-offset: 6px; border-radius: 4px; }
+.site-footer .contact-button:focus-visible { border-radius: 999px; }
+.site-footer a:hover:not(.footer-logo):not(.contact-button) { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 480px) { .site-footer { padding-top: 40px; } .footer-contact { gap: 20px; } .contact-button { width: 100%; } }
+.shop-footer { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }

@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
   <link rel="stylesheet" href="../assets/site-header.css?v=4">
+  <link rel="stylesheet" href="../assets/site-footer.css?v=1">
   <style>
     /* About page: a letter from the founders on a soft panel, with tubs drifting in the margins
        (the layout idea comes from Magic Spoon's About page, done in Happy Spoon's colors and type). */
@@ -162,9 +163,20 @@
     </section>
   </main>
 
-  <footer class="foot">
-    <span class="wordmark" role="img" aria-label="Happy Spoon"></span>
-    <nav aria-label="Footer"><a href="../">Waitlist</a><a href="../shop/">Shop</a><a href="./">Our story</a></nav>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <a class="footer-logo" href="../" aria-label="Happy Spoon home"></a>
+      <nav class="footer-nav" aria-label="Footer"><a href="../">Waitlist</a><a href="../shop/">Shop</a><a href="../about/">Our story</a></nav>
+      <div class="footer-contact">
+        <a class="contact-button" href="mailto:hello@happyspoonyogurt.com">Contact us</a>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/happyspoonyogurt/" target="_blank" rel="noopener noreferrer" aria-label="Happy Spoon on Instagram (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="social-dot" cx="17.5" cy="6.5" r="1"/></svg><span>Instagram</span></a>
+          <a href="https://www.tiktok.com/@happyspoonyogurt" target="_blank" rel="noopener noreferrer" aria-label="Happy Spoon on TikTok (opens in a new tab)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v12.5a4.5 4.5 0 1 1-4-4.47M14 3c0 4 3 6 6 6"/></svg><span>TikTok</span></a>
+        </div>
+      </div>
+      <a class="footer-email" href="mailto:hello@happyspoonyogurt.com">hello@happyspoonyogurt.com</a>
+      <p class="footer-copyright">© 2026 Happy Spoon</p>
+    </div>
   </footer>
 
   <script src="../assets/site-header.js?v=1"></script>
