@@ -134,7 +134,7 @@ img { display: block; max-width: 100%; }
 .float img { display: block; width: 100%; filter: drop-shadow(0 18px 18px rgba(0,0,0,.2)); animation: bob var(--t, 7s) ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
 @keyframes bob { from { transform: translateY(-10px) rotate(calc(var(--r, 8deg) * -1)); } to { transform: translateY(12px) rotate(var(--r, 8deg)); } }
 
-.sheet { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; background: #fff; color: var(--text); border-radius: 28px; padding: 30px 20px 30px; }
+.sheet { position: relative; z-index: 2; max-width: 1640px; margin: 0 auto; background: #fff; color: var(--text); border-radius: 28px; padding: 30px 20px 30px; }
 .sheet .dim { color: var(--sub); }
 .sheet .big { margin-top: 10px; font-size: clamp(44px, 12vw, 88px); }
 .sheet .mid { margin-top: 56px; font-size: clamp(38px, 10vw, 64px); scroll-margin-top: 20px; }
@@ -312,7 +312,7 @@ dialog.promo::backdrop { background: rgba(10, 12, 14, .55); animation: fade .4s 
   .adder { max-width: 460px; margin-top: 20px; }
 
   .story { padding-top: 24px; padding-bottom: 110px; }
-  .sheet { padding: 64px; }
+  .sheet { padding: 64px clamp(40px, 5vw, 96px); }
   .numbers { margin-top: 36px; }
   .benefits { grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 36px; }
   .benefits li { padding: 20px 18px; }
@@ -334,7 +334,7 @@ dialog.promo::backdrop { background: rgba(10, 12, 14, .55); animation: fade .4s 
   .cards { grid-template-columns: repeat(5, 1fr); }
 }
 /* Tubs in the margins only where there's room beside the wide sheet */
-@media (min-width: 1400px) {
+@media (min-width: 1880px) {
   .float { display: block; }
 }
 @media (prefers-reduced-motion: reduce) {
