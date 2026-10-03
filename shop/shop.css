@@ -36,15 +36,12 @@ img { display: block; max-width: 100%; }
 .hero {
   position: relative; isolation: isolate; overflow: hidden;
   background: var(--bg); color: var(--ink);
-  padding: env(safe-area-inset-top) var(--gutter) 30px;
+  padding: max(env(safe-area-inset-top), 12px) var(--gutter) 30px;
   display: grid; grid-template-areas: "top" "stage" "panel";
 }
-.top { grid-area: top; display: flex; align-items: center; gap: 10px; height: 64px; position: relative; z-index: 5; }
-.top .wordmark { margin-right: auto; }
-.top nav { display: none; }
-.chip { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; padding: 7px 11px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 14%, transparent); }
+.top { grid-area: top; }   /* the header itself is assets/site-header.css */
 .box-btn {
-  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 12px; border: 0; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px 0 10px; border: 0; border-radius: 999px;
   background: var(--ink); color: var(--bg); font-weight: 800; font-size: 15px;
   transition: background-color .6s ease, color .9s var(--ease), transform .15s ease;
 }
@@ -288,15 +285,10 @@ dialog.promo::backdrop { background: rgba(26, 12, 8, .55); animation: fade .4s e
 @media (min-width: 900px) {
   :root { --gutter: clamp(32px, 4.5vw, 72px); }
   .hero {
-    min-height: min(100svh, 900px); padding-top: 18px; padding-bottom: 120px; column-gap: clamp(32px, 4vw, 72px);
+    min-height: min(100svh, 900px); padding-top: 20px; padding-bottom: 120px; column-gap: clamp(32px, 4vw, 72px);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     grid-template-rows: auto 1fr; grid-template-areas: "top top" "panel stage";
   }
-  .top { height: 64px; gap: 14px; }
-  .top .wordmark { width: 118px; }
-  .top nav { display: flex; gap: 26px; margin-right: 18px; font-size: 15px; font-weight: 700; }
-  .top nav a { text-decoration: none; opacity: .85; }
-  .top nav a:hover { opacity: 1; }
   .box-btn { height: 46px; padding: 0 18px 0 16px; font-size: 16px; }
   .stage { height: auto; min-height: 520px; margin-top: 12px; }
   .panel { align-self: center; max-width: 600px; padding-top: 20px; }

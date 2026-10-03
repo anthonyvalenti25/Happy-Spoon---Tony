@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="../assets/site-header.css?v=2">
   <style>
     /* About page: a letter from the founders on a soft panel, with tubs drifting in the margins
        (the layout idea comes from Magic Spoon's About page, done in Happy Spoon's colors and type). */
@@ -33,15 +34,8 @@
       mask: url(../assets/happy-spoon-wordmark-mask.png) center / contain no-repeat;
     }
 
-    /* Top strip and header */
-    .strip { background: var(--ink); color: #fbf3e8; text-align: center; font-size: 13px; font-weight: 600; padding: 10px var(--gutter); }
-    .strip a { font-weight: 800; text-underline-offset: 3px; }
-    .top { position: relative; z-index: 5; display: flex; align-items: center; gap: 22px; padding: 14px var(--gutter); max-width: 1240px; margin: 0 auto; }
-    .top .wordmark { color: var(--ink); margin-right: auto; }
-    .top nav { display: flex; gap: 18px; font-size: 15px; font-weight: 700; }
-    .top nav a { text-decoration: none; }
-    .top nav a[aria-current] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
-    .top .cta { display: none; }
+    /* Header: assets/site-header.css; this only places it */
+    .top { box-sizing: content-box; padding: 12px var(--gutter) 0; }
 
     /* The letter */
     .story { position: relative; padding: 18px var(--gutter) 72px; }
@@ -83,10 +77,7 @@
 
     @media (min-width: 900px) {
       :root { --gutter: clamp(32px, 4.5vw, 72px); }
-      .top { padding-top: 22px; padding-bottom: 22px; }
-      .top .wordmark { width: 112px; }
-      .top nav { gap: 30px; font-size: 16px; }
-      .top .cta { display: inline-block; padding: 13px 20px; font-size: 15px; }
+      .top { padding-top: 20px; }
       .story { padding-top: 34px; padding-bottom: 120px; }
       .letter { padding: 64px 72px 64px 104px; margin-left: max(150px, calc(50% - 390px)); }
       h1 { font-size: 88px; }
@@ -108,11 +99,9 @@
   </style>
 </head>
 <body>
-  <div class="strip">Join the waitlist and get a free 32&nbsp;oz tub when we launch. <a href="../">Sign up</a></div>
-  <header class="top">
-    <a class="wordmark" href="../" aria-label="Happy Spoon home"></a>
-    <nav aria-label="Main"><a href="../shop/">Shop</a><a href="./" aria-current="page">Our story</a></nav>
-    <a class="btn dark cta" href="../">Join the waitlist</a>
+  <header class="top site-head">
+    <a class="site-logo" href="../" aria-label="Happy Spoon home"></a>
+    <nav class="site-nav" aria-label="Main"><a href="../">Waitlist</a><a href="../shop/">Shop</a><a href="../about/" aria-current="page">Our story</a></nav>
   </header>
 
   <main>

@@ -1,0 +1,24 @@
+/* Shared site header: the same logo, links, sizes and spacing on every page.
+   Colors come from the page (currentColor), so it sits on flavor colors or cream alike.
+   Markup:
+   <header class="site-head">
+     <a class="site-logo" href="/" aria-label="Happy Spoon home"></a>
+     <nav class="site-nav" aria-label="Main"><a href="/">Waitlist</a><a href="/shop/">Shop</a><a href="/about/">Our story</a></nav>
+     (optional page extras, like the shop's box button)
+   </header>
+   Mark the current page's link with aria-current="page". */
+.site-head { display: flex; align-items: center; gap: 14px; height: 58px; position: relative; z-index: 5; }
+.site-logo {
+  display: block; flex: 0 0 auto; width: 76px; color: inherit; aspect-ratio: 640 / 422; margin-right: auto; background: currentColor;
+  -webkit-mask: url(happy-spoon-wordmark-mask.png) center / contain no-repeat;
+  mask: url(happy-spoon-wordmark-mask.png) center / contain no-repeat;
+}
+.site-nav { display: flex; gap: 14px; font: 700 14px/1 "Archivo", system-ui, sans-serif; letter-spacing: 0; text-transform: none; }
+.site-nav a { color: inherit; text-decoration: none; padding: 10px 0; opacity: .8; transition: opacity .2s ease; white-space: nowrap; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { opacity: 1; }
+.site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (min-width: 900px) {
+  .site-head { height: 64px; gap: 32px; }
+  .site-logo { width: 112px; }
+  .site-nav { gap: 32px; font-size: 16px; }
+}
