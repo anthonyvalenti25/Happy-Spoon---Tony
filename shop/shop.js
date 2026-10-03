@@ -1,20 +1,20 @@
 // Happy Spoon shop mockup: pick a flavor on the shelf, fill a box of at least 4 tubs, review it in the drawer.
-// Checkout is not connected. PRICE is a sample, not a real price.
+// Checkout is not connected. PRICE is a sample, and protein/calories show XX until the recipes are final.
 (() => {
   const PRICE = 8.99;   // sample price per 32 oz tub
   const MIN = 4, MAX = 24;
   const AUTO = 3000, HOLD = 6000;   // spotlight rotation: every 3 s, or 6 s after someone picks a flavor
   let rotateTimer;
   const FLAVORS = [
-    { id: 'chocolate-fudge',   name: 'Chocolate Fudge', bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b', desc: 'Deep cocoa flavor with full dessert energy.' },
-    { id: 'cookies-and-cream', name: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33', desc: 'Creamy and cookie-specked, with a familiar crunch.' },
-    { id: 'salted-caramel',    name: 'Salted Caramel',  bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#2e1604', btn: '#2e1604', desc: 'Sweet, buttery caramel sharpened with a salty finish.' },
-    { id: 'mint-chip',         name: 'Mint Chip',       bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#0d2c3d', btn: '#0d2c3d', desc: 'Cool mint with dark chocolate chips.' },
-    { id: 'cookie-dough',      name: 'Cookie Dough',    bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38', desc: 'Brown-sugar cookie dough with chocolate chips.' },
+    // Colors and flavor lines from the brand guide (brand/index.html). White ink on every flavor.
+    { id: 'chocolate-fudge',   name: 'Chocolate Fudge', two: 'Chocolate<br>Fudge', short: 'Choc Fudge',  bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b', desc: 'Dark, fudgy chocolate.' },
+    { id: 'cookies-and-cream', name: 'Cookies & Cream', two: 'Cookies<br>&amp; Cream', short: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33', desc: 'Cookies and cream, the classic.' },
+    { id: 'salted-caramel',    name: 'Salted Caramel',  two: 'Salted<br>Caramel', short: 'Salted Caramel', bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#ffffff', btn: '#2e1604', desc: 'Buttery caramel with a salty finish.' },
+    { id: 'mint-chip',         name: 'Mint Chip',       two: 'Mint<br>Chip', short: 'Mint Chip',  bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#ffffff', btn: '#0d2c3d', desc: 'Cool mint with chocolate chips.' },
+    { id: 'cookie-dough',      name: 'Cookie Dough',    two: 'Cookie<br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38', desc: 'Brown-sugar cookie dough with chocolate chips.' },
   ];
   const TUB = id => `../assets/${id}-tub-600.webp`;
-  const PHOTO = id => `../assets/${id}-open-serving-720.webp`;
-  const money = n => `$${n.toFixed(2)}`;
+    const money = n => `$${n.toFixed(2)}`;
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
   const byId = id => FLAVORS.find(f => f.id === id);
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -117,13 +117,14 @@
     const old = nameBox.querySelector('span:not(.out)');
     if (old) { old.className = 'out'; setTimeout(() => old.remove(), 900); }
     const s = document.createElement('span');
-    s.textContent = f.name;
+    s.innerHTML = f.two;
     if (old) s.className = 'in';
     nameBox.append(s);
     nameBox.setAttribute('aria-label', f.name);
     $('.desc').textContent = f.desc;
     $$('.adder [data-act]').forEach(b => { b.dataset.id = f.id; });
     $('.adder .add-main').textContent = `Add ${f.name} to box`;
+    $$('.rail button').forEach(b => b.setAttribute('aria-current', Number(b.dataset.k) === hero));
   }
   function feature(k) {
     if (k === hero) return;
@@ -147,26 +148,29 @@
     if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pick(Number(t.dataset.k)); }
   });
 
-  // ---------- Flavor cards and the "four tubs" lineup ----------
+  // ---------- Flavor circles, flavor cards and the lineup strip ----------
   const stepHTML = (f, label) => `<div class="step">
       <button type="button" data-act="sub" data-id="${f.id}" aria-label="Remove one ${f.name}"><svg viewBox="0 0 16 16"><path d="M3 8h10"/></svg></button>
       <output>${label}</output>
       <button type="button" data-act="add" data-id="${f.id}" data-from="card" aria-label="Add one ${f.name}"><svg viewBox="0 0 16 16"><path d="M3 8h10M8 3v10"/></svg></button>
     </div>`;
-  $('.cards').innerHTML = FLAVORS.map((f, k) => `
-    <article class="card" style="--c-bg:${f.bg};--c-ink:${f.ink}" data-card="${f.id}">
-      <div class="photo"><img src="${PHOTO(f.id)}" alt="Open tub of Happy Spoon ${f.name}" loading="lazy" decoding="async"></div>
+  const STATS = `<div class="stats"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>`;
+  $('.rail').innerHTML = FLAVORS.map((f, k) => `<li><button type="button" data-act="feature" data-k="${k}" style="--c:${f.bg}">
+      <span class="dot"><img src="${TUB(f.id)}" alt="" loading="lazy"></span><span>${f.short}</span></button></li>`).join('');
+  $('.cards').innerHTML = FLAVORS.map(f => `
+    <article class="card" style="--c-bg:${f.bg};--c-btn:${f.btn}" data-card="${f.id}" id="card-${f.id}">
+      <div class="art"><span class="ghost wide" aria-hidden="true">${f.two}</span><img src="${TUB(f.id)}" alt="Happy Spoon ${f.name} tub" loading="lazy" decoding="async"></div>
       <div class="body">
-        <h3 class="cond">${f.name}</h3>
+        <h3 class="wide">${f.name}</h3>
         <p>${f.desc}</p>
+        ${STATS}
         <div class="row"><b>${money(PRICE)}</b><div class="ctl">
           <button class="add" type="button" data-act="add" data-id="${f.id}" data-from="card">Add to box</button>
           ${stepHTML(f, '')}
         </div></div>
       </div>
     </article>`).join('');
-  $('.lineup').innerHTML = ['chocolate-fudge', 'cookies-and-cream', 'mint-chip', 'salted-caramel']
-    .map(id => `<img src="${TUB(id)}" alt="" loading="lazy">`).join('');
+  $('.strip').innerHTML = FLAVORS.map(f => `<span style="--c:${f.bg}">${f.short}</span>`).join('');
   $('.unit').textContent = money(PRICE);
 
   // ---------- Box changes ----------
@@ -196,7 +200,7 @@
     if (reduced || !source) return;
     let from;
     if (source.dataset.from === 'hero' && onScreen(tubs[hero])) from = tubs[hero].getBoundingClientRect();
-    else if (source.closest('.card')) from = source.closest('.card').querySelector('.photo').getBoundingClientRect();
+    else if (source.closest('.card')) from = source.closest('.card').querySelector('.art img').getBoundingClientRect();
     if (!from) return;
     const to = target.getBoundingClientRect();
     const w = Math.min(from.width, 220), h = w * 1.2;
@@ -314,6 +318,10 @@
     else if (act === 'all') {
       FLAVORS.forEach(f => { if (box.length < MAX) box.push(f.id); });
       save(); render(); bump(bar); bump(boxBtn);
+    } else if (act === 'feature') {
+      const k = Number(b.dataset.k);
+      pick(k);
+      document.getElementById(`card-${FLAVORS[k].id}`).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center', inline: 'center' });
     } else if (act === 'checkout') {
       note("Checkout isn't connected yet. This is a design mockup.", true);
     } else if (act === 'promo-close') promo.close();
@@ -335,6 +343,7 @@
     setTimeout(() => {
       if (drawer.open || promo.open) return;
       $('.promo-tub').src = TUB(FLAVORS[hero].id);   // match whatever flavor is on screen
+      $('.promo-name').innerHTML = FLAVORS[hero].two;
       promo.showModal();
     }, 1000);
   }
@@ -350,7 +359,7 @@
     const button = promoForm.querySelector('button');
     if (kitId && !promoForm.querySelector('[name="website"]').value) {
       promoSending = true;
-      button.textContent = 'Signing up…'; button.disabled = true;
+      button.classList.add('sending'); button.disabled = true;   // the brand's loading smile
       try {
         const body = new FormData();
         body.append('email_address', address);
@@ -363,7 +372,7 @@
         return;
       } finally {
         promoSending = false;
-        button.textContent = 'Send my 25% off code'; button.disabled = false;
+        button.classList.remove('sending'); button.disabled = false;
       }
     }
     remember('joined');
@@ -372,14 +381,28 @@
   });
 
   // ---------- Spotlight rotation: the next flavor every 3 seconds; a picked one holds for 6 ----------
-  // Waits while the box or the welcome popup is open, or the tab is in the background.
+  // Waits while the box or the welcome popup is open, the tab is in the background, or the shelf is scrolled
+  // out of view (so the page color holds still while someone reads the flavors below).
+  let heroInView = true;
+  new IntersectionObserver(([e]) => { heroInView = e.isIntersecting; }, { threshold: .35 }).observe($('.hero'));
   function rotate(ms) {
     clearTimeout(rotateTimer);
     if (reduced) return;
     rotateTimer = setTimeout(() => {
-      if (!document.hidden && !drawer.open && !promo.open) feature((hero + 1) % FLAVORS.length);
+      if (!document.hidden && heroInView && !drawer.open && !promo.open) feature((hero + 1) % FLAVORS.length);
       rotate(AUTO);
     }, ms);
+  }
+
+  // Tubs in the margins drift at different speeds as the page scrolls, as on Our story.
+  if (!reduced) {
+    const floats = $$('.float');
+    let ticking = false;
+    addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { floats.forEach(f => { f.style.transform = `translateY(${-scrollY * f.dataset.speed}px)`; }); ticking = false; });
+    }, { passive: true });
   }
 
   paint(true);

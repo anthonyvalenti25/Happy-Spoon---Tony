@@ -14,10 +14,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
   <link rel="stylesheet" href="../assets/site-header.css?v=5">
-  <link rel="stylesheet" href="shop.css?v=9">
   <link rel="stylesheet" href="../assets/site-footer.css?v=2">
+  <link rel="stylesheet" href="shop.css?v=13">
 </head>
 <body>
+  <!-- Builder: the featured flavor floods the page, tubs wait on the glass shelf (same as the waitlist) -->
   <header class="hero">
     <div class="top site-head">
       <a class="site-logo" href="../" aria-label="Happy Spoon home"></a>
@@ -32,8 +33,9 @@
 
     <section class="panel" aria-live="polite">
       <p class="eyebrow">Build your box · tap a flavor</p>
-      <h1 class="name cond"></h1>
+      <h1 class="name wide"></h1>
       <p class="desc"></p>
+      <div class="stats hero-stats"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>
       <p class="price"><b class="unit"></b> per 32&nbsp;oz tub</p>
       <div class="adder">
         <button class="add-main" type="button" data-act="add" data-from="hero">Add to box</button>
@@ -52,27 +54,56 @@
   </header>
 
   <main>
-    <section class="benefits" aria-label="Why Happy Spoon">
-      <div class="benefit"><b>High protein</b><span>Dessert that fits your goals.</span></div>
-      <div class="benefit"><b>Tastes like dessert</b><span>Five flavors built for cravings.</span></div>
-      <div class="benefit"><b>Thick and creamy</b><span>A dense, spoonable texture.</span></div>
-      <div class="benefit"><b>32 oz tubs</b><span>Big tubs, so you stay stocked.</span></div>
+    <!-- Laid out like Our story: a white sheet on the flavor color, flavor circles down its left edge,
+         tubs drifting in the margins and ribbons behind, all in the featured flavor's colors. -->
+    <section class="story">
+      <svg class="ribbons" viewBox="0 0 1440 2400" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
+        <g fill="none" stroke-linecap="round">
+          <g class="rib" style="--t:15s"><path class="r-deep" d="M-160 220 C 180 60, 420 480, 760 320 S 1240 60, 1600 260" stroke-width="96"/><path class="r-hi" d="M-160 220 C 180 60, 420 480, 760 320 S 1240 60, 1600 260" stroke-width="21" transform="translate(0 -19)"/></g>
+          <g class="rib" style="--t:17s;--d:-4s"><path class="r-glow" d="M1600 760 C 1260 900, 1120 580, 780 760 S 220 1000, -160 820" stroke-width="84"/><path class="r-hi" d="M1600 760 C 1260 900, 1120 580, 780 760 S 220 1000, -160 820" stroke-width="18" transform="translate(0 -17)"/></g>
+          <g class="rib" style="--t:16s;--d:-8s"><path class="r-deep" d="M-160 1320 C 180 1160, 430 1580, 760 1400 S 1250 1200, 1600 1440" stroke-width="92"/><path class="r-hi" d="M-160 1320 C 180 1160, 430 1580, 760 1400 S 1250 1200, 1600 1440" stroke-width="20" transform="translate(0 -18)"/></g>
+          <g class="rib" style="--t:18s;--d:-2s"><path class="r-glow" d="M1600 1860 C 1260 1720, 1010 2060, 700 1900 S 160 1740, -160 1980" stroke-width="80"/><path class="r-hi" d="M1600 1860 C 1260 1720, 1010 2060, 700 1900 S 160 1740, -160 1980" stroke-width="18" transform="translate(0 -16)"/></g>
+        </g>
+      </svg>
+      <!-- Tubs drifting beside the sheet (wide screens only) -->
+      <div class="float" style="--w:78px;left:4%;top:980px;--t:6.5s;--r:9deg" data-speed=".10"><img src="../assets/chocolate-fudge-tub-600.webp" alt=""></div>
+      <div class="float" style="--w:66px;right:4%;top:90px;--t:7.5s;--r:-10deg;--d:-2s" data-speed=".16"><img src="../assets/mint-chip-tub-600.webp" alt=""></div>
+      <div class="float" style="--w:118px;left:2.5%;top:1420px;--t:8s;--r:7deg;--d:-3s" data-speed=".22"><img src="../assets/cookies-and-cream-tub-600.webp" alt=""></div>
+      <div class="float" style="--w:104px;right:3%;top:440px;--t:7s;--r:-8deg;--d:-1s" data-speed=".14"><img src="../assets/salted-caramel-tub-600.webp" alt=""></div>
+      <div class="float" style="--w:128px;right:2.5%;top:1040px;--t:9s;--r:6deg;--d:-4s" data-speed=".2"><img src="../assets/cookie-dough-tub-600.webp" alt=""></div>
+
+      <article class="sheet">
+        <p class="eyebrow dim">Why Happy Spoon</p>
+        <h2 class="cond big">Big flavor, bigger numbers.</h2>
+
+        <!-- Flavor circles: tap one to feature it and jump to its card -->
+        <ul class="rail" aria-label="Flavors"></ul>
+
+        <div class="numbers">
+          <div class="stats big-stats"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>
+          <p class="fine">Per serving. Final numbers come with the final recipes.</p>
+        </div>
+
+        <ul class="benefits">
+          <li><b>High protein</b><span>Dessert that fits your goals.</span></li>
+          <li><b>Real dessert flavor</b><span>Five flavors you'd order after dinner.</span></li>
+          <li><b>Any time of day</b><span>Breakfast, after the gym or late at night.</span></li>
+          <li><b>32 oz tubs</b><span>Big tubs, so you stay stocked.</span></li>
+        </ul>
+
+        <h2 class="cond mid" id="flavors">Pick your flavors</h2>
+        <p class="lede">Every tub is the same price, so mix them any way you like.</p>
+        <div class="cards"></div>
+      </article>
     </section>
 
-    <section class="section" id="flavors">
-      <h2 class="cond">All five flavors</h2>
-      <p class="lede">Every tub is the same price, so mix them any way you like.</p>
-      <div class="cards"></div>
+    <!-- Closing band on the flavor color, like the bottom of Our story -->
+    <section class="band" id="minimum">
+      <h2 class="wide">Four tubs<br>minimum</h2>
+      <p>Every box starts at four tubs. Four of one flavor, one of each, or anything in between.</p>
+      <div class="actions"><button class="btn light" type="button" data-act="all">Add one of each (5 tubs)</button><button class="btn dark" type="button" data-act="open">View your box</button></div>
     </section>
-
-    <section class="section rule" id="minimum">
-      <div>
-        <h2 class="cond">Four tubs minimum</h2>
-        <p class="lede">Every box starts at four tubs. Four of one flavor, one of each, or anything in between. Add as many more as you want.</p>
-        <button class="preset" type="button" data-act="all">Add one of each flavor (5 tubs)</button>
-      </div>
-      <div class="lineup" aria-hidden="true"></div>
-    </section>
+    <div class="strip" aria-hidden="true"></div>
   </main>
 
   <footer id="contact" class="site-footer shop-footer">
@@ -87,7 +118,7 @@
         </div>
       </div>
       <a class="footer-email" href="mailto:hello@happyspoonyogurt.com">hello@happyspoonyogurt.com</a>
-      <p class="footer-note">Design mockup. Prices are samples, and checkout isn’t connected yet.</p>
+      <p class="footer-note">Design mockup. Prices and nutrition numbers are placeholders, and checkout isn’t connected yet.</p>
       <p class="footer-copyright">© 2026 Happy Spoon</p>
     </div>
   </footer>
@@ -111,7 +142,7 @@
   <!-- Welcome offer: opens 1 second after the page loads, once per visitor. Signups go to the Kit form below. -->
   <dialog class="promo" aria-labelledby="promo-title">
     <button class="close promo-x" type="button" data-act="promo-close" aria-label="Close"><svg viewBox="0 0 14 14"><path d="M2 2l10 10M12 2 2 12"/></svg></button>
-    <div class="promo-art" aria-hidden="true"><span class="promo-halo"></span><img class="promo-tub" src="" alt=""></div>
+    <div class="promo-art" aria-hidden="true"><span class="promo-name wide"></span><img class="promo-tub" src="" alt=""></div>
     <div class="promo-body">
       <span class="wordmark" role="img" aria-label="Happy Spoon"></span>
       <p class="promo-kicker">Join the waitlist and save on your first box.</p>
@@ -133,14 +164,14 @@
         <button class="promo-skip" type="button" data-act="promo-close">No thanks, I'll pay full price</button>
       </div>
       <div class="promo-done" role="status">
-        <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-        <b>You're on the waitlist.</b>
+        <span class="smile-draw" aria-hidden="true"><i class="smile"></i></span>
+        <b class="cond">You're on the list.</b>
         <span>Check your inbox for your 25% off code. You're signed up for our newsletter too.</span>
         <button class="promo-shop" type="button" data-act="promo-close">Keep shopping</button>
       </div>
     </div>
   </dialog>
 
-  <script src="shop.js?v=5"></script>
+  <script src="shop.js?v=6"></script>
 </body>
 </html>

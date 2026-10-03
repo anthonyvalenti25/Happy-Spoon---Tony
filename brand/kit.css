@@ -1,5 +1,5 @@
-/* Shared layout for the round 2 brand guideline pages.
-   Each page sets its own colors and fonts through these variables:
+/* Layout for the Happy Spoon brand guidelines (brand/index.html).
+   The page sets its colors and fonts through these variables:
    --page --text --sub --card --line --hf (headline font) --bf (body font) */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -10,9 +10,9 @@ img { display: block; max-width: 100%; }
 /* Logo built from two masks so letters and smile color separately */
 .logo { position: relative; display: block; aspect-ratio: 640 / 422; width: 120px; flex: 0 0 auto; }
 .logo::before, .logo::after { content: ""; position: absolute; inset: 0; -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
-.logo::before { background: var(--l, currentColor); -webkit-mask-image: url(../concepts/img/letters-mask.png); mask-image: url(../concepts/img/letters-mask.png); }
-.logo::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(../concepts/img/smile-mask.png); mask-image: url(../concepts/img/smile-mask.png); }
-.smile { display: block; aspect-ratio: 338 / 103; background: var(--s, currentColor); -webkit-mask: url(../concepts/img/smile-crop.png) center / contain no-repeat; mask: url(../concepts/img/smile-crop.png) center / contain no-repeat; }
+.logo::before { background: var(--l, currentColor); -webkit-mask-image: url(img/letters-mask.png); mask-image: url(img/letters-mask.png); }
+.logo::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(img/smile-mask.png); mask-image: url(img/smile-mask.png); }
+.smile { display: block; aspect-ratio: 338 / 103; background: var(--s, currentColor); -webkit-mask: url(img/smile-crop.png) center / contain no-repeat; mask: url(img/smile-crop.png) center / contain no-repeat; }
 .mark { position: relative; display: block; aspect-ratio: 469 / 345; width: 80px; }
 .mark::before, .mark::after { content: ""; position: absolute; inset: 0; -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
 .mark::before { background: var(--l, currentColor); -webkit-mask-image: url(img/mark-eyes.png); mask-image: url(img/mark-eyes.png); }
@@ -112,14 +112,4 @@ img { display: block; max-width: 100%; }
 .frame { border-radius: 16px; overflow: hidden; position: relative; isolation: isolate; }
 .cap { font-size: 13px; color: var(--sub); margin: 8px 2px 0; }
 
-/* Feedback */
-.fb { margin-top: 18px; background: #18181b; color: #fff; border-radius: 16px; padding: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-family: system-ui, -apple-system, sans-serif; }
-.fb b { font-size: 14px; margin-right: auto; }
-.fb button { font: 600 13px/1 system-ui, sans-serif; border: 0; border-radius: 9px; padding: 9px 12px; cursor: pointer; background: #3f3f46; color: #e4e4e7; }
-.fb button[aria-pressed="true"].yes { background: #22a35a; color: #fff; }
-.fb button[aria-pressed="true"].no { background: #dc3b2f; color: #fff; }
-.fb textarea { flex: 1 0 100%; min-height: 44px; resize: vertical; border: 0; border-radius: 10px; background: #27272a; color: #fff; padding: 10px 12px; font: 400 14px/1.45 system-ui, sans-serif; }
-.fb textarea::placeholder { color: #8b8b93; }
-.dock { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 50; display: flex; align-items: center; gap: 12px; background: #18181b; color: #fff; padding: 8px 8px 8px 16px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.25); font: 500 13.5px system-ui, sans-serif; white-space: nowrap; }
-.dock button { border: 0; border-radius: 999px; padding: 10px 16px; font: 700 13.5px/1 system-ui, sans-serif; background: #fff; color: #18181b; cursor: pointer; }
 .end { padding: 60px 0 130px; color: var(--sub); font-size: 14px; }
