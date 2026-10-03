@@ -114,7 +114,7 @@
 
   // ---------- Featured flavor: colors and name ----------
   const nameBox = $('.name');
-  const meta = $('meta[name="theme-color"]');
+  let meta = $('meta[name="theme-color"]');
   // While the popup or box drawer is open the page is dimmed. The dialog's own backdrop stops short of
   // Safari's status bar and bottom toolbar on iPhone, so a separate dim layer reaches under both bars.
   let dimmed = false;
@@ -122,11 +122,29 @@
     const n = parseInt(hex.slice(1), 16), a = .72, d = [10, 12, 14];   // same as the dialog backdrop
     return '#' + [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v, i) => Math.round(v * (1 - a) + d[i] * a).toString(16).padStart(2, '0')).join('');
   };
+  // Safari keeps tinting its bars from the dim layer for as long as it exists, even when it's see-through,
+  // so after fading out it is taken out of the page entirely and the page color is handed back to Safari.
+  let dimTimer;
   function dim(on) {
     dimmed = on;
-    const c = on ? dimColor(FLAVORS[hero].bg) : FLAVORS[hero].bg;
-    meta.content = c;
-    $('.dimmer').classList.toggle('on', on);
+    const d = $('.dimmer');
+    clearTimeout(dimTimer);
+    if (on) {
+      d.hidden = false;
+      void d.offsetWidth;   // let it appear before fading in
+      d.classList.add('on');
+      meta.content = dimColor(FLAVORS[hero].bg);
+    } else {
+      d.classList.remove('on');
+      meta.content = FLAVORS[hero].bg;
+      dimTimer = setTimeout(() => {
+        if (dimmed) return;
+        d.hidden = true;
+        const fresh = meta.cloneNode();   // a new theme-color tag makes Safari re-read the color
+        meta.replaceWith(fresh); meta = fresh;
+        meta.content = FLAVORS[hero].bg;
+      }, 400);
+    }
   }
   let colorTimer;
   function paint(first) {
