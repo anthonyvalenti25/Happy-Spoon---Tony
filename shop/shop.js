@@ -401,17 +401,6 @@
     }, ms);
   }
 
-  // Tubs in the margins drift at different speeds as the page scrolls, as on Our story.
-  if (!reduced) {
-    const floats = $$('.float');
-    let ticking = false;
-    addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => { floats.forEach(f => { f.style.transform = `translateY(${-scrollY * f.dataset.speed}px)`; }); ticking = false; });
-    }, { passive: true });
-  }
-
   paint(true);
   layout();
   render();
