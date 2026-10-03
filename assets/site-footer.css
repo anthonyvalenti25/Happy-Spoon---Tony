@@ -17,4 +17,4 @@
 .site-footer .contact-button:focus-visible { border-radius: 999px; }
 .site-footer a:hover:not(.footer-logo):not(.contact-button) { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 480px) { .site-footer { padding-top: 40px; } .footer-contact { gap: 20px; } .contact-button { width: 100%; } }
-.shop-footer { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+.shop-footer { margin-top: clamp(64px, 7vw, 96px); padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
