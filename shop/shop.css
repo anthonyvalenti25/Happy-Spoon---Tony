@@ -48,8 +48,9 @@ img { display: block; max-width: 100%; }
 .hero {
   position: relative; isolation: isolate; overflow: hidden;
   background: var(--bg); color: var(--ink);
-  /* Phones: 76px at the bottom keeps the Add button above Safari's floating toolbar */
-  padding: max(env(safe-area-inset-top), 12px) var(--gutter) 76px;
+  /* Phones: the stage height below still budgets 76px here, so this smaller padding ends the section a nudge
+     above the bottom of the screen and the white section just peeks up */
+  padding: max(env(safe-area-inset-top), 12px) var(--gutter) 52px;
   display: grid; grid-template-areas: "top" "stage" "panel";
 }
 .top { grid-area: top; }   /* the header itself is assets/site-header.css */
