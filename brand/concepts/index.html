@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Brand Kit Concepts · Happy Spoon</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Sans+Condensed:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=DM+Sans:opsz,wght@9..40,400..700&family=Barlow+Condensed:ital,wght@1,700;1,800&family=Barlow:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap">
+<style>
+/* ---------- Board chrome (kept neutral so the concepts stand out) ---------- */
+:root {
+  --page: #f2f1ee; --card: #fff; --text: #18181b; --sub: #6b6b70; --line: #e4e2dd;
+  --cocoa: #410e01; --coral: #f74532; --cream: #fef5ea;
+  --fudge: #ef4c3c; --cc: #1497ec; --caramel: #f39c1e; --mint: #4fc690; --dough: #8740cf; --navy: #13233f;
+  --A: url(../../assets/);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--page); color: var(--text); font: 400 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+.intro { padding: 48px 0 24px; }
+.intro .kicker { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--sub); }
+.intro h1 { font: 800 clamp(30px, 5vw, 52px)/1.05 system-ui, sans-serif; letter-spacing: -.02em; margin: 10px 0 14px; }
+.intro p { max-width: 720px; margin: 0 0 10px; color: #3d3d42; font-size: 16px; }
+.fixed { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 24px 0 8px; }
+.fixed div { background: var(--card); border-radius: 14px; padding: 16px; }
+.fixed b { display: block; font-size: 13px; margin-bottom: 4px; }
+.fixed span { font-size: 13.5px; color: var(--sub); }
+
+.toc { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--page) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.toc .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+.toc a { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); background: var(--card); padding: 8px 12px 8px 8px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+.toc a i { display: block; width: 22px; height: 22px; border-radius: 50%; }
+.toc a em { font-style: normal; color: var(--sub); font-weight: 500; }
+
+.concept { background: var(--card); border-radius: 24px; margin: 28px 0; overflow: hidden; scroll-margin-top: 64px; }
+.c-head { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; padding: 24px 24px 18px; }
+.c-head .num { font: 700 13px/1 ui-monospace, Menlo, monospace; color: var(--sub); }
+.c-head h2 { margin: 0; font: 800 28px/1.1 system-ui, sans-serif; letter-spacing: -.02em; }
+.c-head .tag { color: var(--sub); font-size: 15px; }
+.c-idea { padding: 0 24px 22px; max-width: 860px; font-size: 16px; color: #2c2c31; margin: 0; }
+.c-idea b { font-weight: 650; }
+
+/* ---------- Shared logo built from two masks, so each concept can color letters and smile separately ---------- */
+.logo { position: relative; display: block; aspect-ratio: 640 / 422; width: 120px; }
+.logo::before, .logo::after { content: ""; position: absolute; inset: 0; -webkit-mask: center / contain no-repeat; mask: center / contain no-repeat; }
+.logo::before { background: var(--l, currentColor); -webkit-mask-image: url(img/letters-mask.png); mask-image: url(img/letters-mask.png); }
+.logo::after { background: var(--s, var(--l, currentColor)); -webkit-mask-image: url(img/smile-mask.png); mask-image: url(img/smile-mask.png); }
+.smile { display: block; aspect-ratio: 338 / 103; background: var(--s, currentColor); -webkit-mask: url(img/smile-crop.png) center / contain no-repeat; mask: url(img/smile-crop.png) center / contain no-repeat; }
+
+/* ---------- Poster frame ---------- */
+.poster { position: relative; margin: 0 16px; border-radius: 18px; overflow: hidden; min-height: 520px; isolation: isolate; }
+.poster .bar { position: absolute; left: 0; right: 0; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 20px 26px; z-index: 3; }
+.poster .bar nav { display: flex; gap: 22px; font-size: 13.5px; }
+@media (max-width: 700px) { .poster .bar nav { display: none; } .poster { min-height: 600px; } }
+
+/* ---------- Kit grid ---------- */
+.kit { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; padding: 16px; }
+.tile { background: #f7f6f3; border-radius: 16px; padding: 18px; min-width: 0; }
+.tile h3 { margin: 0 0 12px; font: 700 11.5px/1 system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--sub); }
+.t-logo { grid-column: span 5; } .t-pal { grid-column: span 7; }
+.t-type { grid-column: span 7; } .t-social { grid-column: span 5; }
+.t-ui { grid-column: span 5; } .t-voice { grid-column: span 7; }
+.t-photo { grid-column: span 4; } .t-rules { grid-column: span 8; }
+@media (max-width: 900px) { .kit > .tile { grid-column: 1 / -1; } }
+
+.lockups { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lockups div { border-radius: 12px; aspect-ratio: 1.25; display: grid; place-items: center; }
+.lockups .logo { width: 62%; }
+.lockups small { grid-column: 1 / -1; font-size: 12.5px; color: var(--sub); line-height: 1.4; }
+
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.sw { border-radius: 12px; overflow: hidden; background: #fff; }
+.sw i { display: block; height: 70px; }
+.sw div { padding: 8px 10px 10px; font-size: 12px; line-height: 1.35; }
+.sw b { display: block; font-size: 13px; }
+.sw code { font: 500 11.5px ui-monospace, Menlo, monospace; color: var(--sub); }
+.sw span { display: block; color: var(--sub); }
+.ratio { margin-top: 12px; display: flex; height: 14px; border-radius: 7px; overflow: hidden; }
+.ratio-note { font-size: 12.5px; color: var(--sub); margin-top: 6px; }
+
+.spec { display: grid; gap: 14px; }
+.spec .row { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: center; background: #fff; border-radius: 12px; padding: 14px; }
+.spec .aa { font-size: 64px; line-height: 1; text-align: center; }
+.spec .meta { font-size: 12px; color: var(--sub); margin-bottom: 4px; }
+.spec .meta b { color: var(--text); font-size: 13.5px; }
+.spec .sample-h { font-size: 30px; line-height: 1.02; }
+.spec .sample-b { font-size: 15px; line-height: 1.5; }
+
+.social { aspect-ratio: 4 / 5; border-radius: 12px; overflow: hidden; position: relative; display: flex; flex-direction: column; padding: 18px; }
+.social .logo { width: 64px; }
+.social p { margin: auto 0 0; position: relative; z-index: 2; }
+.social img { position: absolute; right: -4%; bottom: 6%; width: 54%; z-index: 1; }
+.social-cap { font-size: 12.5px; color: var(--sub); margin-top: 8px; }
+
+.ui { border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+.ui .field { display: flex; padding: 5px; gap: 6px; }
+.ui .field span { flex: 1; align-self: center; padding: 0 10px; font-size: 14px; opacity: .55; }
+.ui .btn { padding: 13px 18px; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.ui .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ui .chips span { padding: 7px 12px; font-size: 12.5px; font-weight: 600; }
+
+.voice ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.voice li { background: #fff; border-radius: 12px; padding: 12px 14px; font-size: 15px; }
+.voice li small { display: block; font-size: 11.5px; color: var(--sub); margin-bottom: 2px; letter-spacing: .04em; text-transform: uppercase; font-weight: 600; }
+.voice .how { margin: 12px 2px 0; font-size: 13.5px; color: var(--sub); }
+
+.photo p { margin: 0; font-size: 14px; color: #3d3d42; }
+.photo img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
+
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rules ul { margin: 0; padding: 14px 14px 14px 32px; background: #fff; border-radius: 12px; font-size: 14px; display: grid; gap: 6px; }
+.rules h4 { margin: 0 0 6px -18px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.rules .do h4 { color: #1b7a43; } .rules .dont h4 { color: #b3261e; }
+.change { grid-column: 1 / -1; font-size: 13.5px; color: #3d3d42; background: #fff; border-radius: 12px; padding: 12px 14px; }
+@media (max-width: 600px) { .rules { grid-template-columns: 1fr; } }
+
+/* ---------- Feedback ---------- */
+.fb { margin: 0 16px 16px; background: #18181b; color: #fff; border-radius: 16px; padding: 18px; }
+.fb h3 { margin: 0 0 12px; font-size: 15px; }
+.fb h3 span { font-weight: 400; color: #a1a1aa; font-size: 13px; margin-left: 6px; }
+.fb-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.fb-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #27272a; border-radius: 10px; padding: 6px 6px 6px 12px; font-size: 13.5px; }
+.fb-row div { display: flex; gap: 4px; }
+.fb button { font: 600 12.5px/1 system-ui, sans-serif; border: 0; border-radius: 8px; padding: 8px 10px; cursor: pointer; background: #3f3f46; color: #e4e4e7; }
+.fb button[aria-pressed="true"].yes { background: #22a35a; color: #fff; }
+.fb button[aria-pressed="true"].no { background: #dc3b2f; color: #fff; }
+.fb textarea { margin-top: 10px; width: 100%; min-height: 64px; resize: vertical; border: 0; border-radius: 10px; background: #27272a; color: #fff; padding: 10px 12px; font: 400 14px/1.45 system-ui, sans-serif; }
+.fb textarea::placeholder { color: #8b8b93; }
+
+.dock { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 30; display: flex; align-items: center; gap: 12px; background: #18181b; color: #fff; padding: 8px 8px 8px 16px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.25); font-size: 13.5px; white-space: nowrap; }
+.dock button { border: 0; border-radius: 999px; padding: 10px 16px; font: 700 13.5px/1 system-ui, sans-serif; background: #fff; color: #18181b; cursor: pointer; }
+.outro { padding: 8px 0 120px; color: var(--sub); font-size: 14px; }
+
+/* =====================================================================
+   01 COCOA & CREAM
+   ===================================================================== */
+.k1 { --bg: #fef5ea; --ink: #410e01; --accent: #f74532; --panel: #efe6da; --hf: "Archivo"; }
+.k1 .h { font-family: "Archivo", sans-serif; font-weight: 880; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; letter-spacing: -.005em; }
+.k1 .b { font-family: "Archivo", sans-serif; }
+.p1 { background: #fef5ea; color: #410e01; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; padding: 90px 48px 40px; gap: 20px; }
+.p1 .logo { width: 92px; --l: #410e01; --s: #f74532; }
+.p1 nav { font-family: "Archivo"; font-weight: 700; }
+.p1 .eyebrow { font: 700 12px/1 "Archivo"; letter-spacing: .16em; text-transform: uppercase; opacity: .7; }
+.p1 h1 { font-size: clamp(46px, 7vw, 92px); line-height: .92; margin: 14px 0 0; }
+.p1 .smile { width: min(230px, 50%); --s: #f74532; margin: 10px 0 0 30%; }
+.p1 p { font: 500 17px/1.45 "Archivo"; max-width: 400px; margin: 18px 0 22px; }
+.p1 .cta { display: inline-block; background: #f74532; color: #fff; font: 700 15px/1 "Archivo"; padding: 16px 22px; border-radius: 999px; }
+.p1 img { width: 100%; max-width: 400px; justify-self: center; filter: drop-shadow(0 24px 30px rgba(65,14,1,.18)); }
+@media (max-width: 700px) { .p1 { grid-template-columns: 1fr; padding: 80px 22px 24px; } .p1 img { max-width: 240px; } }
+
+/* =====================================================================
+   02 THE LABEL
+   ===================================================================== */
+.k2 .h { font-family: "IBM Plex Sans Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: -.01em; }
+.k2 .b { font-family: "IBM Plex Mono", monospace; }
+.p2 { background: #fff; color: #15191d; display: grid; grid-template-columns: 1fr 1fr; }
+.p2 .logo { width: 84px; --l: #15191d; --s: #15191d; }
+.p2 nav { font: 500 12.5px "IBM Plex Mono"; text-transform: uppercase; }
+.p2 .panel { padding: 96px 40px 36px; border-top: 0; }
+.p2 .panel .rule-x { height: 10px; background: #15191d; margin-bottom: 14px; }
+.p2 h1 { font-size: clamp(40px, 5.4vw, 70px); line-height: .95; margin: 0 0 16px; }
+.p2 .facts { font: 400 14px/1 "IBM Plex Mono"; }
+.p2 .facts div { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #d9dcdf; }
+.p2 .facts div:first-child { border-top: 5px solid #15191d; }
+.p2 .facts b { font-weight: 500; }
+.p2 .note { font: 400 12px/1.5 "IBM Plex Mono"; color: #5d6870; margin: 12px 0 20px; }
+.p2 .cta { display: inline-flex; gap: 18px; background: #15191d; color: #fff; font: 500 13px/1 "IBM Plex Mono"; text-transform: uppercase; letter-spacing: .06em; padding: 16px 18px; border-radius: 3px; }
+.p2 .cta i { font-style: normal; color: #f74532; }
+.p2 .shot { background: #eef0f1; display: grid; place-items: end center; padding: 90px 30px 0; position: relative; }
+.p2 .shot img { width: 78%; max-width: 380px; }
+.p2 .shot span { position: absolute; left: 20px; bottom: 18px; font: 500 11.5px "IBM Plex Mono"; text-transform: uppercase; color: #5d6870; }
+.p2 .shot span:last-child { left: auto; right: 20px; }
+@media (max-width: 700px) { .p2 { grid-template-columns: 1fr; } .p2 .panel { padding: 80px 22px 26px; } .p2 .shot { padding-top: 30px; } .p2 .shot img { width: 60%; } }
+
+/* =====================================================================
+   03 FLAVOR FLOOD
+   ===================================================================== */
+.k3 .h { font-family: "Archivo", sans-serif; font-weight: 900; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; letter-spacing: -.02em; }
+.k3 .b { font-family: "Archivo", sans-serif; font-weight: 500; }
+.p3 { background: #1497ec; color: #fff; display: grid; place-items: center; text-align: center; padding: 80px 20px 90px; }
+.p3 .logo { width: 88px; --l: #fff; }
+.p3 nav { font: 700 13.5px "Archivo"; }
+.p3 .giant { position: absolute; inset: 0; display: grid; place-items: center; font-size: clamp(64px, 13.5vw, 172px); line-height: .82; z-index: -1; color: rgba(255,255,255,.95); }
+.p3 img { width: min(330px, 62%); filter: drop-shadow(0 30px 40px rgba(0,30,70,.35)); margin-top: 20px; }
+.p3 .under { font: 600 16px/1.4 "Archivo"; margin-top: 12px; }
+.p3 .flavors { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+.p3 .flavors span { padding: 14px 6px; font: 800 11.5px/1.1 "Archivo"; letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 700px) { .p3 .flavors span { font-size: 9px; padding: 12px 2px; } .p3 .giant { font-size: 13vw; align-content: start; padding-top: 120px; } }
+
+/* =====================================================================
+   04 DARK CHOCOLATE
+   ===================================================================== */
+.k4 .h { font-family: "Instrument Serif", serif; font-weight: 400; letter-spacing: -.01em; }
+.k4 .b { font-family: "Inter Tight", sans-serif; }
+.p4 { background: radial-gradient(60% 70% at 68% 55%, #4a1a0b 0%, #1c0a05 70%); color: #fef5ea; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 90px 52px 40px; }
+.p4 .logo { width: 88px; --l: #fef5ea; --s: #f74532; }
+.p4 nav { font: 500 13px "Inter Tight"; letter-spacing: .04em; color: #d7c4b8; }
+.p4 .eyebrow { font: 500 12px "Inter Tight"; letter-spacing: .22em; text-transform: uppercase; color: #b89a8a; }
+.p4 h1 { font-size: clamp(52px, 7.4vw, 104px); line-height: .92; margin: 16px 0 18px; }
+.p4 h1 em { color: #f74532; }
+.p4 p { font: 400 16px/1.55 "Inter Tight"; color: #d7c4b8; max-width: 380px; margin: 0 0 26px; }
+.p4 .cta { display: inline-block; background: #fef5ea; color: #1c0a05; font: 600 14px/1 "Inter Tight"; letter-spacing: .03em; padding: 16px 24px; border-radius: 999px; }
+.p4 img { width: 100%; max-width: 380px; justify-self: center; filter: drop-shadow(0 0 60px rgba(247,69,50,.28)) drop-shadow(0 30px 30px rgba(0,0,0,.5)); }
+@media (max-width: 700px) { .p4 { grid-template-columns: 1fr; padding: 80px 22px 24px; } .p4 img { max-width: 230px; } }
+
+/* =====================================================================
+   05 PATISSERIE
+   ===================================================================== */
+.k5 .h { font-family: "Fraunces", serif; font-weight: 560; font-variation-settings: "opsz" 144; letter-spacing: -.02em; }
+.k5 .b { font-family: "DM Sans", sans-serif; }
+.p5 { background: #f8f0e5; color: #3a1a10; display: grid; grid-template-columns: .95fr 1.05fr; gap: 44px; align-items: center; padding: 88px 48px 40px; }
+.p5 .logo { width: 86px; --l: #3a1a10; --s: #c27a2c; }
+.p5 nav { font: 500 14px "DM Sans"; }
+.p5 .arch { border-radius: 999px 999px 18px 18px; overflow: hidden; aspect-ratio: 4 / 5; max-width: 400px; width: 100%; justify-self: center; }
+.p5 .arch img { width: 100%; height: 100%; object-fit: cover; }
+.p5 h1 { font-size: clamp(42px, 5.6vw, 76px); line-height: 1; margin: 0 0 16px; }
+.p5 h1 i { font-style: italic; color: #c27a2c; }
+.p5 p { font: 400 16.5px/1.55 "DM Sans"; max-width: 420px; margin: 0 0 18px; }
+.p5 .menu { font: 400 17px/1 "Fraunces"; max-width: 400px; margin-bottom: 22px; }
+.p5 .menu div { display: flex; gap: 8px; align-items: baseline; padding: 7px 0; }
+.p5 .menu div::after { content: ""; order: 1; flex: 1; border-bottom: 2px dotted #cdb8a3; }
+.p5 .menu small { order: 2; font: 500 12px "DM Sans"; color: #8a6a55; }
+.p5 .cta { display: inline-block; background: #3a1a10; color: #f8f0e5; font: 600 15px/1 "DM Sans"; padding: 16px 24px; border-radius: 999px; }
+@media (max-width: 700px) { .p5 { grid-template-columns: 1fr; padding: 80px 22px 26px; gap: 22px; } .p5 .arch { max-width: 240px; } }
+
+/* =====================================================================
+   06 TRAINING DAY
+   ===================================================================== */
+.k6 .h { font-family: "Barlow Condensed", sans-serif; font-style: italic; font-weight: 800; text-transform: uppercase; letter-spacing: -.005em; }
+.k6 .b { font-family: "Barlow", sans-serif; }
+.p6 { background: #13233f; color: #fef5ea; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; padding: 90px 48px 40px; overflow: hidden; }
+.p6 .logo { width: 88px; --l: #fef5ea; --s: #f74532; }
+.p6 nav { font: 600 13.5px "Barlow"; text-transform: uppercase; letter-spacing: .08em; }
+.p6 .stripe { position: absolute; z-index: -1; right: -10%; top: 0; bottom: 0; width: 46%; background: #f74532; transform: skewX(-14deg); }
+.p6 .stripe::before { content: ""; position: absolute; left: -46px; top: 0; bottom: 0; width: 18px; background: #fef5ea; opacity: .9; }
+.p6 h1 { font-size: clamp(58px, 9vw, 124px); line-height: .84; margin: 0 0 20px; }
+.p6 h1 span { color: #f74532; }
+.p6 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.p6 .tags span { font: 600 12px/1 "Barlow"; letter-spacing: .12em; text-transform: uppercase; background: rgba(254,245,234,.1); padding: 9px 12px; border-radius: 4px; }
+.p6 .cta { display: inline-block; background: #fef5ea; color: #13233f; font: 800 italic 18px/1 "Barlow Condensed"; letter-spacing: .04em; text-transform: uppercase; padding: 16px 24px; border-radius: 4px; transform: skewX(-8deg); }
+.p6 img { width: 100%; max-width: 380px; justify-self: center; transform: rotate(-4deg); filter: drop-shadow(0 30px 30px rgba(0,0,0,.4)); }
+@media (max-width: 700px) { .p6 { grid-template-columns: 1fr; padding: 80px 22px 24px; } .p6 img { max-width: 220px; } .p6 .stripe { top: 55%; width: 120%; right: -10%; } }
+
+/* =====================================================================
+   07 GALLERY
+   ===================================================================== */
+.k7 .h { font-family: "Inter Tight", sans-serif; font-weight: 500; letter-spacing: -.035em; }
+.k7 .b { font-family: "Inter Tight", sans-serif; }
+.p7 { background: #ece6de; color: #1e1a17; min-height: 560px; }
+.p7 .logo { width: 58px; --l: #1e1a17; }
+.p7 nav { font: 500 13px "Inter Tight"; color: #6f655e; }
+.p7 .obj { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -46%); width: min(250px, 46%); }
+.p7 .obj::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: -14px; height: 30px; background: radial-gradient(closest-side, rgba(30,26,23,.28), transparent); z-index: -1; }
+.p7 .cap { position: absolute; left: 26px; bottom: 26px; font: 400 13px/1.5 "Inter Tight"; color: #6f655e; }
+.p7 .cap b { display: flex; align-items: center; gap: 8px; color: #1e1a17; font-weight: 500; }
+.p7 .cap b::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #f39c1e; }
+.p7 h1 { position: absolute; right: 26px; bottom: 22px; margin: 0; font-size: clamp(30px, 4vw, 48px); line-height: 1; text-align: right; }
+.p7 .cta { position: absolute; right: 26px; top: 64px; font: 500 13px "Inter Tight"; background: #1e1a17; color: #ece6de; padding: 11px 16px; border-radius: 999px; }
+@media (max-width: 700px) { .p7 h1 { left: 22px; right: auto; text-align: left; bottom: 90px; } .p7 .cap { left: 22px; } .p7 .obj { top: 40%; } }
+
+/* =====================================================================
+   08 SMILE SYSTEM
+   ===================================================================== */
+.k8 .h { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-variation-settings: "opsz" 96; letter-spacing: -.03em; }
+.k8 .b { font-family: "Bricolage Grotesque", sans-serif; font-variation-settings: "opsz" 14; }
+.p8 { background: #fef5ea; color: #410e01; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 30px; padding: 90px 48px 40px; }
+.p8 .logo { width: 90px; --l: #410e01; --s: #2f84db; }
+.p8 nav { font: 600 14px "Bricolage Grotesque"; }
+.p8 h1 { font-size: clamp(48px, 6.6vw, 88px); line-height: .95; margin: 0; }
+.p8 .smile { --s: #2f84db; width: min(220px, 50%); margin: 12px 0 18px 30%; }
+.p8 p { font: 400 17px/1.5 "Bricolage Grotesque"; max-width: 400px; margin: 0 0 22px; }
+.p8 .cta { display: inline-block; background: #2f84db; color: #fff; font: 700 15px/1 "Bricolage Grotesque"; padding: 16px 24px; border-radius: 16px 16px 26px 26px / 16px 16px 30px 30px; }
+.p8 .crop { position: relative; justify-self: center; width: 100%; max-width: 390px; }
+.p8 .crop img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 30px 30px 50% 50% / 30px 30px 34% 34%; }
+.p8 .app { position: absolute; left: -26px; bottom: -14px; width: 96px; height: 96px; border-radius: 24px; background: #fef5ea; box-shadow: 0 12px 28px rgba(65,14,1,.18); display: grid; place-items: center; }
+.p8 .app img { width: 84%; aspect-ratio: auto; border-radius: 0; mix-blend-mode: multiply; }
+@media (max-width: 700px) { .p8 { grid-template-columns: 1fr; padding: 80px 22px 30px; } .p8 .crop { max-width: 260px; } .p8 .app { left: -10px; } }
+</style>
+</head>
+<body>
+
+<header class="wrap intro">
+  <div class="kicker">Happy Spoon · Brand kit · Round 1</div>
+  <h1>Eight directions for the official brand</h1>
+  <p>Each concept is a full mini brand kit: how the logo is used, the color palette, fonts, a sample social post, how we talk, what photos look like, and the rules. Scroll through, mark what you like and don't like in each one, then press <b>Copy feedback</b> and paste it back to Claude. Mixing parts from different concepts is fine; that's the point of round 1.</p>
+  <p style="color:var(--sub);font-size:14px">Your picks save in this browser only. Tony's picks stay on his device, so each of you copy your own.</p>
+  <div class="fixed">
+    <div><b>Stays the same in all 8</b><span>The wordmark shape (it's on every tub) and the smile under it.</span></div>
+    <div><b>Also fixed</b><span>The five flavor colors on the packaging: Fudge, Cookies &amp; Cream, Caramel, Mint, Cookie Dough.</span></div>
+    <div><b>What changes</b><span>Colors around the product, fonts, photo style, voice, and which color the smile is.</span></div>
+    <div><b>Copy rules everywhere</b><span>No invented nutrition numbers, no number-stat jokes, say "tub" not "cup".</span></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Concepts"><div class="wrap" id="toc"></div></nav>
+
+<main class="wrap">
+
+<!-- 01 -->
+<section class="concept k1" id="c1" data-n="1">
+  <div class="poster p1">
+    <div class="bar"><span class="logo"></span><nav><span>Shop</span><span>Our story</span><span>Waitlist</span></nav></div>
+    <div>
+      <div class="eyebrow">High-protein dessert yogurt</div>
+      <h1 class="h">Same dessert.<br>Different feeling.</h1>
+      <span class="smile"></span>
+      <p>Thick, rich and high in protein. Five dessert flavors in 32 oz tubs, made for any time of day.</p>
+      <span class="cta">Join the waitlist</span>
+    </div>
+    <img src="../../assets/chocolate-fudge-tub-600.webp" alt="Chocolate Fudge tub">
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="concept k2" id="c2" data-n="2">
+  <div class="poster p2">
+    <div class="bar"><span class="logo"></span><nav><span>Flavors</span><span>Facts</span><span>Waitlist</span></nav></div>
+    <div class="panel">
+      <h1 class="h">High-protein<br>dessert yogurt</h1>
+      <div class="facts">
+        <div><span>Protein</span><b>High</b></div>
+        <div><span>Taste</span><b>Dessert</b></div>
+        <div><span>Texture</span><b>Thick</b></div>
+        <div><span>Size</span><b>32 oz tub</b></div>
+        <div><span>Flavors</span><b>Fudge / C&amp;C / Caramel / Mint / Dough</b></div>
+      </div>
+      <p class="note">Full nutrition facts publish when final recipes are set.</p>
+      <span class="cta">Join the waitlist <i>→</i></span>
+    </div>
+    <div class="shot"><img src="../../assets/cookies-and-cream-tub-600.webp" alt="Cookies and Cream tub"><span>Fig. 01 — Cookies &amp; Cream</span><span>32 oz</span></div>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="concept k3" id="c3" data-n="3">
+  <div class="poster p3">
+    <div class="bar"><span class="logo"></span><nav><span>Shop</span><span>Our story</span><span>Waitlist</span></nav></div>
+    <div class="giant h">Cookies<br>&amp; Cream</div>
+    <img src="../../assets/cookies-and-cream-tub-600.webp" alt="Cookies and Cream tub">
+    <div class="under b">Thick, creamy and high in protein.</div>
+    <div class="flavors">
+      <span style="background:#ef4c3c">Choc Fudge</span><span style="background:#0f7fca">Cookies &amp; Cream</span><span style="background:#f39c1e">Salted Caramel</span><span style="background:#4fc690;color:#13233f">Mint Chip</span><span style="background:#8740cf">Cookie Dough</span>
+    </div>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="concept k4" id="c4" data-n="4">
+  <div class="poster p4">
+    <div class="bar"><span class="logo"></span><nav><span>Flavors</span><span>Our story</span><span>Waitlist</span></nav></div>
+    <div>
+      <div class="eyebrow">High-protein dessert yogurt</div>
+      <h1 class="h">Dessert,<br><em>done properly.</em></h1>
+      <p>Dense, rich, spoon-thick and high in protein. Made for the moment you want something sweet.</p>
+      <span class="cta">Join the waitlist</span>
+    </div>
+    <img src="../../assets/chocolate-fudge-tub-600.webp" alt="Chocolate Fudge tub">
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="concept k5" id="c5" data-n="5">
+  <div class="poster p5">
+    <div class="bar"><span class="logo"></span><nav><span>The menu</span><span>Our story</span><span>Waitlist</span></nav></div>
+    <div class="arch"><img src="../../assets/salted-caramel-open-serving-720.webp" alt="Salted Caramel tub with a spoonful"></div>
+    <div>
+      <h1 class="h">thick, rich, and <i>high in protein.</i></h1>
+      <p>Dessert yogurt made like something from the bakery case. Pick a flavor.</p>
+      <div class="menu">
+        <div>Chocolate Fudge<small>32 oz</small></div>
+        <div>Salted Caramel<small>32 oz</small></div>
+        <div>Cookie Dough<small>32 oz</small></div>
+      </div>
+      <span class="cta">Join the waitlist</span>
+    </div>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="concept k6" id="c6" data-n="6">
+  <div class="poster p6">
+    <div class="bar"><span class="logo"></span><nav><span>Shop</span><span>Why protein</span><span>Waitlist</span></nav></div>
+    <div class="stripe"></div>
+    <div>
+      <h1 class="h">Hit your protein.<br><span>Keep dessert.</span></h1>
+      <div class="tags"><span>High protein</span><span>Post-workout</span><span>32 oz tub</span></div>
+      <span class="cta">Join the waitlist</span>
+    </div>
+    <img src="../../assets/mint-chip-tub-600.webp" alt="Mint Chip tub">
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="concept k7" id="c7" data-n="7">
+  <div class="poster p7">
+    <div class="bar"><span class="logo"></span><nav><span>Flavors</span><span>Story</span><span>Waitlist</span></nav></div>
+    <span class="cta">Join the waitlist</span>
+    <img class="obj" src="../../assets/salted-caramel-tub-600.webp" alt="Salted Caramel tub">
+    <div class="cap"><b>Salted Caramel</b>High-protein dessert yogurt<br>32 oz</div>
+    <h1 class="h">Dessert,<br>simplified.</h1>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="concept k8" id="c8" data-n="8">
+  <div class="poster p8">
+    <div class="bar"><span class="logo"></span><nav><span>Shop</span><span>Our story</span><span>Waitlist</span></nav></div>
+    <div>
+      <h1 class="h">Dessert that's on your side.</h1>
+      <span class="smile"></span>
+      <p>High-protein dessert yogurt that tastes like the real thing. Thick enough to hold the spoon.</p>
+      <span class="cta">Join the waitlist</span>
+    </div>
+    <div class="crop">
+      <img src="../../assets/cookie-dough-open-serving-720.webp" alt="Cookie Dough tub with a spoonful">
+      <div class="app"><img src="../../assets/happy-spoon-mark.png" alt="Smile mark app icon"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<p class="wrap outro">Round 1 · made 2026-10-03 · not linked from the main site.</p>
+
+<div class="dock"><span id="dock-count">0 notes yet</span><button id="copy" type="button">Copy feedback</button></div>
+
+<script>
+const A = '../../assets/';
+const CONCEPTS = [
+  {
+    n: 1, name: 'Cocoa & Cream', tag: 'The tub, made official', dot: '#f74532',
+    idea: '<b>Make the tub the rulebook.</b> Cream backgrounds, cocoa type, and the coral smile as the one brand accent. Flavor colors only show up when we\'re talking about that flavor. The closest to what the homepage and tubs already do, just written down and made consistent.',
+    lockups: [{ bg: '#fef5ea', l: '#410e01', s: '#f74532' }, { bg: '#410e01', l: '#fef5ea', s: '#f74532' }],
+    lockNote: 'Primary: cocoa letters, coral smile on cream. Reversed: cream letters on cocoa. Smile is always coral.',
+    palette: [
+      ['Cream', '#fef5ea', 'Backgrounds'], ['Cocoa', '#410e01', 'Type, logo'], ['Coral', '#f74532', 'The one accent: buttons, smile'],
+      ['Oat', '#efe6da', 'Cards, panels'], ['Flavor colors', 'linear-gradient(90deg,#ef4c3c 0 20%,#1497ec 0 40%,#f39c1e 0 60%,#4fc690 0 80%,#8740cf 0)', 'Only for that flavor']
+    ],
+    ratio: [['#fef5ea', 60], ['#410e01', 25], ['#efe6da', 10], ['#f74532', 5]],
+    head: { name: 'Archivo Condensed Black', css: 'Already on the site', sample: 'Same dessert. Different feeling.' },
+    body: { name: 'Archivo Regular / Medium', css: 'Free (Google Fonts)' },
+    social: { bg: '#fef5ea', ink: '#410e01', l: '#410e01', s: '#f74532', img: 'chocolate-fudge-tub-600.webp', line: 'Chocolate Fudge.<br>Thick enough to hold the spoon.' },
+    ui: { bg: '#fef5ea', ink: '#410e01', field: '#fff', btn: '#f74532', btnInk: '#fff', r: '999px', chip: '#efe6da' },
+    voice: [['Headline', 'Same dessert. Different feeling.'], ['Product', 'Thick, rich and high in protein. Tastes like dessert because it is one.'], ['Button', 'Join the waitlist']],
+    how: 'Plain and confident. Short sentences. Talk about taste and texture first, protein second.',
+    photo: { img: 'chocolate-fudge-closed-studio.webp', text: 'Warm daylight on cream and stone surfaces. The tub is always the hero, with the real ingredients scattered nearby.' },
+    dos: ['Lots of cream space', 'One coral thing per screen (usually the button)', 'Condensed caps for headlines only'],
+    donts: ['Flavor colors as general decoration', 'A third typeface', 'Coral text on cocoa'],
+    change: 'What changes from today: very little. Mostly locks in rules so every page, ad and email matches.'
+  },
+  {
+    n: 2, name: 'The Label', tag: 'Performance, read like a spec sheet', dot: '#15191d',
+    idea: '<b>Treat it like a performance product.</b> White, graphite and steel, with layouts borrowed from nutrition panels: heavy rules, monospaced data, straight-on product shots. Reads like a supplement brand that happens to taste like dessert. Coral is a tiny signal, never a fill.',
+    lockups: [{ bg: '#ffffff', l: '#15191d', s: '#15191d' }, { bg: '#15191d', l: '#ffffff', s: '#f74532' }],
+    lockNote: 'One-color graphite logo on white. On graphite, the smile may turn coral. No cocoa brown anywhere.',
+    palette: [
+      ['Paper', '#ffffff', 'Backgrounds'], ['Graphite', '#15191d', 'Type, logo, rules'], ['Steel', '#5d6870', 'Secondary text'],
+      ['Fog', '#eef0f1', 'Photo backdrops, panels'], ['Signal', '#f74532', 'Arrows, active states only']
+    ],
+    ratio: [['#ffffff', 55], ['#15191d', 25], ['#eef0f1', 17], ['#f74532', 3]],
+    head: { name: 'IBM Plex Sans Condensed Bold', css: 'Free (Google Fonts)', sample: 'High-protein dessert yogurt' },
+    body: { name: 'IBM Plex Mono', css: 'Free (Google Fonts)' },
+    social: { bg: '#eef0f1', ink: '#15191d', l: '#15191d', s: '#15191d', img: 'cookies-and-cream-tub-600.webp', line: 'Cookies &amp; Cream<br><span style="font:400 12px IBM Plex Mono">Protein: high / Taste: dessert</span>' },
+    ui: { bg: '#ffffff', ink: '#15191d', field: '#eef0f1', btn: '#15191d', btnInk: '#fff', r: '3px', chip: '#eef0f1' },
+    voice: [['Headline', 'High-protein dessert yogurt.'], ['Product', 'Protein: high. Taste: dessert. Texture: thick. 32 oz tub.'], ['Button', 'Join the waitlist →']],
+    how: 'Factual and spare, like a spec sheet. Lists over sentences. Never hype; let the facts sound impressive on their own (once we have real numbers).',
+    photo: { img: 'cookies-and-cream-closed-studio.webp', text: 'Straight-on tubs on pale grey, crisp shadow, no props. Labeled like product figures.' },
+    dos: ['Heavy black rules like a nutrition panel', 'Data and labels in mono', 'Generous grids'],
+    donts: ['Warm cream or brown', 'Lifestyle or "cozy" photos', 'Showing numbers we don\'t have yet'],
+    change: 'What changes from today: drops cocoa and cream entirely and swaps Archivo for Plex. Biggest shift toward "fitness".'
+  },
+  {
+    n: 3, name: 'Flavor Flood', tag: 'Every flavor owns a color', dot: '#1497ec',
+    idea: '<b>The brand is the five colors.</b> Each flavor takes over the entire surface in its ribbon color, and the logo turns white (or navy on light flavors). There is no single "brand color". This is the homepage\'s idea, turned into the whole system: one flavor per screen, full bleed, huge wide type.',
+    lockups: [{ bg: '#ef4c3c', l: '#ffffff', s: '#ffffff' }, { bg: '#4fc690', l: '#13233f', s: '#13233f' }],
+    lockNote: 'Logo is always one color: white on Fudge, C&C, Caramel and Cookie Dough; navy on Mint.',
+    palette: [
+      ['Fudge', '#ef4c3c', 'Chocolate Fudge'], ['Blue', '#1497ec', 'Cookies & Cream'], ['Caramel', '#f39c1e', 'Salted Caramel'],
+      ['Mint', '#4fc690', 'Mint Chip'], ['Dough', '#8740cf', 'Cookie Dough'], ['Navy ink', '#13233f', 'Type on light flavors']
+    ],
+    ratio: [['#1497ec', 75], ['#ffffff', 20], ['#13233f', 5]],
+    ratioNote: 'Per screen: one flavor ~75%, white type, a touch of navy.',
+    head: { name: 'Archivo Expanded Black', css: 'Same family as today, wide setting', sample: 'Cookies & Cream' },
+    body: { name: 'Archivo Medium', css: 'Free (Google Fonts)' },
+    social: { bg: '#f39c1e', ink: '#fff', l: '#fff', s: '#fff', img: 'salted-caramel-tub-600.webp', line: 'SALTED<br>CARAMEL' },
+    ui: { bg: '#8740cf', ink: '#fff', field: '#fff', btn: '#13233f', btnInk: '#fff', r: '999px', chip: 'rgba(255,255,255,.18)' },
+    voice: [['Headline', 'Cookies & Cream.'], ['Product', 'Cookies & cream flavor, spoon-thick and high in protein.'], ['Button', 'Get Cookies & Cream']],
+    how: 'Flavor first, always. Name the flavor, then one line on what it tastes like. Loud visually, short in words.',
+    photo: { img: 'mint-chip-fun-sealed-mint-orbit.webp', text: 'Cutout tubs on solid flavor color, or ingredient shots tinted to match. Bold, graphic, poster-like.' },
+    dos: ['One flavor per screen, full bleed', 'The lineup strip is the only place all five meet', 'Wide caps, set huge'],
+    donts: ['Flavor colors on cream', 'Two flavors fighting in one layout', 'A separate brand accent color'],
+    change: 'What changes from today: the homepage already does this. Shop, About, email and ads would all follow it too.'
+  },
+  {
+    n: 4, name: 'Dark Chocolate', tag: 'After-dinner premium', dot: '#1c0a05',
+    idea: '<b>Feel like a chocolatier, not a snack.</b> Deep cocoa surfaces, cream type, an elegant serif with italics in coral, and moody low-key photos with glossy textures. Built around the moment people want dessert most: evening.',
+    lockups: [{ bg: '#1c0a05', l: '#fef5ea', s: '#f74532' }, { bg: '#fef5ea', l: '#410e01', s: '#f74532' }],
+    lockNote: 'Primary is reversed: cream letters, coral smile on bittersweet. The cream version is for packaging inserts and receipts.',
+    palette: [
+      ['Bittersweet', '#1c0a05', 'Backgrounds'], ['Cocoa', '#410e01', 'Panels, cards'], ['Cream', '#fef5ea', 'Type, logo'],
+      ['Coral', '#f74532', 'Italic accents, smile'], ['Mocha', '#b89a8a', 'Secondary text']
+    ],
+    ratio: [['#1c0a05', 62], ['#410e01', 18], ['#fef5ea', 15], ['#f74532', 5]],
+    head: { name: 'Instrument Serif (+ italic)', css: 'Free (Google Fonts)', sample: 'Dessert, done properly.' },
+    body: { name: 'Inter Tight', css: 'Free (Google Fonts)' },
+    social: { bg: '#1c0a05', ink: '#fef5ea', l: '#fef5ea', s: '#f74532', img: 'chocolate-fudge-tub-600.webp', line: 'The last thing<br>you eat <em style="color:#f74532">today.</em>' },
+    ui: { bg: '#1c0a05', ink: '#fef5ea', field: '#2d130a', btn: '#fef5ea', btnInk: '#1c0a05', r: '999px', chip: '#410e01' },
+    voice: [['Headline', 'Dessert, done properly.'], ['Product', 'Dense, rich and spoon-thick, with serious protein behind it.'], ['Button', 'Join the waitlist']],
+    how: 'Calm and indulgent. Fewer words, slower rhythm. Sensory words (dense, glossy, rich), never shouty.',
+    photo: { img: 'chocolate-fudge-fun-open-swirl.webp', text: 'Low-key lighting, dark backdrops, glossy macro spoon pulls. One warm light source.' },
+    dos: ['Dark backgrounds by default', 'Coral only in italics and the smile', 'Big serif headlines, small sans body'],
+    donts: ['Bright flavor floods', 'Gym or sport cues', 'All-caps shouting'],
+    change: 'What changes from today: flips the site dark and adds a serif. Keeps the cocoa and coral from the logo.'
+  },
+  {
+    n: 5, name: 'Patisserie', tag: 'Straight from the bakery case', dot: '#c27a2c',
+    idea: '<b>Lean all the way into dessert.</b> A soft, warm serif in lowercase, paper tones, arch-shaped photo crops and a menu-style flavor list. Feels like a good bakery or ice cream shop. Protein is a pleasant surprise, not the headline.',
+    lockups: [{ bg: '#f8f0e5', l: '#3a1a10', s: '#c27a2c' }, { bg: '#3a1a10', l: '#f8f0e5', s: '#e0a25a' }],
+    lockNote: 'Smile turns caramel instead of coral, so it sits warmer with the paper tones.',
+    palette: [
+      ['Paper', '#f8f0e5', 'Backgrounds'], ['Espresso', '#3a1a10', 'Type, logo, buttons'], ['Caramel', '#c27a2c', 'Accent, italics, smile'],
+      ['Milk', '#fffdf9', 'Cards'], ['Crust', '#cdb8a3', 'Dividers, dotted leaders']
+    ],
+    ratio: [['#f8f0e5', 58], ['#3a1a10', 22], ['#fffdf9', 12], ['#c27a2c', 8]],
+    head: { name: 'Fraunces Semibold (+ italic)', css: 'Free (Google Fonts)', sample: 'thick, rich, and high in protein.' },
+    body: { name: 'DM Sans', css: 'Free (Google Fonts)' },
+    social: { bg: '#f8f0e5', ink: '#3a1a10', l: '#3a1a10', s: '#c27a2c', img: 'cookie-dough-tub-600.webp', line: 'cookie dough,<br><i style="color:#c27a2c">by the spoonful.</i>' },
+    ui: { bg: '#f8f0e5', ink: '#3a1a10', field: '#fffdf9', btn: '#3a1a10', btnInk: '#f8f0e5', r: '999px', chip: '#efe2d0' },
+    voice: [['Headline', 'thick, rich, and high in protein.'], ['Product', 'Cookie dough you can eat by the spoonful. Salted caramel that actually tastes salted.'], ['Button', 'Join the waitlist']],
+    how: 'Warm and sensory, like a menu written by someone who loves food. Lowercase headlines, gentle humor at most.',
+    photo: { img: 'salted-caramel-open-serving-720.webp', text: 'Macro texture shots: spoon pulls, swirls, crumbs. Natural light, linen, wood. Arch and rounded crops.' },
+    dos: ['Lowercase serif headlines', 'Arch-shaped photo crops', 'Menu-style lists with dotted leaders'],
+    donts: ['Condensed caps', 'Gym imagery or "macros" talk', 'Cold blues and greys'],
+    change: 'What changes from today: new fonts, warmer and softer. Moves furthest from "fitness" toward "dessert".'
+  },
+  {
+    n: 6, name: 'Training Day', tag: 'Fitness first, dessert second', dot: '#13233f',
+    idea: '<b>Performance energy.</b> Navy and cream, a fast italic condensed type, and the tub\'s ribbon turned into an angled racing stripe in coral. Talks directly to people who track their protein. Motion, angles, momentum.',
+    lockups: [{ bg: '#13233f', l: '#fef5ea', s: '#f74532' }, { bg: '#fef5ea', l: '#13233f', s: '#f74532' }],
+    lockNote: 'Letters switch from cocoa to navy. Coral smile stays. Navy comes from the Mint Chip label.',
+    palette: [
+      ['Navy', '#13233f', 'Backgrounds, type'], ['Cream', '#fef5ea', 'Type, light surfaces'], ['Coral', '#f74532', 'Stripes, highlights'],
+      ['Ice', '#dce4ee', 'Panels'], ['Graphite', '#15191d', 'Small print']
+    ],
+    ratio: [['#13233f', 55], ['#fef5ea', 25], ['#f74532', 12], ['#dce4ee', 8]],
+    head: { name: 'Barlow Condensed ExtraBold Italic', css: 'Free (Google Fonts)', sample: 'Hit your protein. Keep dessert.' },
+    body: { name: 'Barlow', css: 'Free (Google Fonts)' },
+    social: { bg: '#13233f', ink: '#fef5ea', l: '#fef5ea', s: '#f74532', img: 'mint-chip-tub-600.webp', line: 'AFTER THE GYM.<br><span style="color:#f74532">BEFORE BED.</span>' },
+    ui: { bg: '#13233f', ink: '#fef5ea', field: '#fef5ea', btn: '#f74532', btnInk: '#fff', r: '4px', chip: 'rgba(254,245,234,.12)' },
+    voice: [['Headline', 'Hit your protein. Keep dessert.'], ['Product', 'High protein, dessert taste. Built to fit after the gym, after dinner, or both.'], ['Button', 'Join the waitlist']],
+    how: 'Coach-like and direct. Short imperative lines. Confident, never bro-ish.',
+    photo: { img: 'mint-chip-closed-studio.webp', text: 'Tubs at an angle, hard light, motion blur, gym bags and kitchen counters after a workout. Real people, not models.' },
+    dos: ['Italic caps for headlines', 'Angled coral stripes taken from the tub ribbon', 'Navy as the home base'],
+    donts: ['"Gains", "beast mode" or gym clichés', 'Fake stats or protein numbers', 'Soft, cozy dessert styling'],
+    change: 'What changes from today: navy replaces cocoa as the main dark, new italic font, much sportier.'
+  },
+  {
+    n: 7, name: 'Gallery', tag: 'Premium by restraint', dot: '#ece6de',
+    idea: '<b>Strip it back.</b> Warm stone backgrounds, a small logo, huge empty space, and the tub shown like an object in a design store. Flavor colors shrink to a tiny dot. Feels expensive because it says so little.',
+    lockups: [{ bg: '#ece6de', l: '#1e1a17', s: '#1e1a17' }, { bg: '#1e1a17', l: '#ece6de', s: '#ece6de' }],
+    lockNote: 'Always one color, always small. The smile can take the featured flavor\'s color on product pages only.',
+    palette: [
+      ['Stone', '#ece6de', 'Backgrounds'], ['Ink', '#1e1a17', 'Type, logo, buttons'], ['Taupe', '#6f655e', 'Secondary text'],
+      ['White', '#ffffff', 'Cards'], ['Flavor dot', 'linear-gradient(90deg,#ef4c3c 0 20%,#1497ec 0 40%,#f39c1e 0 60%,#4fc690 0 80%,#8740cf 0)', 'Tiny dots only']
+    ],
+    ratio: [['#ece6de', 78], ['#1e1a17', 12], ['#ffffff', 8], ['#f39c1e', 2]],
+    head: { name: 'Inter Tight Medium', css: 'Free (Google Fonts)', sample: 'Dessert, simplified.' },
+    body: { name: 'Inter Tight Regular', css: 'Free (Google Fonts)' },
+    social: { bg: '#ece6de', ink: '#1e1a17', l: '#1e1a17', s: '#1e1a17', img: 'salted-caramel-tub-600.webp', line: '<span style="font-size:13px;font-weight:400">Salted Caramel<br><span style="color:#6f655e">32 oz</span></span>' },
+    ui: { bg: '#ece6de', ink: '#1e1a17', field: '#fff', btn: '#1e1a17', btnInk: '#ece6de', r: '999px', chip: '#fff' },
+    voice: [['Headline', 'Dessert, simplified.'], ['Product', 'Salted Caramel. High-protein dessert yogurt. 32 oz.'], ['Button', 'Join the waitlist']],
+    how: 'As few words as possible. Sentence case, no exclamation marks, no adjectives stacked up.',
+    photo: { img: 'salted-caramel-closed-studio.webp', text: 'One object, centered, lots of space, soft floor shadow. Stone, plaster and paper backdrops.' },
+    dos: ['Empty space as the main design tool', 'Small type, small logo', 'One image per layout'],
+    donts: ['Exclamation marks', 'Big color floods', 'More than one image fighting for attention'],
+    change: 'What changes from today: the homepage\'s color floods go away. Calm, gallery-like, very premium, less energetic.'
+  },
+  {
+    n: 8, name: 'Smile System', tag: 'The smile is the brand', dot: '#2f84db',
+    idea: '<b>Lift the smile out of the logo and build everything from it.</b> It underlines headlines, shapes the bottom of photo crops and buttons, and becomes the app icon (the eyes-and-smile mark we already use as the site icon). The smile turns blue, matching that icon. Friendly, but disciplined: cocoa, cream and one blue.',
+    lockups: [{ bg: '#fef5ea', l: '#410e01', s: '#2f84db' }, { bg: '#2f84db', l: '#ffffff', s: '#410e01' }],
+    lockNote: 'Smile is blue on cream. The eyes-and-smile mark is the profile picture and app icon everywhere.',
+    palette: [
+      ['Cream', '#fef5ea', 'Backgrounds'], ['Cocoa', '#410e01', 'Type, logo'], ['Smile Blue', '#2f84db', 'The one accent'],
+      ['Sky', '#dcebfa', 'Tints, panels'], ['Oat', '#efe6da', 'Cards']
+    ],
+    ratio: [['#fef5ea', 58], ['#410e01', 22], ['#2f84db', 10], ['#dcebfa', 10]],
+    head: { name: 'Bricolage Grotesque ExtraBold', css: 'Free (Google Fonts)', sample: 'Dessert that\'s on your side.' },
+    body: { name: 'Bricolage Grotesque Regular', css: 'Free (Google Fonts)' },
+    social: { bg: '#dcebfa', ink: '#410e01', l: '#410e01', s: '#2f84db', img: 'cookie-dough-tub-600.webp', line: 'Cookie Dough<br>is on the list.', smile: true },
+    ui: { bg: '#fef5ea', ink: '#410e01', field: '#fff', btn: '#2f84db', btnInk: '#fff', r: '16px 16px 26px 26px / 16px 16px 30px 30px', chip: '#dcebfa' },
+    voice: [['Headline', 'Dessert that\'s on your side.'], ['Product', 'High-protein dessert yogurt that tastes like the real thing. Thick enough to hold the spoon.'], ['Button', 'Join the waitlist']],
+    how: 'Warm and upbeat, like a friend who\'s into fitness but still orders dessert. Never jokey or punny.',
+    photo: { img: 'cookie-dough-open-serving.webp', text: 'Bright natural light, real hands and spoons, photos cropped with a smile-curved bottom edge.' },
+    dos: ['One smile per layout, used as underline or crop', 'The eyes-and-smile mark as every avatar', 'Rounded, chunky headlines'],
+    donts: ['Faces or eyes on other things (no mascot)', 'Smiles in more than one color at once', 'Coral and blue together'],
+    change: 'What changes from today: smile color moves from coral to blue (tub lids already vary), new rounded font, the mark becomes central.'
+  }
+];
+
+const ASPECTS = ['Overall', 'Logo use', 'Colors', 'Fonts', 'Photos', 'Voice', 'Rules'];
+const KEY = 'hs-brand-r1';
+let store = {};
+try { store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { store = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} updateDock(); };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const solid = v => !v.startsWith('linear');
+
+// Table of contents
+document.getElementById('toc').innerHTML = CONCEPTS.map(c =>
+  `<a href="#c${c.n}"><i style="background:${c.dot};box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)"></i>${String(c.n).padStart(2, '0')} <em>${esc(c.name)}</em></a>`).join('');
+
+CONCEPTS.forEach(c => {
+  const sec = document.getElementById('c' + c.n);
+  const poster = sec.querySelector('.poster');
+  const num = String(c.n).padStart(2, '0');
+
+  poster.insertAdjacentHTML('beforebegin', `
+    <div class="c-head"><span class="num">${num}</span><h2>${esc(c.name)}</h2><span class="tag">${esc(c.tag)}</span></div>
+    <p class="c-idea">${c.idea}</p>`);
+
+  const lock = c.lockups.map(L => `<div style="background:${L.bg}"><span class="logo" style="--l:${L.l};--s:${L.s}"></span></div>`).join('');
+  const pal = c.palette.map(([name, hex, role]) => `<div class="sw"><i style="background:${hex};${hex === '#ffffff' || hex === '#fffdf9' ? 'box-shadow:inset 0 -1px 0 #e4e2dd' : ''}"></i><div><b>${esc(name)}</b>${solid(hex) ? `<code>${hex.toUpperCase()}</code>` : ''}<span>${esc(role)}</span></div></div>`).join('');
+  const ratio = c.ratio.map(([hex, w]) => `<i style="background:${hex};flex:${w};${hex === '#ffffff' ? 'box-shadow:inset 0 0 0 1px #e4e2dd' : ''}"></i>`).join('');
+  const S = c.social, U = c.ui;
+
+  poster.insertAdjacentHTML('afterend', `
+  <div class="kit">
+    <div class="tile t-logo"><h3>Logo use</h3><div class="lockups">${lock}<small>${esc(c.lockNote)}</small></div></div>
+    <div class="tile t-pal"><h3>Color palette</h3><div class="swatches">${pal}</div>
+      <div class="ratio">${ratio}</div><div class="ratio-note">${esc(c.ratioNote || 'Rough amount of each color on a typical page.')}</div></div>
+    <div class="tile t-type"><h3>Fonts</h3><div class="spec">
+      <div class="row"><div class="aa h" style="color:#18181b">Aa</div><div><div class="meta"><b>${esc(c.head.name)}</b> · Headlines · ${esc(c.head.css)}</div><div class="sample-h h">${esc(c.head.sample)}</div></div></div>
+      <div class="row"><div class="aa b" style="font-size:52px">Aa</div><div><div class="meta"><b>${esc(c.body.name)}</b> · Body text · ${esc(c.body.css)}</div><div class="sample-b b">Thick, creamy dessert yogurt with a high-protein base. Five flavors, 32 oz tubs, made for any time of day.</div></div></div>
+    </div></div>
+    <div class="tile t-social"><h3>Instagram post</h3>
+      <div class="social" style="background:${S.bg};color:${S.ink}"><span class="logo" style="--l:${S.l};--s:${S.s}"></span>
+        <p class="h" style="font-size:26px;line-height:1">${S.line}</p>${S.smile ? `<span class="smile" style="--s:${S.s};width:46%;margin-top:6px;position:relative;z-index:2"></span>` : ''}
+        <img src="${A + S.img}" alt=""></div>
+      <div class="social-cap">4:5 feed post, same grid every time.</div></div>
+    <div class="tile t-ui"><h3>Buttons &amp; forms</h3>
+      <div class="ui b" style="background:${U.bg};color:${U.ink}">
+        <div class="field" style="background:${U.field};border-radius:${U.r};color:${U.field === '#fff' || U.field === '#fef5ea' || U.field === '#fffdf9' || U.field === '#eef0f1' ? '#18181b' : U.ink}"><span>you@email.com</span><span class="btn" style="flex:0 0 auto;opacity:1;background:${U.btn};color:${U.btnInk};border-radius:${U.r}">Join the waitlist</span></div>
+        <div class="chips"><span style="background:${U.chip};border-radius:${U.r}">Chocolate Fudge</span><span style="background:${U.chip};border-radius:${U.r}">Mint Chip</span><span style="background:${U.chip};border-radius:${U.r}">32 oz</span></div>
+      </div></div>
+    <div class="tile t-voice voice"><h3>Voice</h3><ul>${c.voice.map(([k, v]) => `<li><small>${esc(k)}</small>${esc(v)}</li>`).join('')}</ul><p class="how">${esc(c.how)}</p></div>
+    <div class="tile t-photo photo"><h3>Photo style</h3><img src="${A + c.photo.img}" alt="" loading="lazy"><p>${esc(c.photo.text)}</p></div>
+    <div class="tile t-rules"><h3>Rules</h3><div class="rules">
+      <ul class="do"><h4>Do</h4>${c.dos.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
+      <ul class="dont"><h4>Don't</h4>${c.donts.map(d => `<li>${esc(d)}</li>`).join('')}</ul>
+      <div class="change">${esc(c.change)}</div></div></div>
+  </div>
+  <div class="fb" data-n="${c.n}"><h3>Your take on ${num} ${esc(c.name)}<span>tap to like or dislike each part</span></h3>
+    <div class="fb-rows">${ASPECTS.map(a => `<div class="fb-row"><span>${a}</span><div><button type="button" class="yes" data-a="${a}" data-v="like" aria-pressed="false">Like</button><button type="button" class="no" data-a="${a}" data-v="dislike" aria-pressed="false">Dislike</button></div></div>`).join('')}</div>
+    <textarea placeholder="What would you keep, change or steal from this one?" aria-label="Notes on ${esc(c.name)}"></textarea>
+  </div>`);
+
+  const fb = sec.querySelector('.fb');
+  const st = store[c.n] || (store[c.n] = { r: {}, note: '' });
+  const paint = () => fb.querySelectorAll('button[data-a]').forEach(b => b.setAttribute('aria-pressed', st.r[b.dataset.a] === b.dataset.v));
+  fb.addEventListener('click', e => {
+    const b = e.target.closest('button[data-a]'); if (!b) return;
+    st.r[b.dataset.a] = st.r[b.dataset.a] === b.dataset.v ? undefined : b.dataset.v;
+    paint(); save();
+  });
+  const ta = fb.querySelector('textarea');
+  ta.value = st.note || '';
+  ta.addEventListener('input', () => { st.note = ta.value; save(); });
+  paint();
+});
+
+function summary() {
+  const out = ['Happy Spoon brand kit, round 1 feedback'];
+  CONCEPTS.forEach(c => {
+    const st = store[c.n]; if (!st) return;
+    const likes = ASPECTS.filter(a => st.r[a] === 'like'), dis = ASPECTS.filter(a => st.r[a] === 'dislike');
+    if (!likes.length && !dis.length && !(st.note || '').trim()) return;
+    out.push('', `${String(c.n).padStart(2, '0')} ${c.name}`);
+    if (likes.length) out.push('  Like: ' + likes.join(', '));
+    if (dis.length) out.push('  Dislike: ' + dis.join(', '));
+    if ((st.note || '').trim()) out.push('  Notes: ' + st.note.trim());
+  });
+  return out.length > 1 ? out.join('\n') : '';
+}
+function updateDock() {
+  let n = 0;
+  CONCEPTS.forEach(c => { const st = store[c.n]; if (st) { n += ASPECTS.filter(a => st.r[a]).length; if ((st.note || '').trim()) n++; } });
+  document.getElementById('dock-count').textContent = n ? `${n} note${n === 1 ? '' : 's'} saved` : 'No notes yet';
+}
+document.getElementById('copy').addEventListener('click', async e => {
+  const text = summary(), btn = e.currentTarget;
+  if (!text) { btn.textContent = 'Mark something first'; setTimeout(() => btn.textContent = 'Copy feedback', 1600); return; }
+  try { await navigator.clipboard.writeText(text); btn.textContent = 'Copied'; }
+  catch (err) { window.prompt('Copy this:', text); }
+  setTimeout(() => btn.textContent = 'Copy feedback', 1600);
+});
+updateDock();
+</script>
+</body>
+</html>
