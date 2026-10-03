@@ -8,15 +8,15 @@ The site is published with GitHub Pages from the `main` branch. After a push, ch
 
 | Name | Link | Source |
 | --- | --- | --- |
-| Home page | [/](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/) | `index.html` |
-| Site redesign | [/new/](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/new/) | `new/index.html` |
-| 3D Flavor Studio | [/viewer/](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/viewer/) | `viewer/index.html` |
-| Waitlist concepts (overview) | [/waitlist/concepts/](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/waitlist/concepts/) | `waitlist/concepts/index.html` |
-| Waitlist 01 · Orbit | [/waitlist/concepts/01-orbit.html](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/waitlist/concepts/01-orbit.html) | `waitlist/concepts/01-orbit.html` |
-| Waitlist 02 · Horizon | [/waitlist/concepts/02-horizon.html](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/waitlist/concepts/02-horizon.html) | `waitlist/concepts/02-horizon.html` |
-| Waitlist 03 · Runway | [/waitlist/concepts/03-runway.html](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/waitlist/concepts/03-runway.html) | `waitlist/concepts/03-runway.html` |
-| Waitlist 04 · Drop | [/waitlist/concepts/04-drop.html](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/waitlist/concepts/04-drop.html) | `waitlist/concepts/04-drop.html` |
-| Waitlist 05 · Lineup (connected to Kit) | [/waitlist/concepts/05-lineup.html](https://anthonyvalenti25.github.io/Happy-Spoon---Tony/waitlist/concepts/05-lineup.html) | `waitlist/concepts/05-lineup.html` |
+| Home page | [/](https://happyspoonyogurt.com/) | `index.html` |
+| Site redesign | [/new/](https://happyspoonyogurt.com/new/) | `new/index.html` |
+| 3D Flavor Studio | [/viewer/](https://happyspoonyogurt.com/viewer/) | `viewer/index.html` |
+| Waitlist concepts (overview) | [/waitlist/concepts/](https://happyspoonyogurt.com/waitlist/concepts/) | `waitlist/concepts/index.html` |
+| Waitlist 01 · Orbit | [/waitlist/concepts/01-orbit.html](https://happyspoonyogurt.com/waitlist/concepts/01-orbit.html) | `waitlist/concepts/01-orbit.html` |
+| Waitlist 02 · Horizon | [/waitlist/concepts/02-horizon.html](https://happyspoonyogurt.com/waitlist/concepts/02-horizon.html) | `waitlist/concepts/02-horizon.html` |
+| Waitlist 03 · Runway | [/waitlist/concepts/03-runway.html](https://happyspoonyogurt.com/waitlist/concepts/03-runway.html) | `waitlist/concepts/03-runway.html` |
+| Waitlist 04 · Drop | [/waitlist/concepts/04-drop.html](https://happyspoonyogurt.com/waitlist/concepts/04-drop.html) | `waitlist/concepts/04-drop.html` |
+| Waitlist 05 · Lineup (connected to Kit) | [/waitlist/concepts/05-lineup.html](https://happyspoonyogurt.com/waitlist/concepts/05-lineup.html) | `waitlist/concepts/05-lineup.html` |
 
 When you add a new page, add a row here too.
 
