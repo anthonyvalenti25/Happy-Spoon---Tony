@@ -3,7 +3,7 @@
 (() => {
   const PRICE = 8.99;   // sample price per 32 oz tub
   const MIN = 4, MAX = 24;
-  const AUTO = 3000, HOLD = 6000;   // spotlight rotation: every 3 s, or 6 s after someone picks a flavor
+  const TURN = 8000;   // each flavor stays in the spotlight for 8 s, whether it came up on its own or was tapped
   let rotateTimer;
   const FLAVORS = [
     // Colors and flavor lines from the brand guide (brand/index.html). White ink on every flavor.
@@ -139,8 +139,8 @@
     arc(up, spots[k], heroSpot, 180, th * 0.18);
     halo.classList.remove('pulse'); void halo.offsetWidth; halo.classList.add('pulse');
   }
-  // A tub someone picks stays in the spotlight for 6 seconds before the rotation carries on.
-  const pick = k => { feature(k); rotate(HOLD); };
+  // A tapped tub gets the same 8 seconds before the rotation carries on.
+  const pick = k => { feature(k); rotate(TURN); };
   stage.addEventListener('click', e => { const t = e.target.closest('.tub'); if (t) pick(Number(t.dataset.k)); });
   stage.addEventListener('keydown', e => {
     const t = e.target.closest('.tub');
@@ -171,29 +171,35 @@
   $('.unit').textContent = money(PRICE);
 
   // ---------- Box changes ----------
-  const bar = $('.bar'), boxBtn = $('.box-btn');
+  const boxBtn = $('.box-btn'), toast = $('.toast');
   function bump(el) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
-  let fresh = -1;   // index of the tub that just went in, so its slot can pop in
   function add(id, source) {
     if (box.length >= MAX) { note(`A box holds up to ${MAX} tubs.`); openBox(); return; }
     box.push(id);
-    fresh = box.length - 1;
     save();
     render();
+    showToast(id);
     flyIn(id, source);
+  }
+  // "Added Chocolate Fudge · View box", then it slips away after a few seconds
+  let toastTimer;
+  function showToast(id) {
+    const n = box.length;
+    $('.toast-text').innerHTML = `<b>Added ${byId(id).name}</b><span>${plural(n, 'tub')} in your box</span>`;
+    toast.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('on'), 3200);
   }
   function sub(id) {
     const i = box.lastIndexOf(id);
     if (i >= 0) { box.splice(i, 1); save(); render(); }
   }
 
-  // A copy of the tub flies from where it was added into its slot in the box (or to the box bar if the slot is off screen).
+  // A copy of the tub flies from where it was added to the header's box button (or the toast if the header is off screen).
   function flyIn(id, source) {
-    const slot = $$('.slot')[fresh];
     const onScreen = el => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
-    const target = slot && onScreen(slot) ? slot : bar;
-    if (target === bar) bump(bar);
-    bump(boxBtn);
+    const target = onScreen(boxBtn) ? boxBtn : toast;
+    bump(target);
     if (reduced || !source) return;
     let from;
     if (source.dataset.from === 'hero' && onScreen(tubs[hero])) from = tubs[hero].getBoundingClientRect();
@@ -202,8 +208,8 @@
     const to = target.getBoundingClientRect();
     const w = Math.min(from.width, 220), h = w * 1.2;
     const x0 = from.left + from.width / 2 - w / 2, y0 = from.top + from.height / 2 - h / 2;
-    const s = Math.min(1, (target === bar ? 44 : to.width * 0.8) / w);
-    const dx = to.left + (target === bar ? 40 : to.width / 2) - (x0 + w / 2), dy = to.top + to.height / 2 - (y0 + h / 2);
+    const s = Math.min(1, 40 / w);
+    const dx = to.left + (target === toast ? 30 : to.width / 2) - (x0 + w / 2), dy = to.top + to.height / 2 - (y0 + h / 2);
     const img = new Image();
     img.src = TUB(id); img.className = 'flyer'; img.alt = '';
     Object.assign(img.style, { left: px(x0), top: px(y0), width: px(w) });
@@ -220,15 +226,8 @@
   const dNote = $('.d-note');
   function note(text, warn) { dNote.textContent = text; dNote.classList.toggle('warn', !!warn); }
 
-  function status(n) {
-    if (n === 0) return { title: 'Build your box', sub: `Pick at least ${MIN} tubs` };
-    if (n < MIN) return { title: `${n} of ${MIN} tubs`, sub: `Add ${MIN - n} more to check out` };
-    return { title: `${plural(n, 'tub')} · ${money(n * PRICE)}`, sub: 'Your box is ready' };
-  }
-
   function render() {
     const n = box.length;
-    const st = status(n);
     const f = FLAVORS[hero];
 
     // Hero adder
@@ -245,16 +244,6 @@
       badges[k].classList.toggle('on', c > 0 && k !== hero);
     });
 
-    // Tray slots: at least four, more as the box grows
-    const slots = Math.max(MIN, n);
-    $('.slots').innerHTML = Array.from({ length: slots }, (_, i) => {
-      const id = box[i];
-      if (!id) return `<span class="slot empty" data-n="${i + 1}"></span>`;
-      return `<button type="button" class="slot${i === fresh ? ' new' : ''}" data-act="out" data-i="${i}" aria-label="Take one ${byId(id).name} out of the box"><img src="${TUB(id)}" alt=""><span class="x" aria-hidden="true"><svg viewBox="0 0 10 10"><path d="M2 2l6 6M8 2 2 8"/></svg></span></button>`;
-    }).join('');
-    fresh = -1;
-    $('.tray-status').textContent = n >= MIN ? `Ready · ${plural(n, 'tub')}` : `${n} of ${MIN} minimum`;
-
     // Cards
     $$('.card').forEach(card => {
       const c = qty(card.dataset.card);
@@ -262,15 +251,9 @@
       card.querySelector('.ctl output').textContent = c;
     });
 
-    // Header + bar
+    // Header box button
     $('.box-count').textContent = n;
     boxBtn.setAttribute('aria-label', `Open your box, ${plural(n, 'tub')}`);
-    $('.bar-info b').textContent = st.title;
-    $('.bar-info span').textContent = st.sub;
-    $$('.pips').forEach(p => [...p.children].forEach((pip, i) => pip.classList.toggle('on', i < n)));
-    const go = $('.go');
-    go.classList.toggle('ready', n >= MIN);
-    go.textContent = n >= MIN ? 'Check out' : 'View box';
 
     renderDrawer();
   }
@@ -279,8 +262,11 @@
     const n = box.length;
     // Keep keyboard focus on the same control when the list is rebuilt
     const a = document.activeElement, keep = a && a.closest('.d-lines') ? `[data-act="${a.dataset.act}"][data-id="${a.dataset.id}"]` : null;
+    // The 4 tub minimum is only mentioned here, inside the box, and on the checkout button
     $('.d-progress p').textContent = n >= MIN ? `${plural(n, 'tub')} in your box. You're good to go.`
-      : n === 0 ? `Your box is empty. Add at least ${MIN} tubs.` : `${n} of ${MIN} tubs. Add ${MIN - n} more to check out.`;
+      : n === 0 ? 'Your box is empty.' : `Boxes start at ${MIN} tubs. Add ${plural(MIN - n, 'more tub')} to check out.`;
+    $$('.d-progress .pips i').forEach((pip, i) => pip.classList.toggle('on', i < n));
+    $('.d-progress .pips').hidden = n === 0 || n >= MIN;
     const lines = FLAVORS.filter(f => qty(f.id) > 0);
     $('.d-lines').innerHTML = lines.length ? lines.map(f => {
       const c = qty(f.id);
@@ -294,7 +280,7 @@
     $('.sum').textContent = money(n * PRICE);
     const btn = $('.checkout');
     btn.disabled = n < MIN;
-    btn.textContent = n >= MIN ? `Check out · ${money(n * PRICE)}` : n === 0 ? `Add ${MIN} tubs to check out` : `Add ${plural(MIN - n, 'more tub')} to check out`;
+    btn.textContent = n >= MIN ? `Check out · ${money(n * PRICE)}` : n === 0 ? 'Pick your flavors' : `Add ${plural(MIN - n, 'more tub')} to check out`;
     if (n < MIN) note('');
   }
 
@@ -306,16 +292,12 @@
     const b = e.target.closest('[data-act]');
     if (!b) return;
     const act = b.dataset.act;
-    if (b.closest('.adder')) rotate(HOLD);   // adding or removing the spotlighted flavor also holds it
+    if (b.closest('.adder')) rotate(TURN);   // adding or removing the spotlighted flavor restarts its 8 seconds
     if (act === 'add') add(b.dataset.id, b);
     else if (act === 'sub') sub(b.dataset.id);
-    else if (act === 'out') { box.splice(Number(b.dataset.i), 1); save(); render(); }
-    else if (act === 'open') openBox();
+    else if (act === 'open') { toast.classList.remove('on'); openBox(); }
     else if (act === 'close') drawer.close();
-    else if (act === 'all') {
-      FLAVORS.forEach(f => { if (box.length < MAX) box.push(f.id); });
-      save(); render(); bump(bar); bump(boxBtn);
-    } else if (act === 'checkout') {
+    else if (act === 'checkout') {
       note("Checkout isn't connected yet. This is a design mockup.", true);
     } else if (act === 'promo-close') promo.close();
   });
@@ -373,7 +355,7 @@
     $('.promo-shop').focus({ preventScroll: true });
   });
 
-  // ---------- Spotlight rotation: the next flavor every 3 seconds; a picked one holds for 6 ----------
+  // ---------- Spotlight rotation: the next flavor every 8 seconds ----------
   // Waits while the box or the welcome popup is open, the tab is in the background, or the shelf is scrolled
   // out of view (so the page color holds still while someone reads the flavors below).
   let heroInView = true;
@@ -383,7 +365,7 @@
     if (reduced) return;
     rotateTimer = setTimeout(() => {
       if (!document.hidden && heroInView && !drawer.open && !promo.open) feature((hero + 1) % FLAVORS.length);
-      rotate(AUTO);
+      rotate(TURN);
     }, ms);
   }
 
@@ -403,5 +385,5 @@
   render();
   if (new URLSearchParams(location.search).has('box')) openBox();   // the header's box button on other pages links here
   new ResizeObserver(() => layout()).observe(stage);
-  rotate(AUTO);
+  rotate(TURN);
 })();

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ef4c3c">
   <meta name="robots" content="noindex">
   <title>Shop | Happy Spoon</title>
-  <meta name="description" content="Build a box of Happy Spoon high-protein dessert yogurt. Mix any flavors, 4 tub minimum.">
+  <meta name="description" content="Build a box of Happy Spoon high-protein dessert yogurt. Mix any flavors you like.">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
   <link rel="stylesheet" href="../assets/site-header.css?v=5">
   <link rel="stylesheet" href="../assets/site-footer.css?v=2">
-  <link rel="stylesheet" href="shop.css?v=15">
+  <link rel="stylesheet" href="shop.css?v=16">
 </head>
 <body>
   <!-- Builder: the featured flavor floods the page, tubs wait on the glass shelf (same as the waitlist) -->
@@ -44,11 +44,6 @@
           <output></output>
           <button type="button" data-act="add" data-from="hero" aria-label="Add one more"><svg viewBox="0 0 16 16"><path d="M3 8h10M8 3v10"/></svg></button>
         </div>
-      </div>
-      <div class="tray">
-        <div class="tray-head"><span>Your box</span><span class="tray-status"></span></div>
-        <div class="slots"></div>
-        <p class="tray-tip">Mix any flavors. Tap a tub in your box to take it out.</p>
       </div>
     </section>
   </header>
@@ -94,12 +89,6 @@
       </article>
     </section>
 
-    <!-- Closing band on the flavor color, like the bottom of Our story -->
-    <section class="band" id="minimum">
-      <h2 class="wide">Four tubs<br>minimum</h2>
-      <p>Every box starts at four tubs. Four of one flavor, one of each, or anything in between.</p>
-      <div class="actions"><button class="btn light" type="button" data-act="all">Add one of each (5 tubs)</button><button class="btn dark" type="button" data-act="open">View your box</button></div>
-    </section>
     <div class="strip" aria-hidden="true"></div>
   </main>
 
@@ -120,10 +109,8 @@
     </div>
   </footer>
 
-  <div class="bar" role="region" aria-label="Your box">
-    <div class="bar-info"><b></b><span></span><div class="pips"><i></i><i></i><i></i><i></i></div></div>
-    <button class="go" type="button" data-act="open"></button>
-  </div>
+  <!-- Quick note after adding a tub; the box itself is the header's box button and the drawer -->
+  <div class="toast" role="status" aria-live="polite"><span class="toast-text"></span><button type="button" data-act="open">View box</button></div>
 
   <dialog class="drawer" aria-label="Your box">
     <div class="d-head"><h2 class="cond">Your box</h2><button class="close" type="button" data-act="close" aria-label="Close"><svg viewBox="0 0 14 14"><path d="M2 2l10 10M12 2 2 12"/></svg></button></div>
@@ -169,6 +156,6 @@
     </div>
   </dialog>
 
-  <script src="shop.js?v=8"></script>
+  <script src="shop.js?v=10"></script>
 </body>
 </html>
