@@ -50,6 +50,14 @@
     return t;
   });
   const badges = FLAVORS.map(() => { const b = document.createElement('span'); b.className = 'badge'; stage.append(b); return b; });
+  // Phones: protein and calories sit faintly either side of the spotlighted tub (the row under the name is hidden there)
+  const sides = [['20<i>g</i>', 'Protein'], ['180', 'Calories']].map(([n, label], k) => {
+    const el = document.createElement('div');
+    el.className = `side-stat ${k ? 'right' : 'left'}`; el.setAttribute('aria-hidden', 'true');
+    el.innerHTML = `<b class="wide">${n}</b><small>${label}</small>`;
+    stage.append(el);
+    return el;
+  });
 
   const fromURL = FLAVORS.findIndex(f => f.id === new URLSearchParams(location.search).get('f'));
   let hero = Math.max(0, fromURL);
@@ -63,7 +71,7 @@
     stw = sw * (W < 500 ? 0.76 : 0.92); sth = stw * 1.2;   // smaller shelf tubs on phones so the featured one stands out
     const shelfY = H - 44;
     const heroRoom = shelfY - sth - 26;
-    th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.66 : 0.6) * 1.2); tw = th / 1.2;
+    th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.66 : 0.58) * 1.2); tw = th / 1.2;
     const heroY = Math.min(heroRoom, heroRoom / 2 + th / 2 + 6);
     heroSpot = { x: W / 2, y: heroY, s: 1 };
     spots = FLAVORS.map((_, k) => ({ x: sw / 2 + k * (sw + pad), y: shelfY, s: stw / tw }));
@@ -80,6 +88,8 @@
     });
     const d = Math.min(th * 1.02, W * 0.92);
     Object.assign(halo.style, { left: px(W / 2 - d / 2), top: px(heroY - th / 2 - d / 2 - th * 0.02), width: px(d), height: px(d) });
+    const sideW = Math.max(0, W / 2 - tw / 2 - 4);
+    sides.forEach((el, k) => Object.assign(el.style, { width: px(sideW), top: px(heroY - th * 0.5), [k ? 'right' : 'left']: '0px' }));
     place();
   }
   function mark() {
