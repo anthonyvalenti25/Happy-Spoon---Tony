@@ -3,6 +3,8 @@
 (() => {
   const PRICE = 8.99;   // sample price per 32 oz tub
   const MIN = 4, MAX = 24;
+  const AUTO = 3000, HOLD = 6000;   // spotlight rotation: every 3 s, or 6 s after someone picks a flavor
+  let rotateTimer;
   const FLAVORS = [
     { id: 'chocolate-fudge',   name: 'Chocolate Fudge', bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b', desc: 'Deep cocoa flavor with full dessert energy.' },
     { id: 'cookies-and-cream', name: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33', desc: 'Creamy and cookie-specked, with a familiar crunch.' },
@@ -137,10 +139,12 @@
     arc(up, spots[k], heroSpot, 180, th * 0.18);
     halo.classList.remove('pulse'); void halo.offsetWidth; halo.classList.add('pulse');
   }
-  stage.addEventListener('click', e => { const t = e.target.closest('.tub'); if (t) feature(Number(t.dataset.k)); });
+  // A tub someone picks stays in the spotlight for 6 seconds before the rotation carries on.
+  const pick = k => { feature(k); rotate(HOLD); };
+  stage.addEventListener('click', e => { const t = e.target.closest('.tub'); if (t) pick(Number(t.dataset.k)); });
   stage.addEventListener('keydown', e => {
     const t = e.target.closest('.tub');
-    if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); feature(Number(t.dataset.k)); }
+    if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pick(Number(t.dataset.k)); }
   });
 
   // ---------- Flavor cards and the "four tubs" lineup ----------
@@ -301,6 +305,7 @@
     const b = e.target.closest('[data-act]');
     if (!b) return;
     const act = b.dataset.act;
+    if (b.closest('.adder')) rotate(HOLD);   // adding or removing the spotlighted flavor also holds it
     if (act === 'add') add(b.dataset.id, b);
     else if (act === 'sub') sub(b.dataset.id);
     else if (act === 'out') { box.splice(Number(b.dataset.i), 1); save(); render(); }
@@ -366,8 +371,20 @@
     $('.promo-shop').focus({ preventScroll: true });
   });
 
+  // ---------- Spotlight rotation: the next flavor every 3 seconds; a picked one holds for 6 ----------
+  // Waits while the box or the welcome popup is open, or the tab is in the background.
+  function rotate(ms) {
+    clearTimeout(rotateTimer);
+    if (reduced) return;
+    rotateTimer = setTimeout(() => {
+      if (!document.hidden && !drawer.open && !promo.open) feature((hero + 1) % FLAVORS.length);
+      rotate(AUTO);
+    }, ms);
+  }
+
   paint(true);
   layout();
   render();
   new ResizeObserver(() => layout()).observe(stage);
+  rotate(AUTO);
 })();
