@@ -94,6 +94,16 @@
 @keyframes draw-once { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .ls .smile, .ls b { animation: none !important; } }
+.stats { display: flex; gap: calc(var(--ss) * .5); align-items: flex-end; }
+.stat b { display: block; font-size: var(--ss); line-height: .84; font-variant-numeric: tabular-nums; }
+.stat b i { font-style: normal; font-size: .5em; margin-left: .06em; text-transform: none; }
+.stat small { display: block; margin-top: calc(var(--ss) * .14); font: 700 max(10px, calc(var(--ss) * .2))/1 "Archivo"; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.stat + .stat { padding-left: calc(var(--ss) * .5); box-shadow: -2px 0 0 color-mix(in srgb, currentColor 30%, transparent); }
+.cover .stats { position: relative; z-index: 1; justify-content: center; margin-top: 22px; }
+.statdemo { border-radius: 16px; padding: 28px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; }
+.statdemo .spec-list li { border-color: color-mix(in srgb, currentColor 25%, transparent); }
+.statdemo .spec-list li span { color: inherit; opacity: .8; }
+@media (max-width: 800px) { .statdemo { grid-template-columns: 1fr; } }
 .formula .num { display: flex; align-items: baseline; gap: 10px; margin: 0 0 18px; font: 700 15px/1 "Archivo"; text-transform: uppercase; letter-spacing: .06em; }
 .formula .num .wide { font-size: clamp(34px, 4.4vw, 52px); letter-spacing: -.02em; }
 .nsj h3 { font: 880 26px/.95 "Archivo"; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; margin: 0 0 8px; }
@@ -125,9 +135,11 @@
 .web { aspect-ratio: 16 / 10; container-type: inline-size; }
 .web .nav { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 4cqi; padding: 3cqi 4cqi; font: 700 1.6cqi "Archivo"; z-index: 3; }
 .web .nav .logo { width: 9cqi; --l: var(--f-ink); margin-right: auto; }
-.web .w { position: absolute; inset: 0; display: grid; place-items: center; font-size: 11cqi; text-align: center; padding-bottom: 6cqi; }
+.web .w { position: absolute; inset: 0; display: grid; place-items: center; font-size: 11cqi; text-align: center; padding-bottom: 13cqi; }
 .web img { position: absolute; left: 50%; top: 14%; width: 28cqi; transform: translateX(-50%); z-index: 2; filter: drop-shadow(0 3cqi 3cqi rgba(0,0,0,.28)); }
-.web .copy { position: absolute; left: 4cqi; bottom: 11cqi; z-index: 3; font: 600 1.9cqi/1.35 "Archivo"; max-width: 26cqi; }
+.web .copy .stats { margin-bottom: 1.8cqi; }
+.web .stat small { font-size: 1.1cqi; }
+.web .copy { position: absolute; left: 4cqi; bottom: 9cqi; z-index: 3; font: 600 1.9cqi/1.35 "Archivo"; max-width: 26cqi; }
 .web .copy .btn { font-size: 1.6cqi; padding: 1.4cqi 2cqi; margin-top: 1.4cqi; }
 .web .strip { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 0; z-index: 3; }
 .web .strip span { padding: 1.5cqi .5cqi; font-size: 1.15cqi; }
@@ -156,7 +168,8 @@
 .story { aspect-ratio: 9 / 16; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 9% 8% 0; container-type: inline-size; }
 .story .logo { width: 34cqi; --l: var(--f-ink); }
 .story img { width: 74cqi; margin-top: auto; filter: drop-shadow(0 6cqi 6cqi rgba(0,0,0,.28)); }
-.story .wide { font-size: 10cqi; margin: 6cqi 0 5cqi; }
+.story .wide { font-size: 10cqi; margin: 6cqi 0 4cqi; }
+.story .stats { margin-bottom: 5cqi; justify-content: center; }
 .story .btn { font-size: 4.6cqi; padding: 4.4cqi 6cqi; margin-bottom: 11cqi; }
 .story .strip { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 0; height: 3.2cqi; }
 
@@ -193,6 +206,7 @@
   <div class="giant wide" data-name2></div>
   <img class="tub" data-img="tub" alt="">
   <div class="tagline cond">Same dessert.<br>Different feeling.</div>
+  <div class="stats" style="--ss:clamp(34px, 5vw, 60px)"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>
   <div class="lineup" id="cover-lineup"></div>
 </section>
 
@@ -203,7 +217,7 @@
   <div class="grid principles">
     <div class="card s4"><h3>One flavor per moment.</h3><p>Every screen, post and ad features exactly one flavor and is colored by it, edge to edge.</p></div>
     <div class="card s4"><h3>The lineup is the only crowd.</h3><p>All five colors appear together in one place only: the lineup strip (and the shelf of tubs).</p></div>
-    <div class="card s4"><h3>Loud color, quiet words.</h3><p>The color does the shouting. Copy stays short: the flavor name, one line about it, the protein, and what to do next.</p></div>
+    <div class="card s4"><h3>Big flavor, bigger numbers.</h3><p>Every flavor shows its protein and calories, set big. The color makes people look; the numbers make them pick us.</p></div>
   </div>
 </div></section>
 
@@ -256,6 +270,7 @@
     <p class="lede">Everything is Archivo, the font the site already uses. It stretches: wide for flavor names (they should feel huge and loud), condensed for headlines (they should feel tight and punchy). Free on Google Fonts, one file.</p></div>
   <div class="card scale">
     <div class="row"><div class="meta"><b>Flavor name</b>Archivo Expanded Black<br>width 125 · weight 900<br>All caps · line height 0.84</div><div class="ex wide" style="font-size:clamp(40px,7vw,86px)" data-name></div></div>
+    <div class="row"><div class="meta"><b>Numbers</b>Archivo Expanded Black<br>Same as flavor names<br>Units small, labels as eyebrows</div><div class="ex"><div class="stats" style="--ss:clamp(44px, 6vw, 72px)"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div></div></div>
     <div class="row"><div class="meta"><b>Headline</b>Archivo Condensed Black<br>width 72 · weight 880<br>All caps · line height 0.94</div><div class="ex cond" style="font-size:clamp(36px,5vw,60px)">Same dessert. Different feeling.</div></div>
     <div class="row"><div class="meta"><b>Subhead</b>Archivo Bold · 22 / 28</div><div class="ex" style="font:700 22px/1.3 Archivo">Thick, creamy and high in protein.</div></div>
     <div class="row"><div class="meta"><b>Eyebrow</b>Archivo Bold · 12 · tracking 16%</div><div class="ex eyebrow">High-protein dessert yogurt</div></div>
@@ -266,8 +281,8 @@
 
 <!-- 05 GRAPHICS -->
 <section class="sec" id="graphics" data-fb="Graphics"><div class="wrap">
-  <div class="sec-head"><span class="sec-num">05 · Graphic elements</span><h2>Five moves, nothing else.</h2>
-    <p class="lede">No stickers, doodles, outlines or patterns. The brand only ever does these five things.</p></div>
+  <div class="sec-head"><span class="sec-num">05 · Graphic elements</span><h2>Six moves, nothing else.</h2>
+    <p class="lede">No stickers, doodles, outlines or patterns. The brand only ever does these six things.</p></div>
   <div class="grid">
     <div class="s4"><div class="pour" id="pour"><span>Tap to pour the next flavor</span><img alt=""></div><p class="cap"><b>The flood.</b> Color spreads out from the tub to fill the whole surface. 0.9 s, smooth ease, never a hard cut.</p></div>
     <div class="s4"><div class="gname flood"><div class="w wide" data-name2></div><img data-img="tub" alt=""></div><p class="cap"><b>The giant name.</b> The flavor name set huge behind the tub. Cropping off the edges is fine.</p></div>
@@ -277,6 +292,9 @@
       <div class="flood loop"><small>Sending</small><div class="draw"><span class="smile"></span></div><b class="cond">One sec</b></div>
       <div class="flood once go" id="success" title="Tap to replay"><small>Success</small><div class="draw"><span class="smile"></span></div><b class="cond">You're on the list.</b></div>
     </div><p class="cap"><b>Loading and success.</b> While something sends, the smile draws in and wipes away on a loop. When it's done, it draws once and stays, in the flavor's ink. Tap the right one to replay.</p></div>
+    <div class="s12"><div class="statdemo flood"><div><div class="stats" style="--ss:clamp(60px, 9vw, 120px)"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div></div>
+      <ul class="spec-list"><li><b>Order</b><span>Protein first, calories second</span></li><li><b>Where</b><span>Under the flavor name, on every product surface</span></li><li><b>Per</b><span>Serving, with the serving size stated nearby</span></li><li><b>Type</b><span>Archivo Expanded Black, unit half size</span></li></ul></div>
+      <p class="cap"><b>The stat block.</b> Protein and calories side by side, as big as the flavor name. XX stands in until the recipes are final.</p></div>
   </div>
 </div></section>
 
@@ -294,24 +312,24 @@
 <!-- 07 VOICE -->
 <section class="sec" id="voice" data-fb="Voice"><div class="wrap">
   <div class="sec-head"><span class="sec-num">07 · Voice</span><h2>Name it. Describe it. Back it up.</h2>
-    <p class="lede">Bold, flavor-first and proud of the protein. Lead with the flavor, back it up with real numbers, and have a little fun doing it. The whole point is dessert that fits a better diet, and we say so.</p></div>
+    <p class="lede">Bold, flavor-first and proud of the numbers. Lead with the flavor, back it up with protein and calories, and have a little fun doing it. The whole point is dessert that fits a better diet, and we say so.</p></div>
   <div class="grid">
     <div class="s6"><div class="formula flood">
-      <div class="wide" data-name></div><p data-line></p><div class="num"><span class="wide">XX G</span>protein</div><span class="btn" data-cta></span>
-      <ol><li>Flavor name, in caps</li><li>One line about taste or texture</li><li>The protein amount, big (XX until the recipes are final)</li><li>A button that names the flavor</li></ol></div></div>
+      <div class="wide" data-name></div><p data-line></p><div class="stats" style="--ss:clamp(34px, 4.4vw, 52px);margin-bottom:20px"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div><span class="btn" data-cta></span>
+      <ol><li>Flavor name, in caps</li><li>One line about taste or texture</li><li>Protein and calories, big (XX until the recipes are final)</li><li>A button that names the flavor</li></ol></div></div>
     <div class="card s6"><span class="label">Personality</span>
       <div class="tags"><span>Bold</span><span>Flavor-first</span><span>Protein-proud</span><span>Confident</span><span>A little playful</span></div>
       <div class="words" style="margin-top:14px"><div class="yes"><b>We are</b>Direct, excited about flavor, clear about what it is.</div><div class="no"><b>We aren't</b>Diet food. Bland, watered down, or sorry for being dessert.</div></div>
       <span class="label" style="margin-top:18px">Headlines</span>
-      <ul class="lines"><li>Same dessert. Different feeling.</li><li>High protein. Still dessert.</li><li>Thick enough to hold the spoon.</li></ul></div>
+      <ul class="lines"><li>Same dessert. Different feeling.</li><li>XX g protein. XXX calories. Still dessert.</li><li>Thick enough to hold the spoon.</li></ul></div>
     <div class="card s12 nsj"><span class="label">Numbers, science and jokes</span><div class="grid">
-      <div class="s4"><h3>Numbers go big.</h3><p>Protein is a headline, not fine print. Once the recipes are final, the grams get the same wide type as the flavor name. Until then we say "high protein" and never make up a figure.</p><div class="ex"><small>Example</small>Salted Caramel. XX g protein.</div></div>
+      <div class="s4"><h3>Numbers go big.</h3><p>Protein and calories are the headline, not fine print. Always per serving, with the serving size nearby (a 32 oz tub holds several). Until the recipes are final we say "high protein" and never make up a figure. Words like "high protein" and "low calorie" have legal minimums, so check them against the final label.</p><div class="ex"><small>Example</small>Salted Caramel. XX g protein, XXX calories.</div></div>
       <div class="s4"><h3>A little science is welcome.</h3><p>What's in the tub, how it's made, why it's high in protein. Plain words, one idea at a time, and only facts we can point to.</p><div class="ex"><small>Example</small>A high-protein yogurt base with dessert flavors on top.</div></div>
       <div class="s4"><h3>A little playful is fine.</h3><p>Jokes are welcome when they're about the food or the craving. Never about anyone's diet or body.</p><div class="ex"><small>Example</small>Dessert for breakfast? We won't tell.</div></div>
     </div></div>
     <div class="card s7"><span class="label">One line per flavor (drafts; confirm against the final recipes)</span><div class="flist" id="flist"></div></div>
     <div class="card s5"><span class="label">Words</span>
-      <div class="words"><div class="yes"><b>Use</b>thick, rich, creamy, spoon, tub, dessert, high-protein, grams of protein (real ones), goals, better diet, flavor names</div><div class="no"><b>Avoid</b>guilt-free, cheat meal, sinful, "healthy" (a regulated label term), cup, any number we haven't confirmed</div></div>
+      <div class="words"><div class="yes"><b>Use</b>thick, rich, creamy, spoon, tub, dessert, high-protein, grams of protein and calorie counts (real ones), goals, better diet, flavor names</div><div class="no"><b>Avoid</b>guilt-free, cheat meal, sinful, "healthy", "low calorie" or "light" until the label qualifies, cup, any number we haven't confirmed</div></div>
       <span class="label" style="margin-top:18px">Buttons</span>
       <ul class="lines"><li>Join the waitlist</li><li data-cta></li><li>Build your box</li></ul></div>
   </div>
@@ -322,11 +340,11 @@
   <div class="sec-head"><span class="sec-num">08 · In use</span><h2>What it looks like everywhere.</h2>
     <p class="lede">Same rules on every surface. All of these follow the flavor picked in the top bar.</p></div>
   <div class="grid">
-    <div class="s8"><div class="frame web flood"><div class="nav"><span class="logo"></span><span>Shop</span><span>Our story</span><span>Waitlist</span></div><div class="w wide" data-name2></div><img data-img="tub" alt=""><div class="copy"><span data-line></span><br><span class="btn" data-cta></span></div><div class="strip lineup" data-strip></div></div><p class="cap">Website hero</p></div>
-    <div class="s4"><div class="shopcard"><div class="img flood"><div class="w wide" data-name2></div><img data-img="tub" alt=""></div><div class="body"><b data-name></b><p>32 oz tub · <span data-line></span></p><div class="row"><span class="btn">Add to box</span><span class="step">− 1 +</span></div></div></div><p class="cap">Shop product card</p></div>
+    <div class="s8"><div class="frame web flood"><div class="nav"><span class="logo"></span><span>Shop</span><span>Our story</span><span>Waitlist</span></div><div class="w wide" data-name2></div><img data-img="tub" alt=""><div class="copy"><div class="stats" style="--ss:5cqi"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div><span data-line></span><br><span class="btn" data-cta></span></div><div class="strip lineup" data-strip></div></div><p class="cap">Website hero</p></div>
+    <div class="s4"><div class="shopcard"><div class="img flood"><div class="w wide" data-name2></div><img data-img="tub" alt=""></div><div class="body"><b data-name></b><p><span data-line></span> 32 oz tub.</p><div class="stats" style="--ss:34px;margin-bottom:14px"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div><div class="row"><span class="btn">Add to box</span><span class="step">− 1 +</span></div></div></div><p class="cap">Shop product card</p></div>
     <div class="s5"><div class="ig" id="ig"></div><p class="cap">Instagram grid: one flavor per post, never the same color twice in a row.</p></div>
-    <div class="s3"><div class="frame story flood"><span class="logo"></span><img data-img="tub" alt=""><div class="wide">High protein dessert</div><span class="btn">Join the waitlist</span><div class="strip lineup" data-strip></div></div><p class="cap">Story / TikTok end card</p></div>
-    <div class="s4"><div class="mail"><div class="head"><b>Happy Spoon</b><br>Subject: <span data-name></span> is on the list</div><div class="body"><div class="band flood"><span class="logo"></span><div class="wide" data-name2></div><img data-img="tub" alt=""></div><div class="txt"><span data-line></span> High in protein, 32 oz, and coming soon. You're on the waitlist, so you'll hear first.<br><span class="btn" data-cta></span></div><div class="strip" data-strip></div></div></div><p class="cap">Email</p></div>
+    <div class="s3"><div class="frame story flood"><span class="logo"></span><img data-img="tub" alt=""><div class="wide">High protein dessert</div><div class="stats" style="--ss:9cqi"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div><span class="btn">Join the waitlist</span><div class="strip lineup" data-strip></div></div><p class="cap">Story / TikTok end card</p></div>
+    <div class="s4"><div class="mail"><div class="head"><b>Happy Spoon</b><br>Subject: <span data-name></span> is on the list</div><div class="body"><div class="band flood"><span class="logo"></span><div class="wide" data-name2></div><img data-img="tub" alt=""></div><div class="txt"><div class="stats" style="--ss:30px;margin-bottom:12px"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div><span data-line></span> 32 oz, and coming soon. You're on the waitlist, so you'll hear first.<br><span class="btn" data-cta></span></div><div class="strip" data-strip></div></div></div><p class="cap">Email</p></div>
     <div class="s7"><div class="box"><div class="lid"><span class="logo"></span><div class="tape" data-strip></div><small>Keep cold · Open me first</small></div></div><p class="cap">Shipping box: white, full-color logo, lineup tape.</p></div>
     <div class="s5"><div class="card" style="height:100%"><span class="label">Social profile</span><div class="avatars" id="avatars2"></div><p class="note">The profile picture follows the newest flavor. Highlights use the tubs on their own colors.</p></div></div>
   </div>
@@ -336,7 +354,7 @@
 <section class="sec" id="rules"><div class="wrap">
   <div class="sec-head"><span class="sec-num">09 · Rules</span><h2>The short version.</h2></div>
   <div class="rules">
-    <ul class="do"><h3>Always</h3><li>One flavor per screen, post or ad, full bleed.</li><li>Logo in the flavor's ink: white, or dark on Caramel and Mint.</li><li>Flavor names wide and huge; headlines condensed.</li><li>All five together only in the lineup strip or on the shelf.</li><li>Colors change with a smooth flood, never a hard cut.</li><li>Make the protein amount big once it's confirmed.</li></ul>
+    <ul class="do"><h3>Always</h3><li>One flavor per screen, post or ad, full bleed.</li><li>Logo in the flavor's ink: white, or dark on Caramel and Mint.</li><li>Flavor names wide and huge; headlines condensed.</li><li>All five together only in the lineup strip or on the shelf.</li><li>Colors change with a smooth flood, never a hard cut.</li><li>Show protein and calories, big, on every product surface (per serving).</li></ul>
     <ul class="dont"><h3>Never</h3><li>Put flavor colors on cream or gray backgrounds.</li><li>Use the full-color logo on a flood.</li><li>Use a separate "brand color" that isn't a flavor.</li><li>Add stickers, doodles, outlines or patterns.</li><li>Print a nutrition number we haven't confirmed.</li></ul>
   </div>
 </div></section>
@@ -376,7 +394,7 @@ document.getElementById('avatars2').innerHTML = `<figure><div class="av flood"><
 
 // Instagram grid: nine posts, each one flavor
 const ig = [
-  [0, 'cut'], [3, 'name'], [1, 'open'], [2, 'tag'], [null, 'lineup'], [4, 'cut'], [0, 'fun'], [1, 'name'], [3, 'cut']
+  [0, 'cut'], [3, 'name'], [1, 'open'], [2, 'tag'], [null, 'lineup'], [4, 'stats'], [0, 'fun'], [1, 'name'], [3, 'cut']
 ];
 document.getElementById('ig').innerHTML = ig.map(([i, kind]) => {
   if (kind === 'lineup') return `<div><div class="bars">${F.map(f => `<i style="background:${f.bg}"></i>`).join('')}</div><span class="logo"></span></div>`;
@@ -385,6 +403,7 @@ document.getElementById('ig').innerHTML = ig.map(([i, kind]) => {
   if (kind === 'name') return `<div style="${bg}"><div class="w wide">${f.two}</div><img src="${tub(f)}" alt="" style="width:46%;position:relative"></div>`;
   if (kind === 'open') return `<div style="${bg}" class="framed"><img class="full" src="${A + f.id}-open-serving-720.webp" alt="" style="border-radius:3cqi"></div>`;
   if (kind === 'fun') return `<div><img class="full" src="${A + f.id}-${f.fun}.webp" alt=""></div>`;
+  if (kind === 'stats') return `<div style="${bg};align-content:center;justify-items:start;padding:10%"><span class="logo mini" style="--l:${f.ink}"></span><div class="stats" style="--ss:22cqi;flex-direction:column;align-items:flex-start;gap:7cqi"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat" style="padding:0;box-shadow:none"><b class="wide">XXX</b><small>Calories</small></div></div></div>`;
   if (kind === 'tag') return `<div style="${bg}"><span class="logo mini" style="--l:${f.ink}"></span><div class="t cond">Same dessert. Different feeling.</div></div>`;
 }).join('');
 
