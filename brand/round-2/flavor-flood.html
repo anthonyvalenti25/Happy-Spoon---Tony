@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Flavor Flood · Happy Spoon Brand Kit</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+<link rel="stylesheet" href="kit.css?v=2">
+<style>
+:root {
+  --page: #ffffff; --text: #15191d; --sub: #5d6870; --card: #f3f3f1; --line: #e3e3df; --accent: #1497ec;
+  --hf: "Archivo", system-ui, sans-serif; --bf: "Archivo", system-ui, sans-serif;
+  /* featured flavor, set by the switcher */
+  --f: #1497ec; --f-deep: #0b7fd0; --f-glow: #6cc2fa; --f-ink: #ffffff; --f-btn: #0b1d33;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+.wide { font-family: "Archivo"; font-weight: 900; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; letter-spacing: -.02em; line-height: .84; }
+.cond { font-family: "Archivo"; font-weight: 880; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; letter-spacing: -.005em; line-height: .94; }
+.eyebrow { font: 700 12px/1.2 "Archivo"; letter-spacing: .16em; text-transform: uppercase; }
+.flood { background: var(--f); color: var(--f-ink); transition: background-color .9s var(--ease), color .9s var(--ease); }
+.btn { display: inline-block; background: var(--f-btn); color: #fff; font: 700 15px/1 "Archivo"; padding: 15px 20px; border-radius: 999px; transition: background-color .9s var(--ease); white-space: nowrap; }
+.sec-head h2 { font-family: "Archivo"; font-weight: 880; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; font-size: clamp(40px, 6vw, 72px); line-height: .92; }
+
+/* Switcher */
+.switch { display: flex; gap: 6px; }
+.switch button { width: 26px; height: 26px; border-radius: 50%; border: 0; cursor: pointer; background: var(--c); box-shadow: 0 0 0 2px var(--page), 0 0 0 2px transparent; transition: box-shadow .2s; }
+.switch button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--page), 0 0 0 4px var(--c); }
+
+/* Cover */
+.cover { position: relative; overflow: hidden; container-type: inline-size; min-height: min(86vh, 760px); display: grid; place-items: center; text-align: center; padding: 90px 16px 120px; }
+.cover .giant { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12.5cqi; z-index: 0; opacity: .97; padding-bottom: 40px; }
+.cover .tub { position: relative; z-index: 1; width: min(340px, 58vw); filter: drop-shadow(0 30px 40px rgba(0,0,0,.28)); transition: opacity .35s ease, transform .6s var(--ease); }
+.cover .meta { position: absolute; left: 0; right: 0; top: 22px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; z-index: 2; }
+.cover .meta .logo { width: 96px; --l: var(--f-ink); }
+.cover .meta .eyebrow { opacity: .85; }
+.cover .tagline { position: relative; z-index: 1; margin-top: 18px; font-size: clamp(30px, 4.6vw, 52px); }
+.cover .lineup { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr); z-index: 2; }
+.lineup button, .lineup span { border: 0; padding: 16px 6px; font: 800 12px/1.1 "Archivo"; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; background: var(--c); color: var(--ci); }
+.lineup span { cursor: default; }
+@media (max-width: 700px) { .lineup button, .lineup span { font-size: 9.5px; padding: 13px 2px; } .cover .giant { font-size: 14cqi; align-content: start; padding-top: 120px; } .cover .meta .eyebrow { display: none; } }
+
+/* Logo section */
+.five { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+@media (max-width: 800px) { .five { grid-template-columns: repeat(2, 1fr); } }
+.avatars { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-start; }
+.avatars figure { margin: 0; text-align: center; font-size: 12px; color: var(--sub); }
+.av { width: 78px; height: 78px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 6px; }
+.av .mark { width: 58%; }
+.av img { width: 70%; margin-top: 18%; }
+
+/* Color section */
+.fcard { border-radius: 18px; overflow: hidden; background: var(--card); }
+.fcard .top { height: 150px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; }
+.fcard .top b { font: 800 15px/1.1 "Archivo"; text-transform: uppercase; letter-spacing: .02em; }
+.fcard .top small { font: 500 11.5px ui-monospace, Menlo, monospace; }
+.fcard .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); }
+.fcard .chips div { background: var(--card); padding: 9px 10px; font-size: 11.5px; line-height: 1.3; }
+.fcard .chips i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.1); }
+.fcard .chips code { display: block; font: 500 11px ui-monospace, Menlo, monospace; color: var(--sub); margin-left: 18px; }
+
+/* Graphics */
+.pour { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; cursor: pointer; background: var(--pbg, #ef4c3c); }
+.pour .wave { position: absolute; left: 50%; top: 58%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; transform: scale(0); }
+.pour .wave.go { transition: transform 1s var(--ease); transform: scale(320); }
+.pour img { position: absolute; left: 50%; bottom: 10%; width: 46%; transform: translateX(-50%); z-index: 2; filter: drop-shadow(0 14px 16px rgba(0,0,0,.25)); }
+.pour span { position: absolute; left: 12px; top: 10px; z-index: 3; font: 700 12px "Archivo"; color: #fff; opacity: .9; }
+.gname { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; display: grid; place-items: center; container-type: inline-size; }
+.gname .w { position: absolute; inset: 0; display: grid; place-items: center; font-size: 25cqi; text-align: center; }
+.gname img { position: relative; width: 50%; filter: drop-shadow(0 14px 18px rgba(0,0,0,.25)); }
+.shelf { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; gap: 2%; padding: 0 6% 22%; }
+.shelf img { width: 15%; transition: transform .6s var(--ease), width .6s var(--ease); cursor: pointer; }
+.shelf img.on { width: 30%; transform: translateY(-14%); }
+.shelf::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: 18%; height: 4%; border-radius: 6px; background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.15)); box-shadow: 0 10px 18px rgba(0,0,0,.12); }
+.strip { display: grid; grid-template-columns: repeat(5, 1fr); border-radius: 10px; overflow: hidden; }
+.spec-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14px; }
+.spec-list li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.spec-list li b { font-weight: 600; }
+.spec-list li span { color: var(--sub); text-align: right; }
+
+/* Photos */
+.ph { border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 5; position: relative; }
+.ph img { width: 100%; height: 100%; object-fit: cover; }
+.ph.cut { display: grid; place-items: end center; }
+.ph.cut img { width: 72%; height: auto; margin-bottom: 8%; object-fit: contain; filter: drop-shadow(0 18px 20px rgba(0,0,0,.25)); }
+.ph.framed { padding: 14px; }
+.ph.framed img { border-radius: 10px; }
+
+/* Voice */
+.formula { border-radius: 16px; padding: 22px; }
+.formula .wide { font-size: clamp(30px, 4vw, 46px); }
+.formula p { font: 600 18px/1.4 "Archivo"; margin: 10px 0 18px; }
+.formula .btn { background: var(--f-btn); }
+.formula ol { margin: 18px 0 0; padding-left: 18px; font-size: 13px; opacity: .85; }
+.flist { display: grid; gap: 8px; }
+.flist div { display: grid; grid-template-columns: 14px 150px 1fr; gap: 10px; align-items: baseline; background: var(--page); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; }
+.flist i { width: 12px; height: 12px; border-radius: 50%; display: block; align-self: center; }
+.flist b { font-weight: 700; }
+@media (max-width: 600px) { .flist div { grid-template-columns: 14px 1fr; } .flist div span { grid-column: 2; } }
+
+/* Applications */
+.web { aspect-ratio: 16 / 10; container-type: inline-size; }
+.web .nav { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 4cqi; padding: 3cqi 4cqi; font: 700 1.6cqi "Archivo"; z-index: 3; }
+.web .nav .logo { width: 9cqi; --l: var(--f-ink); margin-right: auto; }
+.web .w { position: absolute; inset: 0; display: grid; place-items: center; font-size: 11cqi; text-align: center; padding-bottom: 6cqi; }
+.web img { position: absolute; left: 50%; top: 14%; width: 28cqi; transform: translateX(-50%); z-index: 2; filter: drop-shadow(0 3cqi 3cqi rgba(0,0,0,.28)); }
+.web .copy { position: absolute; left: 4cqi; bottom: 11cqi; z-index: 3; font: 600 1.9cqi/1.35 "Archivo"; max-width: 26cqi; }
+.web .copy .btn { font-size: 1.6cqi; padding: 1.4cqi 2cqi; margin-top: 1.4cqi; }
+.web .strip { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 0; z-index: 3; }
+.web .strip span { padding: 1.5cqi .5cqi; font-size: 1.15cqi; }
+.shopcard { border-radius: 16px; overflow: hidden; background: var(--card); }
+.shopcard .img { aspect-ratio: 1; display: grid; place-items: end center; container-type: inline-size; position: relative; overflow: hidden; }
+.shopcard .img .w { position: absolute; inset: 0; display: grid; place-items: center; font-size: 17cqi; text-align: center; opacity: .25; color: var(--f-ink); }
+.shopcard .img img { width: 58%; position: relative; margin-bottom: 8%; filter: drop-shadow(0 14px 14px rgba(0,0,0,.25)); }
+.shopcard .body { padding: 14px 16px 16px; }
+.shopcard .body b { display: block; font: 800 17px/1.15 "Archivo"; text-transform: uppercase; }
+.shopcard .body p { font-size: 14px; color: var(--sub); margin: 4px 0 12px; }
+.shopcard .row { display: flex; gap: 8px; align-items: center; }
+.shopcard .row .btn { flex: 1; text-align: center; font-size: 14px; padding: 13px; }
+.shopcard .row .step { display: flex; align-items: center; gap: 12px; background: var(--page); border-radius: 999px; padding: 10px 14px; font-weight: 700; }
+
+.ig { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; border-radius: 12px; overflow: hidden; }
+.ig > div { aspect-ratio: 4 / 5; position: relative; overflow: hidden; display: grid; place-items: center; container-type: inline-size; }
+.ig img { width: 62%; filter: drop-shadow(0 6px 8px rgba(0,0,0,.22)); }
+.ig img.full { width: 100%; height: 100%; object-fit: cover; filter: none; }
+.ig .w { position: absolute; inset: 0; display: grid; place-items: center; font-size: 19cqi; text-align: center; }
+.ig .t { font-size: 15cqi; padding: 10cqi; text-align: left; align-self: end; justify-self: start; }
+.ig .mini { position: absolute; top: 8cqi; left: 8cqi; width: 26cqi; }
+.ig .bars { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); }
+.ig .bars + .logo { position: relative; width: 60%; --l: #fff; }
+.ig > .framed { display: block; padding: 7%; }
+
+.story { aspect-ratio: 9 / 16; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 9% 8% 0; container-type: inline-size; }
+.story .logo { width: 34cqi; --l: var(--f-ink); }
+.story img { width: 74cqi; margin-top: auto; filter: drop-shadow(0 6cqi 6cqi rgba(0,0,0,.28)); }
+.story .wide { font-size: 10cqi; margin: 6cqi 0 5cqi; }
+.story .btn { font-size: 4.6cqi; padding: 4.4cqi 6cqi; margin-bottom: 11cqi; }
+.story .strip { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 0; height: 3.2cqi; }
+
+.mail { background: var(--card); border-radius: 16px; padding: 10px; }
+.mail .head { font-size: 12px; color: var(--sub); padding: 4px 6px 10px; line-height: 1.5; }
+.mail .head b { color: var(--text); }
+.mail .body { background: #fff; border-radius: 10px; overflow: hidden; }
+.mail .band { padding: 16px; text-align: center; container-type: inline-size; }
+.mail .band .logo { width: 70px; margin: 0 auto 14px; --l: var(--f-ink); }
+.mail .band .wide { font-size: 11cqi; }
+.mail .band img { width: 52%; margin: 12px auto -32%; position: relative; filter: drop-shadow(0 10px 12px rgba(0,0,0,.25)); }
+.mail .txt { padding: 34% 18px 16px; font-size: 14px; color: #333; }
+.mail .txt .btn { margin-top: 12px; font-size: 13.5px; }
+.mail .strip { border-radius: 0; height: 8px; }
+
+.box { aspect-ratio: 3 / 2; border-radius: 16px; background: #e9e7e2; display: grid; place-items: center; container-type: inline-size; }
+.box .lid { width: 76%; aspect-ratio: 1.55; background: #fff; border-radius: 6px; position: relative; overflow: hidden; box-shadow: 0 2cqi 4cqi rgba(0,0,0,.14), inset 0 0 0 1px rgba(0,0,0,.05); }
+.box .lid .logo { position: absolute; left: 50%; top: 22%; transform: translateX(-50%); width: 24cqi; --l: #410e01; --s: #f74532; }
+.box .lid .tape { position: absolute; left: 0; right: 0; top: 62%; height: 9%; display: grid; grid-template-columns: repeat(5, 1fr); }
+.box .lid small { position: absolute; left: 0; right: 0; bottom: 8%; text-align: center; font: 700 1.6cqi "Archivo"; letter-spacing: .2em; text-transform: uppercase; color: #15191d; opacity: .6; }
+</style>
+</head>
+<body data-key="hs-brand-r2-flood" data-kit="Flavor Flood">
+
+<header class="top"><div class="wrap">
+  <a class="back" href="./">← Round 2</a>
+  <span class="title">Flavor Flood</span>
+  <nav class="toc"><a href="#idea">Idea</a><a href="#logo">Logo</a><a href="#color">Color</a><a href="#type">Type</a><a href="#graphics">Graphics</a><a href="#photo">Photos</a><a href="#voice">Voice</a><a href="#apps">In use</a><a href="#rules">Rules</a></nav>
+  <div class="switch" id="switch" aria-label="Featured flavor"></div>
+</div></header>
+
+<section class="cover flood" id="cover">
+  <div class="meta"><span class="logo"></span><span class="eyebrow">Brand guidelines · Round 2</span></div>
+  <div class="giant wide" data-name2></div>
+  <img class="tub" data-img="tub" alt="">
+  <div class="tagline cond">Same dessert.<br>Different feeling.</div>
+  <div class="lineup" id="cover-lineup"></div>
+</section>
+
+<!-- 01 IDEA -->
+<section class="sec" id="idea" data-fb="Overall idea"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01 · Idea</span><h2>Every flavor owns a color.</h2>
+    <p class="lede">Happy Spoon doesn't have one brand color. It has five. Whatever flavor we're talking about takes over the whole surface: the page, the post, the ad, the email. The logo turns into that flavor's ink. Tap a color in the top bar and this whole guide changes with it.</p></div>
+  <div class="grid principles">
+    <div class="card s4"><h3>One flavor per moment.</h3><p>Every screen, post and ad features exactly one flavor and is colored by it, edge to edge.</p></div>
+    <div class="card s4"><h3>The lineup is the only crowd.</h3><p>All five colors appear together in one place only: the lineup strip (and the shelf of tubs).</p></div>
+    <div class="card s4"><h3>Loud color, quiet words.</h3><p>The color does the shouting. Copy stays short: the flavor name, one line about it, and what to do next.</p></div>
+  </div>
+</div></section>
+
+<!-- 02 LOGO -->
+<section class="sec" id="logo" data-fb="Logo"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02 · Logo</span><h2>One color, always.</h2>
+    <p class="lede">On a flavor flood the logo is a single color, the flavor's ink: white on Fudge, Cookies &amp; Cream and Cookie Dough, dark ink on Salted Caramel and Mint Chip. The full-color logo (cocoa and coral) is only for packaging and plain white pages.</p></div>
+  <div class="five" id="lockups"></div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card s4"><span class="label">Neutral pages and packaging</span><div class="lock" style="background:#fff"><span class="logo" style="--l:#410e01;--s:#f74532"></span><small style="color:#15191d">Full color, white only</small></div></div>
+    <div class="card s4"><span class="label">Clear space</span><div class="space" style="background:#fff"><div class="cs"><span class="logo" style="--l:#15191d"></span></div></div><p class="note">Keep space equal to the height of the "O" on every side. Minimum size: 64 px wide on screens, 0.75 in in print.</p></div>
+    <div class="card s4"><span class="label">Profile pictures</span>
+      <div class="avatars" id="avatars"></div>
+      <p class="note">Profile picture: the smile mark in white on the featured flavor. Change it when a new flavor launches. Story highlights get one color per flavor.</p></div>
+    <div class="card s12"><span class="label">Don't</span><div class="misuse">
+      <figure><div class="m" style="background:#1497ec"><span class="logo" style="--l:#410e01;--s:#f74532"></span></div><figcaption>Full-color logo on a flood</figcaption></figure>
+      <figure><div class="m" style="background:#f39c1e"><span class="logo" style="--l:#ef4c3c"></span></div><figcaption>One flavor's color on another flavor</figcaption></figure>
+      <figure><div class="m" style="background:#8740cf"><span class="logo" style="--l:#fff;transform:scaleX(1.35)"></span></div><figcaption>Stretched or squashed</figcaption></figure>
+      <figure><div class="m" style="background:url(../../assets/mint-chip-fun-sealed-mint-orbit.webp) center/cover"><span class="logo" style="--l:#fff"></span></div><figcaption>On a busy photo with no flood behind it</figcaption></figure>
+      <figure><div class="m" style="background:#4fc690"><span class="logo" style="--l:#fff;filter:drop-shadow(0 3px 0 #0d2c3d)"></span></div><figcaption>Shadows, outlines or effects</figcaption></figure>
+    </div></div>
+  </div>
+</div></section>
+
+<!-- 03 COLOR -->
+<section class="sec" id="color" data-fb="Color"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03 · Color</span><h2>Five floods, two neutrals.</h2>
+    <p class="lede">Each flavor comes with a full set: the flood itself, a deeper shade for pressed states and edges, a glow for highlights, the ink for text and logo, and a dark button color. These are the exact values the homepage already uses.</p></div>
+  <div class="five" id="fcards"></div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card s7"><span class="label">Neutrals (pages without a flavor: checkout, legal, receipts)</span>
+      <div class="grid" style="gap:10px">
+        <div class="sw s4"><i style="background:#fff;box-shadow:inset 0 0 0 1px #e3e3df"></i><div><b>White</b><code>#FFFFFF</code><span>Neutral background</span></div></div>
+        <div class="sw s4"><i style="background:#15191d"></i><div><b>Ink</b><code>#15191D</code><span>Text on neutral</span></div></div>
+        <div class="sw s4"><i style="background:#f3f3f1"></i><div><b>Paper</b><code>#F3F3F1</code><span>Cards, fields</span></div></div>
+      </div>
+      <p class="note">Cocoa #410E01 and coral #F74532 live only inside the full-color logo and on the tub itself.</p></div>
+    <div class="card s5"><span class="label">How much of each, per screen</span>
+      <div class="ratio" id="ratio"></div>
+      <p class="note">About three quarters flood, a fifth ink (logo and type), a little button color. Never two floods side by side, except in the lineup.</p>
+      <span class="label" style="margin-top:18px">Readability of the current flavor</span>
+      <div class="pairs"><div class="pair flood"><b>Flavor ink</b><small data-contrast-live="ink"></small></div><div class="pair" style="background:var(--f-btn);color:#fff"><b>Button</b><small data-contrast-live="btn"></small></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 04 TYPE -->
+<section class="sec" id="type" data-fb="Type"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04 · Type</span><h2>One family, two widths.</h2>
+    <p class="lede">Everything is Archivo, the font the site already uses. It stretches: wide for flavor names (they should feel huge and loud), condensed for headlines (they should feel tight and punchy). Free on Google Fonts, one file.</p></div>
+  <div class="card scale">
+    <div class="row"><div class="meta"><b>Flavor name</b>Archivo Expanded Black<br>width 125 · weight 900<br>All caps · line height 0.84</div><div class="ex wide" style="font-size:clamp(40px,7vw,86px)" data-name></div></div>
+    <div class="row"><div class="meta"><b>Headline</b>Archivo Condensed Black<br>width 72 · weight 880<br>All caps · line height 0.94</div><div class="ex cond" style="font-size:clamp(36px,5vw,60px)">Same dessert. Different feeling.</div></div>
+    <div class="row"><div class="meta"><b>Subhead</b>Archivo Bold · 22 / 28</div><div class="ex" style="font:700 22px/1.3 Archivo">Thick, creamy and high in protein.</div></div>
+    <div class="row"><div class="meta"><b>Eyebrow</b>Archivo Bold · 12 · tracking 16%</div><div class="ex eyebrow">High-protein dessert yogurt</div></div>
+    <div class="row"><div class="meta"><b>Body</b>Archivo Medium · 16 / 24</div><div class="ex" style="font:500 16px/1.5 Archivo;max-width:560px">Five dessert flavors in 32 oz tubs. Thick enough to hold the spoon, high in protein, and made for any time of day. Join the waitlist and we'll let you know the moment they're ready.</div></div>
+    <div class="row"><div class="meta"><b>Button</b>Archivo Bold · 15 · pill</div><div class="ex"><span class="btn">Join the waitlist</span></div></div>
+  </div>
+</div></section>
+
+<!-- 05 GRAPHICS -->
+<section class="sec" id="graphics" data-fb="Graphics"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">05 · Graphic elements</span><h2>Four moves, nothing else.</h2>
+    <p class="lede">No stickers, doodles, outlines or patterns. The brand only ever does these four things.</p></div>
+  <div class="grid">
+    <div class="s3"><div class="pour" id="pour"><span>Tap to pour the next flavor</span><img alt=""></div><p class="cap"><b>The flood.</b> Color spreads out from the tub to fill the whole surface. 0.9 s, smooth ease, never a hard cut.</p></div>
+    <div class="s3"><div class="gname flood"><div class="w wide" data-name2></div><img data-img="tub" alt=""></div><p class="cap"><b>The giant name.</b> The flavor name set huge behind the tub. Cropping off the edges is fine.</p></div>
+    <div class="s3"><div class="shelf flood" id="shelf"></div><p class="cap"><b>The shelf.</b> All five tubs on glass; the featured one rises up. Tap a tub.</p></div>
+    <div class="s3"><div class="card" style="height:auto;aspect-ratio:1;display:flex;flex-direction:column;justify-content:space-between"><div class="strip lineup" id="strip1"></div><ul class="spec-list"><li><b>Use as</b><span>Footer, divider, end card, box tape</span></li><li><b>Order</b><span>Always Fudge → Dough</span></li><li><b>Bars</b><span>Equal width</span></li></ul></div><p class="cap"><b>The lineup strip.</b> The only place all five colors meet.</p></div>
+  </div>
+</div></section>
+
+<!-- 06 PHOTOS -->
+<section class="sec" id="photo" data-fb="Photos"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">06 · Photography</span><h2>Photos live in the flood.</h2>
+    <p class="lede">Every photo sits on, or is framed by, its flavor's color. Bright, saturated and crisp. If a photo has a gray or beige backdrop, cut the tub out and put it on the flood instead.</p></div>
+  <div class="grid">
+    <div class="s4"><div class="ph cut flood"><img data-img="tub" alt=""></div><p class="cap"><b>Cutout on flood.</b> The workhorse: website, shop, ads, posts.</p></div>
+    <div class="s4"><div class="ph"><img data-img="fun" alt=""></div><p class="cap"><b>Ingredient study.</b> The tub with its real ingredients, colors matched to the flood.</p></div>
+    <div class="s4"><div class="ph framed flood"><img data-img="open" alt=""></div><p class="cap"><b>Framed spoon pull.</b> Texture shots get a flood-colored frame.</p></div>
+  </div>
+</div></section>
+
+<!-- 07 VOICE -->
+<section class="sec" id="voice" data-fb="Voice"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">07 · Voice</span><h2>Name it. Describe it. Done.</h2>
+    <p class="lede">Bold, flavor-first and short. The color is already loud, so the words don't need to be. Taste and texture first, protein second.</p></div>
+  <div class="grid">
+    <div class="s6"><div class="formula flood">
+      <div class="wide" data-name></div><p data-line></p><span class="btn" data-cta></span>
+      <ol><li>Flavor name, in caps</li><li>One line about taste or texture</li><li>A button that names the flavor</li></ol></div></div>
+    <div class="card s6"><span class="label">Personality</span>
+      <div class="tags"><span>Bold</span><span>Flavor-first</span><span>Confident</span><span>Short</span><span>Generous</span></div>
+      <div class="words" style="margin-top:14px"><div class="yes"><b>We are</b>Direct, excited about flavor, clear about what it is.</div><div class="no"><b>We aren't</b>Jokey, sciency, preachy about diets, or full of numbers.</div></div>
+      <span class="label" style="margin-top:18px">Headlines</span>
+      <ul class="lines"><li>Same dessert. Different feeling.</li><li>Pick your flavor.</li><li>Thick enough to hold the spoon.</li></ul></div>
+    <div class="card s7"><span class="label">One line per flavor (drafts; confirm against the final recipes)</span><div class="flist" id="flist"></div></div>
+    <div class="card s5"><span class="label">Words</span>
+      <div class="words"><div class="yes"><b>Use</b>thick, rich, creamy, spoon, tub, dessert, high-protein, flavor names</div><div class="no"><b>Avoid</b>guilt-free, cheat meal, clean, "healthy", cup, any number we haven't confirmed</div></div>
+      <span class="label" style="margin-top:18px">Buttons</span>
+      <ul class="lines"><li>Join the waitlist</li><li data-cta></li><li>Build your box</li></ul></div>
+  </div>
+</div></section>
+
+<!-- 08 APPLICATIONS -->
+<section class="sec" id="apps" data-fb="Applications"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">08 · In use</span><h2>What it looks like everywhere.</h2>
+    <p class="lede">Same rules on every surface. All of these follow the flavor picked in the top bar.</p></div>
+  <div class="grid">
+    <div class="s8"><div class="frame web flood"><div class="nav"><span class="logo"></span><span>Shop</span><span>Our story</span><span>Waitlist</span></div><div class="w wide" data-name2></div><img data-img="tub" alt=""><div class="copy"><span data-line></span><br><span class="btn" data-cta></span></div><div class="strip lineup" data-strip></div></div><p class="cap">Website hero</p></div>
+    <div class="s4"><div class="shopcard"><div class="img flood"><div class="w wide" data-name2></div><img data-img="tub" alt=""></div><div class="body"><b data-name></b><p>32 oz tub · <span data-line></span></p><div class="row"><span class="btn">Add to box</span><span class="step">− 1 +</span></div></div></div><p class="cap">Shop product card</p></div>
+    <div class="s5"><div class="ig" id="ig"></div><p class="cap">Instagram grid: one flavor per post, never the same color twice in a row.</p></div>
+    <div class="s3"><div class="frame story flood"><span class="logo"></span><img data-img="tub" alt=""><div class="wide">High protein dessert</div><span class="btn">Join the waitlist</span><div class="strip lineup" data-strip></div></div><p class="cap">Story / TikTok end card</p></div>
+    <div class="s4"><div class="mail"><div class="head"><b>Happy Spoon</b><br>Subject: <span data-name></span> is on the list</div><div class="body"><div class="band flood"><span class="logo"></span><div class="wide" data-name2></div><img data-img="tub" alt=""></div><div class="txt"><span data-line></span> High in protein, 32 oz, and coming soon. You're on the waitlist, so you'll hear first.<br><span class="btn" data-cta></span></div><div class="strip" data-strip></div></div></div><p class="cap">Email</p></div>
+    <div class="s7"><div class="box"><div class="lid"><span class="logo"></span><div class="tape" data-strip></div><small>Keep cold · Open me first</small></div></div><p class="cap">Shipping box: white, full-color logo, lineup tape.</p></div>
+    <div class="s5"><div class="card" style="height:100%"><span class="label">Social profile</span><div class="avatars" id="avatars2"></div><p class="note">The profile picture follows the newest flavor. Highlights use the tubs on their own colors.</p></div></div>
+  </div>
+</div></section>
+
+<!-- 09 RULES -->
+<section class="sec" id="rules"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">09 · Rules</span><h2>The short version.</h2></div>
+  <div class="rules">
+    <ul class="do"><h3>Always</h3><li>One flavor per screen, post or ad, full bleed.</li><li>Logo in the flavor's ink: white, or dark on Caramel and Mint.</li><li>Flavor names wide and huge; headlines condensed.</li><li>All five together only in the lineup strip or on the shelf.</li><li>Colors change with a smooth flood, never a hard cut.</li></ul>
+    <ul class="dont"><h3>Never</h3><li>Put flavor colors on cream or gray backgrounds.</li><li>Use the full-color logo on a flood.</li><li>Use a separate "brand color" that isn't a flavor.</li><li>Add stickers, doodles, outlines or patterns.</li><li>Print a nutrition number we haven't confirmed.</li></ul>
+  </div>
+</div></section>
+
+<p class="wrap end">Happy Spoon brand kit · Round 2 · Flavor Flood · 2026-10-03</p>
+
+<script src="kit.js?v=2"></script>
+<script>
+const A = '../../assets/';
+const F = [
+  { id: 'chocolate-fudge', name: 'Chocolate Fudge', two: 'Chocolate<br>Fudge', short: 'Choc Fudge', bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b', fun: 'fun-open-swirl', line: 'Dark, fudgy and spoon-thick.' },
+  { id: 'cookies-and-cream', name: 'Cookies & Cream', two: 'Cookies<br>&amp; Cream', short: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33', fun: 'fun-open-cookie-swirl', line: 'Cookies and cream, thick and creamy.' },
+  { id: 'salted-caramel', name: 'Salted Caramel', two: 'Salted<br>Caramel', short: 'Salted Caramel', bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#2e1604', btn: '#2e1604', fun: 'fun-open-caramel-swirl', line: 'Buttery caramel with a salty finish.' },
+  { id: 'mint-chip', name: 'Mint Chip', two: 'Mint<br>Chip', short: 'Mint Chip', bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#0d2c3d', btn: '#0d2c3d', fun: 'fun-open-chocolate-swish', line: 'Cool mint with chocolate chips.' },
+  { id: 'cookie-dough', name: 'Cookie Dough', two: 'Cookie<br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38', fun: 'fun-open-cookie-swirl', line: 'Brown-sugar cookie dough with chocolate chips.' }
+];
+const esc = s => s.replace(/&/g, '&amp;');
+const tub = f => A + f.id + '-tub-600.webp';
+let cur = 1;
+
+// Static pieces built from the flavor list
+const bars = (tag) => F.map((f, i) => `<${tag} style="--c:${f.bg};--ci:${f.ink}" ${tag === 'button' ? `type="button" data-i="${i}"` : ''}>${esc(f.short)}</${tag}>`).join('');
+document.getElementById('cover-lineup').innerHTML = bars('button');
+document.getElementById('cover-lineup').classList.add('lineup');
+document.getElementById('strip1').innerHTML = F.map(f => `<span style="--c:${f.bg};--ci:${f.ink};padding:18px 2px;font-size:0">.</span>`).join('');
+document.querySelectorAll('[data-strip]').forEach(el => { el.classList.add('strip'); el.innerHTML = F.map(f => `<span style="background:${f.bg};color:${f.ink};${el.closest('.web') ? '' : 'font-size:0;'}display:block;text-align:center;font-weight:800;text-transform:uppercase;letter-spacing:.06em">${el.closest('.web') ? esc(f.short) : ''}</span>`).join(''); });
+document.getElementById('switch').innerHTML = F.map((f, i) => `<button type="button" data-i="${i}" style="--c:${f.bg}" aria-label="${esc(f.name)}"></button>`).join('');
+document.getElementById('lockups').innerHTML = F.map(f => `<div class="lock" style="background:${f.bg}"><span class="logo" style="--l:${f.ink}"></span><small style="color:${f.ink}">${esc(f.name)} · ink ${f.ink.toUpperCase()}</small></div>`).join('');
+document.getElementById('fcards').innerHTML = F.map(f => `<div class="fcard"><div class="top" style="background:${f.bg};color:${f.ink}"><b>${esc(f.name)}</b><small>Flood ${f.bg.toUpperCase()}<br>${contrast(f.ink, f.bg).toFixed(1)}:1 with ink</small></div><div class="chips">
+  <div><i style="background:${f.deep}"></i>Deep<code>${f.deep.toUpperCase()}</code></div><div><i style="background:${f.glow}"></i>Glow<code>${f.glow.toUpperCase()}</code></div>
+  <div><i style="background:${f.ink}"></i>Ink<code>${f.ink.toUpperCase()}</code></div><div><i style="background:${f.btn}"></i>Button<code>${f.btn.toUpperCase()}</code></div></div></div>`).join('');
+document.getElementById('flist').innerHTML = F.map(f => `<div><i style="background:${f.bg}"></i><b>${esc(f.name)}</b><span>${f.line}</span></div>`).join('');
+document.getElementById('shelf').innerHTML = F.map((f, i) => `<img src="${tub(f)}" data-i="${i}" alt="${esc(f.name)}">`).join('');
+const avatarHTML = F.map((f, i) => `<figure><div class="av" style="background:${f.bg}"><img src="${tub(f)}" alt=""></div>${esc(f.short)}</figure>`).join('');
+document.getElementById('avatars').innerHTML = `<figure><div class="av flood"><span class="mark" style="--l:var(--f-ink)"></span></div>Profile</figure>`;
+document.getElementById('avatars2').innerHTML = `<figure><div class="av flood"><span class="mark" style="--l:var(--f-ink)"></span></div>Profile</figure>` + avatarHTML;
+
+// Instagram grid: nine posts, each one flavor
+const ig = [
+  [0, 'cut'], [3, 'name'], [1, 'open'], [2, 'tag'], [null, 'lineup'], [4, 'cut'], [0, 'fun'], [1, 'name'], [3, 'cut']
+];
+document.getElementById('ig').innerHTML = ig.map(([i, kind]) => {
+  if (kind === 'lineup') return `<div><div class="bars">${F.map(f => `<i style="background:${f.bg}"></i>`).join('')}</div><span class="logo"></span></div>`;
+  const f = F[i], bg = `background:${f.bg};color:${f.ink}`;
+  if (kind === 'cut') return `<div style="${bg}"><img src="${tub(f)}" alt=""></div>`;
+  if (kind === 'name') return `<div style="${bg}"><div class="w wide">${f.two}</div><img src="${tub(f)}" alt="" style="width:46%;position:relative"></div>`;
+  if (kind === 'open') return `<div style="${bg}" class="framed"><img class="full" src="${A + f.id}-open-serving-720.webp" alt="" style="border-radius:3cqi"></div>`;
+  if (kind === 'fun') return `<div><img class="full" src="${A + f.id}-${f.fun}.webp" alt=""></div>`;
+  if (kind === 'tag') return `<div style="${bg}"><span class="logo mini" style="--l:${f.ink}"></span><div class="t cond">Same dessert. Different feeling.</div></div>`;
+}).join('');
+
+// Pour demo
+const pour = document.getElementById('pour');
+let pourI = 0;
+pour.style.setProperty('--pbg', F[0].bg);
+pour.querySelector('img').src = tub(F[0]);
+pour.addEventListener('click', () => {
+  const next = (pourI + 1) % F.length;
+  const w = document.createElement('i');
+  w.className = 'wave'; w.style.background = F[next].bg;
+  pour.insertBefore(w, pour.querySelector('img'));
+  pour.querySelector('img').src = tub(F[next]);
+  requestAnimationFrame(() => requestAnimationFrame(() => w.classList.add('go')));
+  setTimeout(() => { pour.style.setProperty('--pbg', F[next].bg); w.remove(); }, 1050);
+  pourI = next;
+});
+
+function setFlavor(i) {
+  cur = i; const f = F[i], r = document.documentElement.style;
+  r.setProperty('--f', f.bg); r.setProperty('--f-deep', f.deep); r.setProperty('--f-glow', f.glow); r.setProperty('--f-ink', f.ink); r.setProperty('--f-btn', f.btn);
+  document.querySelectorAll('[data-name]').forEach(el => el.textContent = f.name);
+  document.querySelectorAll('[data-name2]').forEach(el => el.innerHTML = f.two);
+  document.querySelectorAll('[data-line]').forEach(el => el.textContent = f.line);
+  document.querySelectorAll('[data-cta]').forEach(el => el.textContent = 'Get ' + f.name);
+  document.querySelectorAll('[data-img="tub"]').forEach(el => el.src = tub(f));
+  document.querySelectorAll('[data-img="open"]').forEach(el => el.src = A + f.id + '-open-serving-720.webp');
+  document.querySelectorAll('[data-img="fun"]').forEach(el => el.src = A + f.id + '-' + f.fun + '.webp');
+  document.querySelectorAll('#switch button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.i === i));
+  document.querySelectorAll('#shelf img').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+  document.querySelector('meta[name=theme-color]')?.setAttribute('content', f.bg);
+  document.getElementById('ratio').innerHTML = `<i style="flex:75;background:${f.bg};color:${f.ink}">75%</i><i style="flex:20;background:${f.ink};color:${f.bg};box-shadow:inset 0 0 0 1px #e3e3df">20%</i><i style="flex:5;background:${f.btn}"></i>`;
+  document.querySelector('[data-contrast-live="ink"]').textContent = `${f.ink.toUpperCase()} on ${f.bg.toUpperCase()} · ${contrast(f.ink, f.bg).toFixed(1)}:1`;
+  document.querySelector('[data-contrast-live="btn"]').textContent = `#FFFFFF on ${f.btn.toUpperCase()} · ${contrast('#ffffff', f.btn).toFixed(1)}:1`;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('#switch button, #cover-lineup button, #shelf img');
+  if (b) setFlavor(+b.dataset.i);
+});
+setFlavor(cur);
+</script>
+</body>
+</html>
