@@ -399,7 +399,7 @@
     } else if (act === 'promo-close') promo.close();
   });
 
-  // ---------- Welcome offer: 25% off, shown 1 second after the page opens, once per visitor ----------
+  // ---------- Welcome offer: a free tub in your first box, shown 1 second after the page opens, once per visitor ----------
   // Signups go to the Kit form in data-kit-form (Kit's public endpoint, no secret keys), tagged with where they came from.
   const promo = $('.promo');
   const promoForm = $('.promo-form');
@@ -433,7 +433,7 @@
       try {
         const body = new FormData();
         body.append('email_address', address);
-        body.append('fields[source]', 'Shop popup: 25% off');
+        body.append('fields[source]', 'Shop popup: free tub');
         const res = await fetch(`https://app.kit.com/forms/${encodeURIComponent(kitId)}/subscriptions`, { method: 'POST', body, headers: { Accept: 'application/json' } });
         const data = await res.json().catch(() => ({}));
         if (!res.ok || (data.status && data.status !== 'success')) throw new Error(data.error || res.status);
