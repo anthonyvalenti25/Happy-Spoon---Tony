@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ef4c3c">
+  <meta name="robots" content="noindex">
+  <title>Shop | Happy Spoon</title>
+  <meta name="description" content="Build a box of Happy Spoon high-protein dessert yogurt. Mix any flavors, 4 tub minimum.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23271410'/%3E%3Cpath d='M14 34c10 12 26 12 36 0' fill='none' stroke='%23ff6b4a' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='23' r='3' fill='%23fff8ed'/%3E%3Ccircle cx='41' cy='23' r='3' fill='%23fff8ed'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="shop.css?v=1">
+</head>
+<body>
+  <header class="hero">
+    <div class="top">
+      <a class="wordmark" href="../" aria-label="Happy Spoon home"></a>
+      <nav aria-label="Shop"><a href="#flavors">Flavors</a><a href="#minimum">How it works</a></nav>
+      <span class="chip" title="Sample prices. Checkout isn't connected.">Mockup</span>
+      <button class="box-btn" type="button" data-act="open" aria-label="Open your box">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 12 4l8.5 4.5v7L12 20l-8.5-4.5z"/><path d="M3.5 8.5 12 13l8.5-4.5M12 13v7"/></svg>
+        <span class="box-count">0</span>
+      </button>
+    </div>
+
+    <div class="stage" id="stage" aria-label="Flavor shelf"></div>
+
+    <section class="panel" aria-live="polite">
+      <p class="eyebrow">Build your box · tap a flavor</p>
+      <h1 class="name cond"></h1>
+      <p class="desc"></p>
+      <p class="price"><b class="unit"></b> per 32&nbsp;oz tub</p>
+      <div class="adder">
+        <button class="add-main" type="button" data-act="add" data-from="hero">Add to box</button>
+        <div class="step">
+          <button type="button" data-act="sub" aria-label="Remove one"><svg viewBox="0 0 16 16"><path d="M3 8h10"/></svg></button>
+          <output></output>
+          <button type="button" data-act="add" data-from="hero" aria-label="Add one more"><svg viewBox="0 0 16 16"><path d="M3 8h10M8 3v10"/></svg></button>
+        </div>
+      </div>
+      <div class="tray">
+        <div class="tray-head"><span>Your box</span><span class="tray-status"></span></div>
+        <div class="slots"></div>
+        <p class="tray-tip">Mix any flavors. Tap a tub in your box to take it out.</p>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="benefits" aria-label="Why Happy Spoon">
+      <div class="benefit"><b>High protein</b><span>Dessert that fits your goals.</span></div>
+      <div class="benefit"><b>Tastes like dessert</b><span>Five flavors built for cravings.</span></div>
+      <div class="benefit"><b>Thick and creamy</b><span>A dense, spoonable texture.</span></div>
+      <div class="benefit"><b>32 oz tubs</b><span>Big tubs, so you stay stocked.</span></div>
+    </section>
+
+    <section class="section" id="flavors">
+      <h2 class="cond">All five flavors</h2>
+      <p class="lede">Every tub is the same price, so mix them any way you like.</p>
+      <div class="cards"></div>
+    </section>
+
+    <section class="section rule" id="minimum">
+      <div>
+        <h2 class="cond">Four tubs minimum</h2>
+        <p class="lede">Every box starts at four tubs. Four of one flavor, one of each, or anything in between. Add as many more as you want.</p>
+        <button class="preset" type="button" data-act="all">Add one of each flavor (5 tubs)</button>
+      </div>
+      <div class="lineup" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span class="wordmark" role="img" aria-label="Happy Spoon"></span>
+    <p>Design mockup. Prices are samples, and checkout isn't connected yet.</p>
+    <nav aria-label="Footer"><a href="../">Join the waitlist</a><a href="#flavors">Flavors</a></nav>
+  </footer>
+
+  <div class="bar" role="region" aria-label="Your box">
+    <div class="bar-info"><b></b><span></span><div class="pips"><i></i><i></i><i></i><i></i></div></div>
+    <button class="go" type="button" data-act="open"></button>
+  </div>
+
+  <dialog class="drawer" aria-label="Your box">
+    <div class="d-head"><h2 class="cond">Your box</h2><button class="close" type="button" data-act="close" aria-label="Close"><svg viewBox="0 0 14 14"><path d="M2 2l10 10M12 2 2 12"/></svg></button></div>
+    <div class="d-progress"><p></p><div class="pips"><i></i><i></i><i></i><i></i></div></div>
+    <div class="d-lines"></div>
+    <div class="d-foot">
+      <div class="total"><span>Subtotal</span><span class="sum"></span></div>
+      <button class="checkout" type="button" data-act="checkout"></button>
+      <p class="d-note" aria-live="polite"></p>
+    </div>
+  </dialog>
+
+  <script src="shop.js?v=1"></script>
+</body>
+</html>
