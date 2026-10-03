@@ -4,8 +4,8 @@ const HS = (() => {
   const FLAVORS = [
     { id: 'chocolate-fudge',   name: 'Chocolate Fudge', bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b' },
     { id: 'cookies-and-cream', name: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33' },
-    { id: 'salted-caramel',    name: 'Salted Caramel',  bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#2e1604', btn: '#2e1604' },
-    { id: 'mint-chip',         name: 'Mint Chip',       bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#0d2c3d', btn: '#0d2c3d' },
+    { id: 'salted-caramel',    name: 'Salted Caramel',  bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#ffffff', btn: '#2e1604' },
+    { id: 'mint-chip',         name: 'Mint Chip',       bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#ffffff', btn: '#0d2c3d' },
     { id: 'cookie-dough',      name: 'Cookie Dough',    bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38' },
   ];
   const N = FLAVORS.length;
