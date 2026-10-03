@@ -1,0 +1,26 @@
+{
+  "generator": "Built-in image_gen",
+  "transparent_background": true,
+  "prompts": [
+    {
+      "name": "chocolate-chips",
+      "prompt": "Use case: ads-marketing. Asset type: isolated ingredient cutout for the decorative background of Happy Spoon dessert yogurt Our Story webpage. Photorealistic premium food photography, appetizing tactile real food, sharp natural texture, warm soft studio light from upper left, three-quarter angle, completely isolated on true transparent background. Single compact composition centered with 12 percent clear padding on every side, complete object visible, no cropping, no floor, no plate, no bowl, no packaging, no text, no logo, no surrounding scattered crumbs, no cast shadow outside object, no vector art, no cartoon, no plastic CGI. Three dark chocolate baking chips, one larger upright classic teardrop-shaped chip with a gently curved pointed tip and two smaller chips leaning beside it. Rich cocoa brown, subtle satin sheen and realistic fine chocolate surface."
+    },
+    {
+      "name": "cookie-dough",
+      "prompt": "Use case: ads-marketing. Asset type: isolated ingredient cutout for the decorative background of Happy Spoon dessert yogurt Our Story webpage. Photorealistic premium food photography, appetizing tactile real food, sharp natural texture, warm soft studio light from upper left, three-quarter angle, completely isolated on true transparent background. Single compact composition centered with 12 percent clear padding on every side, complete object visible, no cropping, no floor, no plate, no bowl, no packaging, no text, no logo, no surrounding scattered crumbs, no cast shadow outside object, no vector art, no cartoon, no plastic CGI. One irregular bite-sized chunk of golden raw chocolate chip cookie dough, with a second smaller broken piece nestled beside it. Tender crumbly buttery dough with clearly visible dark chocolate chunks embedded throughout, visibly raw cookie dough rather than baked cookie."
+    },
+    {
+      "name": "sandwich-cookie",
+      "prompt": "Use case: ads-marketing. Asset type: isolated ingredient cutout for the decorative background of Happy Spoon dessert yogurt Our Story webpage. Photorealistic premium food photography, appetizing tactile real food, sharp natural texture, warm soft studio light from upper left, three-quarter angle, completely isolated on true transparent background. Single compact composition centered with 12 percent clear padding on every side, complete object visible, no cropping, no floor, no plate, no bowl, no packaging, no text, no logo, no surrounding scattered crumbs, no cast shadow outside object, no vector art, no cartoon, no plastic CGI. One dark cocoa sandwich cookie tilted to show the detailed embossed wafer top and thick white creme filling, with one broken half leaning against it exposing the cream. Recognizable classic cookies-and-cream ingredient, generic floral geometric wafer embossing without any lettering or trademark."
+    },
+    {
+      "name": "salted-caramel",
+      "prompt": "Use case: ads-marketing. Asset type: isolated ingredient cutout for the decorative background of Happy Spoon dessert yogurt Our Story webpage. Photorealistic premium food photography, appetizing tactile real food, sharp natural texture, warm soft studio light from upper left, three-quarter angle, completely isolated on true transparent background. Single compact composition centered with 12 percent clear padding on every side, complete object visible, no cropping, no floor, no plate, no bowl, no packaging, no text, no logo, no surrounding scattered crumbs, no cast shadow outside object, no vector art, no cartoon, no plastic CGI. Two soft golden amber caramel cubes, one leaning diagonally against the other, rounded natural edges, glossy buttery caramel surface and a few tiny flaky sea salt crystals on top. Solid chewy caramel candy, not liquid sauce."
+    },
+    {
+      "name": "chocolate-chunks",
+      "prompt": "Use case: ads-marketing. Asset type: isolated ingredient cutout for the decorative background of Happy Spoon dessert yogurt Our Story webpage. Photorealistic premium food photography, appetizing tactile real food, sharp natural texture, warm soft studio light from upper left, three-quarter angle, completely isolated on true transparent background. Single compact composition centered with 12 percent clear padding on every side, complete object visible, no cropping, no floor, no plate, no bowl, no packaging, no text, no logo, no surrounding scattered crumbs, no cast shadow outside object, no vector art, no cartoon, no plastic CGI. Two irregular broken chunks of rich dark chocolate, a larger thick angular shard and a smaller piece leaning against it. Rough fractured interior edges contrasting with smooth glossy faces. Deep warm cocoa brown, realistic appetizing confectionery photography."
+    }
+  ]
+}
