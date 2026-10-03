@@ -204,10 +204,10 @@ main, .hero { position: relative; }
 dialog.drawer {
   position: fixed; inset: auto 0 0 0; margin: 0; width: 100%; max-width: 100%; max-height: 88svh; height: auto;
   border: 0; padding: 0; border-radius: 26px 26px 0 0; background: #fff; color: var(--text);
-  display: none; flex-direction: column; overflow: hidden;
+  display: none; flex-direction: column; overflow: hidden; z-index: 60;
 }
 dialog.drawer[open] { display: flex; animation: sheetUp .45s var(--ease); }
-dialog.drawer::backdrop { background: rgba(10, 12, 14, .5); animation: fade .3s ease; }
+dialog.drawer::backdrop { background: transparent; }
 @keyframes sheetUp { from { transform: translateY(100%); } }
 @keyframes sheetIn { from { transform: translateX(100%); } }
 @keyframes fade { from { opacity: 0; } }
@@ -239,21 +239,25 @@ dialog.drawer::backdrop { background: rgba(10, 12, 14, .5); animation: fade .3s 
 
 /* ---------- Welcome offer popup ---------- */
 dialog.promo {
+  position: fixed; inset: 0; z-index: 60; height: fit-content;
   width: min(calc(100% - 32px), 420px); max-width: none; max-height: calc(100svh - 32px); margin: auto; padding: 0; border: 0;
   border-radius: 28px; overflow: hidden; background: transparent; color: var(--text);
   display: none; flex-direction: column; box-shadow: 0 40px 80px -30px rgba(0,0,0,.6);
 }
 dialog.promo[open] { display: flex; animation: promoIn .55s var(--ease); }
-dialog.promo::backdrop { background: rgba(10, 12, 14, .55); animation: fade .4s ease; }
+dialog.promo::backdrop { background: transparent; }
+/* The dim layer behind the popup and drawer. It runs past the top and bottom of the screen so the
+   areas under Safari's status bar and toolbar dim too (a dialog backdrop stops at the screen edge). */
+.dimmer { position: fixed; left: 0; right: 0; top: -150px; bottom: -150px; z-index: 50; background: rgba(10, 12, 14, .55); opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+.dimmer.on { opacity: 1; pointer-events: auto; }
 @keyframes promoIn { from { opacity: 0; transform: translateY(24px) scale(.96); } }
-.promo-art { position: relative; flex: 0 0 auto; height: 170px; overflow: hidden; background: var(--bg); color: #fff; display: grid; place-items: end center; container-type: inline-size; }
-.promo-name { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-size: 15cqi; opacity: .22; }
-.promo-tub { position: relative; width: 122px; margin-bottom: 8px; filter: drop-shadow(0 16px 18px rgba(0,0,0,.25)); }
+/* The deal isn't tied to a flavor, so the art is just the logo (white on the page's color) */
+.promo-art { position: relative; flex: 0 0 auto; height: 150px; overflow: hidden; background: var(--bg); color: #fff; display: grid; place-items: center; }
+.promo-logo { display: block; width: 150px; aspect-ratio: 640 / 422; background: currentColor;
+  -webkit-mask: url(../assets/happy-spoon-wordmark-mask.png) center / contain no-repeat; mask: url(../assets/happy-spoon-wordmark-mask.png) center / contain no-repeat; }
 .promo-body { position: relative; flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 26px 24px 22px; text-align: center; background: #fff; }
 .promo-x { position: absolute; top: 12px; right: 12px; z-index: 2; background: rgba(255,255,255,.9); }
-/* On white, the logo is full color (cocoa letters, coral smile) */
-.promo-body .wordmark { width: 92px; margin: 0 auto; -webkit-mask: none; mask: none; background: url(../assets/happy-spoon-wordmark-coral.png) center / contain no-repeat; }
-.promo-kicker { margin-top: 16px; font-size: 16px; line-height: 1.4; color: var(--sub); }
+.promo-kicker { margin-top: 0; font-size: 16px; line-height: 1.4; color: var(--sub); }
 .promo-big { margin-top: 8px; font-size: min(80px, 21vw); line-height: .9; white-space: nowrap; }
 .promo-perks { list-style: none; padding: 0; margin: 16px auto 0; display: inline-flex; flex-direction: column; gap: 7px; text-align: left; font-size: 15px; font-weight: 600; }
 .promo-perks li { display: flex; align-items: center; gap: 10px; }
@@ -294,8 +298,8 @@ dialog.promo::backdrop { background: rgba(10, 12, 14, .55); animation: fade .4s 
 
 /* Short phones: a smaller picture so the form still fits */
 @media (max-height: 700px) and (max-width: 899px) {
-  .promo-art { height: 120px; }
-  .promo-tub { width: 86px; }
+  .promo-art { height: 110px; }
+  .promo-logo { width: 110px; }
   .promo-big { font-size: min(66px, 18vw); }
 }
 
@@ -327,12 +331,10 @@ dialog.promo::backdrop { background: rgba(10, 12, 14, .55); animation: fade .4s 
   dialog.drawer { inset: 0 0 0 auto; width: 440px; height: 100%; max-height: 100%; border-radius: 26px 0 0 26px; }
   dialog.drawer[open] { animation-name: sheetIn; }
   dialog.promo { width: min(calc(100% - 64px), 820px); flex-direction: row; min-height: 520px; }
-  .promo-art { flex: 0 0 46%; height: auto; place-items: center; }
-  .promo-name { font-size: 17cqi; }
-  .promo-tub { width: 240px; margin: 0 0 10px; }
+  .promo-art { flex: 0 0 46%; height: auto; }
+  .promo-logo { width: 250px; }
   .promo-body { display: flex; flex-direction: column; justify-content: center; padding: 48px 44px 36px; }
   .promo-x { background: var(--paper); }
-  .promo-body .wordmark { width: 110px; }
   .promo-big { font-size: 96px; }
 }
 @media (min-width: 1200px) {

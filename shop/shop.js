@@ -105,12 +105,25 @@
   // ---------- Featured flavor: colors, name, description ----------
   const nameBox = $('.name');
   const meta = $('meta[name="theme-color"]');
+  // While the popup or box drawer is open the page is dimmed. The dialog's own backdrop stops short of
+  // Safari's status bar and bottom toolbar on iPhone, so a separate dim layer reaches under both bars.
+  let dimmed = false;
+  const dimColor = hex => {
+    const n = parseInt(hex.slice(1), 16), a = .55, d = [10, 12, 14];   // same as the dialog backdrop
+    return '#' + [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v, i) => Math.round(v * (1 - a) + d[i] * a).toString(16).padStart(2, '0')).join('');
+  };
+  function dim(on) {
+    dimmed = on;
+    const c = on ? dimColor(FLAVORS[hero].bg) : FLAVORS[hero].bg;
+    meta.content = c;
+    $('.dimmer').classList.toggle('on', on);
+  }
   let colorTimer;
   function paint(first) {
     const f = FLAVORS[hero];
     const apply = () => {
       for (const k of ['bg', 'deep', 'glow', 'ink', 'btn']) root.style.setProperty(`--${k}`, f[k]);
-      meta.content = f.bg;
+      meta.content = dimmed ? dimColor(f.bg) : f.bg;
     };
     clearTimeout(colorTimer);
     if (first || reduced) apply(); else colorTimer = setTimeout(apply, 350);
@@ -285,7 +298,28 @@
     if (n < MIN) note('');
   }
 
-  function openBox() { if (!drawer.open) { note(''); drawer.showModal(); } }
+  // The popup and drawer open as regular (non-modal) dialogs: while a modal dialog is open, iPhone Safari
+  // freezes its status bar and toolbar color, so they'd stay bright while the page dims. The page behind
+  // is made inert by hand instead, and Escape or a tap on the dimmed area closes them.
+  const behind = () => [$('.hero'), $('main'), $('.site-footer')];
+  function openDialog(d) {
+    if (d.open) return;
+    d.show();
+    behind().forEach(el => { el.inert = true; });
+    dim(true);
+    (d.querySelector('[autofocus]') || d.querySelector('.close'))?.focus({ preventScroll: true });
+  }
+  function dialogClosed() {
+    if (drawer.open || promo.open) return;
+    behind().forEach(el => { el.inert = false; });
+    dim(false);
+  }
+  const closeAll = () => { [drawer, promo].forEach(d => d.open && d.close()); };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+  $('.dimmer').addEventListener('click', closeAll);
+
+  function openBox() { if (!drawer.open) { note(''); openDialog(drawer); } }
+  drawer.addEventListener('close', dialogClosed);
   drawer.addEventListener('click', e => { if (e.target === drawer) drawer.close(); });   // tap outside the sheet
 
   // One click handler for every button on the page
@@ -312,15 +346,12 @@
   let promoSeen = null;
   try { promoSeen = localStorage.getItem(PROMO_KEY); } catch {}
   const remember = v => { try { localStorage.setItem(PROMO_KEY, v); } catch {} };
-  $('.promo-tub').src = TUB(FLAVORS[hero].id);
   promo.addEventListener('click', e => { if (e.target === promo) promo.close(); });   // tap outside the card
-  promo.addEventListener('close', () => { if (!promo.classList.contains('joined')) remember('dismissed'); });
+  promo.addEventListener('close', () => { if (!promo.classList.contains('joined')) remember('dismissed'); dialogClosed(); });
   if (!promoSeen || new URLSearchParams(location.search).has('promo')) {
     setTimeout(() => {
       if (drawer.open || promo.open) return;
-      $('.promo-tub').src = TUB(FLAVORS[hero].id);   // match whatever flavor is on screen
-      $('.promo-name').innerHTML = FLAVORS[hero].two;
-      promo.showModal();
+      openDialog(promo);
     }, 1000);
   }
   let promoSending = false;
