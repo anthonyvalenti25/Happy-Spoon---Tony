@@ -56,7 +56,7 @@ img { display: block; max-width: 100%; }
 .box-btn.bump { animation: bump .45s var(--ease); }
 @keyframes bump { 40% { transform: scale(1.12); } }
 
-.stage { grid-area: stage; position: relative; height: clamp(300px, 50svh, 440px); margin-top: 4px; touch-action: manipulation; }
+.stage { grid-area: stage; position: relative; height: clamp(240px, 36svh, 440px); margin-top: 4px; touch-action: manipulation; }
 .tub { position: absolute; left: 0; top: 0; aspect-ratio: 600 / 720; transform-origin: 50% 100%; will-change: transform; cursor: pointer; outline: none; }
 .tub img { width: 100%; height: 100%; -webkit-user-drag: none; pointer-events: none; user-select: none; }
 .tub:focus-visible::after { content: ""; position: absolute; inset: -6px; border-radius: 16px; box-shadow: 0 0 0 3px var(--ink); }
@@ -98,13 +98,13 @@ img { display: block; max-width: 100%; }
 .name span.out { animation: nameOut .8s var(--ease) both; }
 @keyframes nameIn { from { transform: translateY(105%); } }
 @keyframes nameOut { to { transform: translateY(-105%); } }
-.desc { margin-top: 12px; font-size: 16px; line-height: 1.4; font-weight: 600; }
-.hero-stats { margin-top: 16px; }
-.price { margin-top: 16px; font-size: 15px; font-weight: 500; opacity: .92; }
+.desc { margin-top: 10px; font-size: 16px; line-height: 1.4; font-weight: 600; }
+.hero-stats { margin-top: 12px; }
+.price { margin-top: 12px; font-size: 15px; font-weight: 500; opacity: .92; }
 .price b { font-size: 17px; font-weight: 800; }
 
 /* Add to box: a big button, which becomes a stepper once the flavor is in the box */
-.adder { margin-top: 16px; }
+.adder { margin-top: 12px; }
 .add-main {
   width: 100%; border: 0; border-radius: 999px; padding: 18px 22px; background: var(--btn); color: #fff; font-size: 16px; font-weight: 800;
   box-shadow: 0 10px 30px -12px rgba(0,0,0,.4); transition: background-color .9s var(--ease), transform .15s ease;
@@ -122,7 +122,7 @@ img { display: block; max-width: 100%; }
 .adder .step output { font-size: 16px; }
 
 /* ---------- The sheet, laid out like Our story ---------- */
-.story { position: relative; overflow: hidden; padding: 12px var(--gutter) 56px; }
+.story { position: relative; overflow: hidden; padding: 12px var(--gutter) 56px; background: var(--bg); }
 .ribbons { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .ribbons .rib { animation: sway var(--t, 14s) ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
 @keyframes sway { from { transform: translate(-10px, 8px) rotate(-1deg); } to { transform: translate(12px, -10px) rotate(1deg); } }
@@ -175,17 +175,21 @@ img { display: block; max-width: 100%; }
 /* The lineup strip: the only place all five colors meet */
 .strip { display: grid; grid-template-columns: repeat(5, 1fr); }
 .strip span { padding: 14px 4px; text-align: center; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--c); }
+/* Pulling past the footer on a phone shows footer brown instead of the flavor color */
+body::after { content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 50vh; background: #2a1712; z-index: -1; pointer-events: none; }
+main, .hero { position: relative; }
 .shop-footer { margin-top: 0; padding-bottom: max(48px, env(safe-area-inset-bottom)); }
-.story { padding-bottom: 72px; }
+.story { padding-bottom: 40px; }
 
-/* ---------- "Added" toast ---------- */
+/* ---------- "Added" toast: drops in at the top, near the header's box button (clear of Safari's bottom toolbar) ---------- */
 .toast {
-  position: fixed; z-index: 30; left: 50%; bottom: max(env(safe-area-inset-bottom), 16px); width: max-content; max-width: calc(100% - 24px);
+  position: fixed; z-index: 30; left: 50%; top: max(env(safe-area-inset-top), 12px); width: max-content; max-width: calc(100% - 24px);
   display: flex; align-items: center; gap: 14px; padding: 8px 8px 8px 18px; border-radius: 999px; background: #fff; color: var(--text);
   box-shadow: 0 18px 40px -16px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05);
-  transform: translate(-50%, calc(100% + 30px)); transition: transform .45s var(--ease);
+  transform: translate(-50%, -140%); opacity: 0; visibility: hidden;
+  transition: transform .45s var(--ease), opacity .3s ease, visibility 0s linear .45s;
 }
-.toast.on { transform: translate(-50%, 0); }
+.toast.on { transform: translate(-50%, 0); opacity: 1; visibility: visible; transition: transform .45s var(--ease), opacity .3s ease; }
 .toast.bump { animation: none; }
 .toast-text b { display: block; font-size: 15px; font-weight: 800; white-space: nowrap; }
 .toast-text span { display: block; margin-top: 2px; font-size: 12.5px; color: var(--sub); }
@@ -212,10 +216,11 @@ dialog.drawer::backdrop { background: rgba(10, 12, 14, .5); animation: fade .3s 
 .close { width: 42px; height: 42px; border: 0; border-radius: 50%; background: var(--paper); display: grid; place-items: center; }
 .close svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
 .d-progress { padding: 4px 20px 14px; }
+.d-progress[hidden] { display: none; }
 .d-progress p { font-size: 14px; font-weight: 600; color: var(--sub); }
 .d-progress .pips { max-width: none; margin-top: 10px; }
 .d-progress .pips i { height: 6px; }
-.d-lines { flex: 1; overflow-y: auto; padding: 4px 20px; }
+.d-lines { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 4px 20px; }
 .line { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
 .line:first-child { border-top: 0; }
 .line .thumb { width: 64px; height: 64px; border-radius: 16px; background: var(--c-bg); display: grid; place-items: end center; overflow: hidden; }
@@ -244,7 +249,7 @@ dialog.promo::backdrop { background: rgba(10, 12, 14, .55); animation: fade .4s 
 .promo-art { position: relative; flex: 0 0 auto; height: 170px; overflow: hidden; background: var(--bg); color: #fff; display: grid; place-items: end center; container-type: inline-size; }
 .promo-name { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-size: 15cqi; opacity: .22; }
 .promo-tub { position: relative; width: 122px; margin-bottom: 8px; filter: drop-shadow(0 16px 18px rgba(0,0,0,.25)); }
-.promo-body { position: relative; flex: 1; overflow-y: auto; padding: 26px 24px 22px; text-align: center; background: #fff; }
+.promo-body { position: relative; flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 26px 24px 22px; text-align: center; background: #fff; }
 .promo-x { position: absolute; top: 12px; right: 12px; z-index: 2; background: rgba(255,255,255,.9); }
 /* On white, the logo is full color (cocoa letters, coral smile) */
 .promo-body .wordmark { width: 92px; margin: 0 auto; -webkit-mask: none; mask: none; background: url(../assets/happy-spoon-wordmark-coral.png) center / contain no-repeat; }

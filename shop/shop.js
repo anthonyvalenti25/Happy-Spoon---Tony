@@ -60,7 +60,7 @@
   function layout() {
     W = stage.clientWidth; H = stage.clientHeight;
     const pad = Math.max(8, W * 0.03), sw = (W - pad * 4) / 5;
-    stw = sw * 0.92; sth = stw * 1.2;
+    stw = sw * (W < 500 ? 0.76 : 0.92); sth = stw * 1.2;   // smaller shelf tubs on phones so the featured one stands out
     const shelfY = H - 44;
     const heroRoom = shelfY - sth - 26;
     th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.66 : 0.6) * 1.2); tw = th / 1.2;
@@ -264,9 +264,10 @@
     const a = document.activeElement, keep = a && a.closest('.d-lines') ? `[data-act="${a.dataset.act}"][data-id="${a.dataset.id}"]` : null;
     // The 4 tub minimum is only mentioned here, inside the box, and on the checkout button
     $('.d-progress p').textContent = n >= MIN ? `${plural(n, 'tub')} in your box. You're good to go.`
-      : n === 0 ? 'Your box is empty.' : `Boxes start at ${MIN} tubs. Add ${plural(MIN - n, 'more tub')} to check out.`;
+      : n === 0 ? '' : `Boxes start at ${MIN} tubs. Add ${plural(MIN - n, 'more tub')} to check out.`;
     $$('.d-progress .pips i').forEach((pip, i) => pip.classList.toggle('on', i < n));
     $('.d-progress .pips').hidden = n === 0 || n >= MIN;
+    $('.d-progress').hidden = n === 0;   // the empty message below says it already
     const lines = FLAVORS.filter(f => qty(f.id) > 0);
     $('.d-lines').innerHTML = lines.length ? lines.map(f => {
       const c = qty(f.id);
@@ -364,7 +365,7 @@
     clearTimeout(rotateTimer);
     if (reduced) return;
     rotateTimer = setTimeout(() => {
-      if (!document.hidden && heroInView && !drawer.open && !promo.open) feature((hero + 1) % FLAVORS.length);
+      if (!document.hidden && heroInView && !drawer.open && !promo.open && !document.querySelector('.menu-open')) feature((hero + 1) % FLAVORS.length);
       rotate(TURN);
     }, ms);
   }
