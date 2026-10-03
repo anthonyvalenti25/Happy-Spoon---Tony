@@ -12,12 +12,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
-  <link rel="stylesheet" href="../assets/site-header.css?v=2">
+  <link rel="stylesheet" href="../assets/site-header.css?v=4">
   <style>
     /* About page: a letter from the founders on a soft panel, with tubs drifting in the margins
        (the layout idea comes from Magic Spoon's About page, done in Happy Spoon's colors and type). */
     :root {
-      --page: #fde3dc; --panel: #fff6f1; --ink: #2a1712; --muted: #6f5c55; --accent: #ef4c3c;
+      --page: #fde3dc; --head-bg: var(--page); --panel: #fff6f1; --ink: #2a1712; --muted: #6f5c55; --accent: #ef4c3c;
       --fudge: #ef4c3c; --cookies: #1497ec; --caramel: #f39c1e; --mint: #4fc690; --dough: #8740cf;
       --ease: cubic-bezier(.65, 0, .35, 1);
       --gutter: 18px;
@@ -102,6 +102,7 @@
   <header class="top site-head">
     <a class="site-logo" href="../" aria-label="Happy Spoon home"></a>
     <nav class="site-nav" aria-label="Main"><a href="../">Waitlist</a><a href="../shop/">Shop</a><a href="../about/" aria-current="page">Our story</a></nav>
+    <a class="site-box" href="../shop/?box" aria-label="Your box"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 8.5 12 4l8.5 4.5v7L12 20l-8.5-4.5z"/><path d="M3.5 8.5 12 13l8.5-4.5M12 13v7"/></svg><span class="box-count">0</span></span></a>
   </header>
 
   <main>
@@ -152,6 +153,7 @@
     <nav aria-label="Footer"><a href="../">Waitlist</a><a href="../shop/">Shop</a><a href="./">Our story</a></nav>
   </footer>
 
+  <script src="../assets/site-header.js?v=1"></script>
   <script>
     // Tubs drift at different speeds as the page scrolls (skipped for reduced motion).
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {

@@ -40,12 +40,6 @@ img { display: block; max-width: 100%; }
   display: grid; grid-template-areas: "top" "stage" "panel";
 }
 .top { grid-area: top; }   /* the header itself is assets/site-header.css */
-.box-btn {
-  display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px 0 10px; border: 0; border-radius: 999px;
-  background: var(--ink); color: var(--bg); font-weight: 800; font-size: 15px;
-  transition: background-color .6s ease, color .9s var(--ease), transform .15s ease;
-}
-.box-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .box-btn.bump { animation: bump .45s var(--ease); }
 @keyframes bump { 40% { transform: scale(1.12); } }
 
@@ -289,7 +283,6 @@ dialog.promo::backdrop { background: rgba(26, 12, 8, .55); animation: fade .4s e
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
     grid-template-rows: auto 1fr; grid-template-areas: "top top" "panel stage";
   }
-  .box-btn { height: 46px; padding: 0 18px 0 16px; font-size: 16px; }
   .stage { height: auto; min-height: 520px; margin-top: 12px; }
   .panel { align-self: center; max-width: 600px; padding-top: 20px; }
   .eyebrow { font-size: 13px; }

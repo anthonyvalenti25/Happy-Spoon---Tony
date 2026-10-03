@@ -4,9 +4,12 @@
    <header class="site-head">
      <a class="site-logo" href="/" aria-label="Happy Spoon home"></a>
      <nav class="site-nav" aria-label="Main"><a href="/">Waitlist</a><a href="/shop/">Shop</a><a href="/about/">Our story</a></nav>
-     (optional page extras, like the shop's box button)
+     <a class="site-box" href="/shop/?box" aria-label="Your box"><span>(box icon)<span class="box-count">0</span></span></a>
    </header>
-   Mark the current page's link with aria-current="page". */
+   Every page has the same three links and the box button, so nothing shifts between pages.
+   Mark the current page's link with aria-current="page". The box button's icon and count take the
+   page's background color: --bg on flavor pages, or set --head-bg. A header inside a narrower centered
+   column gets class "bleed" so it still spans the screen with the site's side margins. */
 .site-head { display: flex; align-items: center; gap: 14px; height: 58px; position: relative; z-index: 5; }
 .site-logo {
   display: block; flex: 0 0 auto; width: 76px; color: inherit; aspect-ratio: 640 / 422; margin-right: auto; background: currentColor;
@@ -17,8 +20,18 @@
 .site-nav a { color: inherit; text-decoration: none; padding: 10px 0; opacity: .8; transition: opacity .2s ease; white-space: nowrap; }
 .site-nav a:hover, .site-nav a[aria-current="page"] { opacity: 1; }
 .site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.site-box {
+  display: inline-flex; align-items: center; flex: 0 0 auto; height: 40px; padding: 0 12px 0 10px; border: 0; border-radius: 999px;
+  color: inherit; background: currentColor; text-decoration: none; font: 800 15px/1 "Archivo", system-ui, sans-serif; cursor: pointer;
+  transition: background-color .6s ease, transform .15s ease;
+}
+.site-box > span { display: inline-flex; align-items: center; gap: 6px; color: var(--head-bg, var(--bg, #fff)); transition: color .9s ease; }
+.site-box svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.site-head.bleed { width: 100vw; margin-left: calc(50% - 50vw); padding: 0 18px; }
 @media (min-width: 900px) {
   .site-head { height: 64px; gap: 32px; }
   .site-logo { width: 112px; }
   .site-nav { gap: 32px; font-size: 16px; }
+  .site-box { height: 46px; padding: 0 18px 0 16px; font-size: 16px; }
+  .site-head.bleed { padding: 0 clamp(32px, 4.5vw, 72px); }
 }

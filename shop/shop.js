@@ -385,6 +385,7 @@
   paint(true);
   layout();
   render();
+  if (new URLSearchParams(location.search).has('box')) openBox();   // the header's box button on other pages links here
   new ResizeObserver(() => layout()).observe(stage);
   rotate(AUTO);
 })();
