@@ -381,7 +381,8 @@
   const remember = v => { try { localStorage.setItem(PROMO_KEY, v); } catch {} };
   promo.addEventListener('click', e => { if (e.target === promo) promo.close(); });   // tap outside the card
   promo.addEventListener('close', () => { if (!promo.classList.contains('joined')) remember('dismissed'); dialogClosed(); });
-  if (!promoSeen || new URLSearchParams(location.search).has('promo')) {
+  // ?promo always shows it; ?nopromo never does (handy for screenshots)
+  if ((!promoSeen || new URLSearchParams(location.search).has('promo')) && !new URLSearchParams(location.search).has('nopromo')) {
     setTimeout(() => {
       if (drawer.open || promo.open) return;
       openDialog(promo);
