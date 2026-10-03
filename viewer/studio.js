@@ -107,7 +107,6 @@ async function select(f) {
         : [document.createTextNode(line)],
     ),
   );
-  $("#flavor-description").textContent = f.description;
   $("#background-word").textContent = f.word;
   $("#stage-number").textContent = `0${flavors.indexOf(f) + 1} / 05`;
   $("#download").href = `../assets/${f.id}.glb`;

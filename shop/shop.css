@@ -55,7 +55,7 @@ img { display: block; max-width: 100%; }
 .box-btn.bump { animation: bump .45s var(--ease); }
 @keyframes bump { 40% { transform: scale(1.12); } }
 
-.stage { grid-area: stage; position: relative; height: clamp(300px, calc(36svh + 70px), 520px); margin-top: 4px; touch-action: manipulation; }
+.stage { grid-area: stage; position: relative; height: clamp(330px, calc(36svh + 125px), 560px); margin-top: 4px; touch-action: manipulation; }
 .tub { position: absolute; left: 0; top: 0; aspect-ratio: 600 / 720; transform-origin: 50% 100%; will-change: transform; cursor: pointer; outline: none; }
 .tub img { width: 100%; height: 100%; -webkit-user-drag: none; pointer-events: none; user-select: none; }
 .tub:focus-visible::after { content: ""; position: absolute; inset: -6px; border-radius: 16px; box-shadow: 0 0 0 3px var(--ink); }
@@ -91,25 +91,25 @@ img { display: block; max-width: 100%; }
 .panel { grid-area: panel; position: relative; z-index: 5; container-type: inline-size; }
 .panel .eyebrow { opacity: .85; }
 /* Flavor name: wide, on two lines, sliding up as the flavor changes */
-.name { position: relative; height: 1.74em; overflow: hidden; margin-top: 10px; font-size: min(11cqi, 84px); }
+.name { position: relative; height: 1.02em; overflow: hidden; margin-top: 10px; font-size: 7.6cqi; }   /* phones: every name on one line, one shared size */
+.name br { display: none; }
 .name span { position: absolute; left: 0; top: 0; white-space: nowrap; }
 .name span.in { animation: nameIn .8s var(--ease) both; }
 .name span.out { animation: nameOut .8s var(--ease) both; }
 @keyframes nameIn { from { transform: translateY(105%); } }
 @keyframes nameOut { to { transform: translateY(-105%); } }
-.desc { margin-top: 10px; font-size: 16px; line-height: 1.4; font-weight: 600; }
 .hero-stats { margin-top: 12px; display: none; }   /* phones show them beside the tub instead */
 .side-stat { position: absolute; z-index: 1; transform: translateY(-50%); container-type: inline-size; text-align: center; opacity: .55; pointer-events: none; }
-.side-stat b { display: block; font-size: min(30cqi, 40px); }
+.side-stat b { display: block; font-size: min(36cqi, 40px); }
 .side-stat b i { font-style: normal; font-size: .5em; text-transform: none; }
-.side-stat small { display: block; margin-top: 6px; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.side-stat small { display: block; margin-top: 5px; font-size: 8.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 .price { margin-top: 12px; font-size: 15px; font-weight: 500; opacity: .92; }
 .price b { font-size: 17px; font-weight: 800; }
 
 /* Add to box: a big button, which becomes a stepper once the flavor is in the box */
 .adder { margin-top: 12px; }
 .add-main {
-  width: 100%; border: 0; border-radius: 999px; padding: 18px 22px; background: var(--btn); color: #fff; font-size: 16px; font-weight: 800;
+  width: 100%; height: 60px; border: 0; border-radius: 999px; padding: 0 22px; background: var(--btn); color: #fff; font-size: 16px; font-weight: 800;
   box-shadow: 0 10px 30px -12px rgba(0,0,0,.4); transition: background-color .9s var(--ease), transform .15s ease;
 }
 .add-main:active { transform: scale(.98); }
@@ -120,7 +120,7 @@ img { display: block; max-width: 100%; }
 .step output { min-width: 2em; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
 .has .add-main, .has > .add { display: none; }
 .has .step { display: flex; }
-.adder .step { padding: 6px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.4); }
+.adder .step { height: 60px; padding: 5px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.4); }   /* same height as the Add button, so nothing shifts */
 .adder .step button { width: 50px; height: 50px; background: var(--btn); color: #fff; transition: background-color .9s var(--ease), transform .15s ease; }
 .adder .step output { font-size: 16px; }
 
@@ -154,8 +154,8 @@ img { display: block; max-width: 100%; }
 .card .art img { position: relative; width: 58%; margin-bottom: 9%; filter: drop-shadow(0 14px 14px rgba(0,0,0,.25)); transition: transform .6s var(--ease); }
 .card:hover .art img { transform: translateY(-4px) rotate(-2deg); }
 .card .body { flex: 1; display: flex; flex-direction: column; padding: 16px 16px 16px; }
-.card h3 { font-size: 21px; }
-.card p { margin-top: 8px; font-size: 14.5px; line-height: 1.4; color: var(--sub); }
+.card .body { container-type: inline-size; }
+.card h3 { font-size: 7.6cqi; white-space: nowrap; }   /* longest name (Chocolate Fudge) fits on one line */
 .card .stats { --ss: 26px; margin-top: 14px; }
 .card .row { margin-top: auto; padding-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .card .row > b { font-size: 16px; font-weight: 800; }
@@ -305,8 +305,8 @@ dialog.promo::backdrop { background: transparent; }
   .stage { height: auto; min-height: 520px; margin-top: 12px; }
   .panel { align-self: center; max-width: 600px; padding-top: 20px; }
   .eyebrow { font-size: 13px; }
-  .name { font-size: min(10.5cqi, 84px); margin-top: 14px; }
-  .desc { font-size: 19px; margin-top: 16px; }
+  .name { font-size: min(10.5cqi, 84px); height: 1.74em; margin-top: 14px; }
+  .name br { display: inline; }
   .hero-stats { --ss: 52px; margin-top: 20px; display: flex; }
   .side-stat { display: none; }
   .price { font-size: 16px; }
@@ -318,6 +318,7 @@ dialog.promo::backdrop { background: transparent; }
   .benefits li { padding: 20px 18px; }
   .sheet .mid { margin-top: 80px; }
   .cards { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; margin: 30px 0 0; padding: 0; }
+  .card[data-clone] { display: none; }   /* looping copies are for the phone scroller only */
   .strip span { font-size: 12px; padding: 18px 6px; }
   dialog.drawer { inset: 0 0 0 auto; width: 440px; height: 100%; max-height: 100%; border-radius: 26px 0 0 26px; }
   dialog.drawer[open] { animation-name: sheetIn; }

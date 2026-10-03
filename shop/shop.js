@@ -6,12 +6,12 @@
   const TURN = 8000;   // each flavor stays in the spotlight for 8 s, whether it came up on its own or was tapped
   let rotateTimer;
   const FLAVORS = [
-    // Colors and flavor lines from the brand guide (brand/index.html). White ink on every flavor.
-    { id: 'chocolate-fudge',   name: 'Chocolate Fudge', two: 'Chocolate<br>Fudge', short: 'Choc Fudge',  bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b', desc: 'Dark, fudgy chocolate.' },
-    { id: 'cookies-and-cream', name: 'Cookies & Cream', two: 'Cookies<br>&amp; Cream', short: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33', desc: 'Cookies and cream, the classic.' },
-    { id: 'salted-caramel',    name: 'Salted Caramel',  two: 'Salted<br>Caramel', short: 'Salted Caramel', bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#ffffff', btn: '#2e1604', desc: 'Buttery caramel with a salty finish.' },
-    { id: 'mint-chip',         name: 'Mint Chip',       two: 'Mint<br>Chip', short: 'Mint Chip',  bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#ffffff', btn: '#0d2c3d', desc: 'Cool mint with chocolate chips.' },
-    { id: 'cookie-dough',      name: 'Cookie Dough',    two: 'Cookie<br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38', desc: 'Brown-sugar cookie dough with chocolate chips.' },
+    // Colors from the brand guide (brand/index.html). White ink on every flavor.
+    { id: 'chocolate-fudge',   name: 'Chocolate Fudge', two: 'Chocolate <br>Fudge', short: 'Choc Fudge',  bg: '#ef4c3c', deep: '#cf3a2b', glow: '#ff8a78', ink: '#ffffff', btn: '#2a0f0b' },
+    { id: 'cookies-and-cream', name: 'Cookies & Cream', two: 'Cookies <br>&amp; Cream', short: 'Cookies & Cream', bg: '#1497ec', deep: '#0b7fd0', glow: '#6cc2fa', ink: '#ffffff', btn: '#0b1d33' },
+    { id: 'salted-caramel',    name: 'Salted Caramel',  two: 'Salted <br>Caramel', short: 'Salted Caramel', bg: '#f39c1e', deep: '#df8812', glow: '#ffc46e', ink: '#ffffff', btn: '#2e1604' },
+    { id: 'mint-chip',         name: 'Mint Chip',       two: 'Mint <br>Chip', short: 'Mint Chip',  bg: '#4fc690', deep: '#3cb17d', glow: '#94e6bf', ink: '#ffffff', btn: '#0d2c3d' },
+    { id: 'cookie-dough',      name: 'Cookie Dough',    two: 'Cookie <br>Dough', short: 'Cookie Dough', bg: '#8740cf', deep: '#7232b8', glow: '#ad7ae8', ink: '#ffffff', btn: '#1f0b38' },
   ];
   const TUB = id => `../assets/${id}-tub-600.webp`;
     const money = n => `$${n.toFixed(2)}`;
@@ -71,7 +71,7 @@
     stw = sw * (W < 500 ? 0.76 : 0.92); sth = stw * 1.2;   // smaller shelf tubs on phones so the featured one stands out
     const shelfY = H - 44;
     const heroRoom = shelfY - sth - 26;
-    th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.66 : 0.58) * 1.2); tw = th / 1.2;
+    th = Math.min(heroRoom * 0.94, W * 0.66 * 1.2); tw = th / 1.2;
     const heroY = Math.min(heroRoom, heroRoom / 2 + th / 2 + 6);
     heroSpot = { x: W / 2, y: heroY, s: 1 };
     spots = FLAVORS.map((_, k) => ({ x: sw / 2 + k * (sw + pad), y: shelfY, s: stw / tw }));
@@ -112,7 +112,7 @@
       { duration: 1000, delay, easing: 'cubic-bezier(.6,0,.3,1)', fill: 'backwards' });
   }
 
-  // ---------- Featured flavor: colors, name, description ----------
+  // ---------- Featured flavor: colors and name ----------
   const nameBox = $('.name');
   const meta = $('meta[name="theme-color"]');
   // While the popup or box drawer is open the page is dimmed. The dialog's own backdrop stops short of
@@ -144,7 +144,6 @@
     if (old) s.className = 'in';
     nameBox.append(s);
     nameBox.setAttribute('aria-label', f.name);
-    $('.desc').textContent = f.desc;
     $$('.adder [data-act]').forEach(b => { b.dataset.id = f.id; });
     $('.adder .add-main').textContent = `Add ${f.name} to box`;
   }
@@ -182,7 +181,6 @@
       <div class="art"><span class="ghost wide" aria-hidden="true">${f.two}</span><img src="${TUB(f.id)}" alt="Happy Spoon ${f.name} tub" loading="lazy" decoding="async"></div>
       <div class="body">
         <h3 class="wide">${f.name}</h3>
-        <p>${f.desc}</p>
         ${STATS}
         <div class="row"><b>${money(PRICE)}</b><div class="ctl">
           <button class="add" type="button" data-act="add" data-id="${f.id}" data-from="card">Add to box</button>
@@ -191,6 +189,31 @@
       </div>
     </article>`).join('');
   $('.strip').innerHTML = FLAVORS.map(f => `<span style="--c:${f.bg}">${f.short}</span>`).join('');
+
+  // On phones the flavor cards scroll sideways and loop: a copy of all five sits on each side, and when
+  // scrolling stops in a copy the row jumps to the matching real card. (Desktop shows a grid; copies hidden.)
+  const cardRow = $('.cards');
+  const originals = $$('.card', cardRow);
+  const copy = () => originals.map(c => { const n = c.cloneNode(true); n.removeAttribute('id'); n.dataset.clone = ''; return n; });
+  cardRow.prepend(...copy());
+  cardRow.append(...copy());
+  const looping = () => cardRow.scrollWidth > cardRow.clientWidth + 4;
+  const posOf = el => el.getBoundingClientRect().left - cardRow.getBoundingClientRect().left + cardRow.scrollLeft - (parseFloat(getComputedStyle(cardRow).scrollPaddingLeft) || 0);
+  function recenter() {
+    if (!looping()) return;
+    const start = posOf(originals[0]), setW = posOf(originals[originals.length - 1]) - start + (originals[1].getBoundingClientRect().left - originals[0].getBoundingClientRect().left);
+    if (cardRow.scrollLeft < start - setW / 2) cardRow.scrollLeft += setW;
+    else if (cardRow.scrollLeft > start + setW / 2) cardRow.scrollLeft -= setW;
+  }
+  let loopTimer, loopReady = false;
+  cardRow.addEventListener('scroll', () => { clearTimeout(loopTimer); loopTimer = setTimeout(recenter, 160); }, { passive: true });
+  function startLoop() {
+    if (!looping()) { loopReady = false; return; }
+    if (!loopReady || cardRow.scrollLeft < 1) { cardRow.scrollLeft = posOf(originals[0]); loopReady = cardRow.scrollLeft > 0; }
+  }
+  new ResizeObserver(startLoop).observe(cardRow);
+  addEventListener('load', startLoop);
+  setTimeout(startLoop, 300);
   $('.unit').textContent = money(PRICE);
 
   // ---------- Box changes ----------

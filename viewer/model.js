@@ -11,7 +11,6 @@ export const flavors = [
     dark: "#4b2016",
     cream: "#f4e8ce",
     filling: "#4b2013",
-    description: "Deep cocoa. Rich, creamy chocolate. Full dessert energy.",
     crop: [0.342, 0.925, 0.516, 0.535, 0.306, 0.192],
   },
   {
@@ -24,8 +23,6 @@ export const flavors = [
     dark: "#22201d",
     cream: "#f6eedb",
     filling: "#eddfbe",
-    description:
-      "Creamy, cookie-specked happiness. A familiar favorite by the spoonful.",
     crop: [0.397, 0.945, 0.477, 0.48, 0.261, 0.17],
   },
   {
@@ -38,8 +35,6 @@ export const flavors = [
     dark: "#894616",
     cream: "#f5e4be",
     filling: "#d6a65e",
-    description:
-      "Buttery caramel, a little salt, and a seriously smooth finish.",
     crop: [0.377, 0.943, 0.491, 0.493, 0.314, 0.205],
   },
   {
@@ -52,8 +47,6 @@ export const flavors = [
     dark: "#123751",
     cream: "#eeeacb",
     filling: "#c3d9a2",
-    description:
-      "Cool mint meets dark chocolate. Fresh, creamy, and full of little chips.",
     crop: [0.396, 0.934, 0.5, 0.512, 0.313, 0.225],
   },
   {
@@ -66,8 +59,6 @@ export const flavors = [
     dark: "#512479",
     cream: "#f4e7cd",
     filling: "#dac090",
-    description:
-      "Brown-sugar nostalgia, chocolate chips, and one-more-bite energy.",
     crop: [0.374, 0.946, 0.493, 0.51, 0.35, 0.228],
   },
 ];
