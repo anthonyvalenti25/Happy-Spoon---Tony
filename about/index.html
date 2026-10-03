@@ -40,15 +40,15 @@
 
     /* The letter */
     /* Clipped at the sides and bottom only, so the ribbons can run up behind the header to the top of the page */
-    .story { position: relative; clip-path: inset(-200px 0 0 0); padding: 18px var(--gutter) 72px; }
+    .story { --scatter-span: max(0px, calc((100% - 780px) / 2 - 210px)); position: relative; clip-path: inset(-200px 0 0 0); padding: 18px var(--gutter) 72px; }
 
     /* Flavor ribbons and photographic ingredient cutouts sit behind the letter. */
     .ribbons { position: absolute; left: 0; top: calc(-1 * var(--head-h)); width: 100%; height: calc(100% + var(--head-h)); z-index: 0; pointer-events: none; }
     .ribbons .rib { animation: sway var(--t, 14s) ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
     .ingredients { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-    .ingredient { position: absolute; top: var(--y); width: clamp(78px, 9vw, 142px); transform: rotate(var(--tilt, 0deg)); }
-    .ingredient.left { left: .6%; }
-    .ingredient.right { right: .6%; }
+    .ingredient { position: absolute; top: var(--y); width: clamp(76px, 8vw, var(--w, 130px)); transform: rotate(var(--tilt, 0deg)); }
+    .ingredient.left, .float.left { left: calc(18px + var(--scatter-span) * var(--x, 0)); }
+    .ingredient.right, .float.right { right: calc(18px + var(--scatter-span) * var(--x, 0)); }
     .ingredient img { display: block; width: 100%; height: auto; filter: drop-shadow(0 8px 8px rgba(42,23,18,.12)); animation: ingredient-drift var(--t, 10s) ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
     @keyframes ingredient-drift { from { transform: translateY(-6px) rotate(-3deg); } to { transform: translateY(7px) rotate(3deg); } }
     @media (max-width: 899px) {
@@ -77,9 +77,9 @@
     .sign { margin-top: 28px; font-size: 18px; font-weight: 700; }
     .sign span { display: block; margin-top: 4px; font-size: 14px; font-weight: 500; color: var(--muted); }
 
-    /* Tubs drifting in the margins. Each one bobs on its own timer and moves a little with scroll. */
-    .float { position: absolute; z-index: 1; width: var(--w, 90px); pointer-events: none; will-change: transform; }
-    .float img { display: block; width: 100%; filter: drop-shadow(0 18px 18px rgba(42,23,18,.18)); animation: bob var(--t, 7s) ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
+    /* Fixed scatter positions keep the letter clear while each tub gently bobs. */
+    .float { position: absolute; z-index: 1; top: var(--y); width: clamp(88px, 10vw, var(--w, 120px)); pointer-events: none; transform: rotate(var(--tilt, 0deg)); }
+    .float img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 18px rgba(42,23,18,.18)); animation: bob var(--t, 7s) ease-in-out infinite alternate; animation-delay: var(--d, 0s); }
     @keyframes bob { from { transform: translateY(-10px) rotate(calc(var(--r, 8deg) * -1)); } to { transform: translateY(12px) rotate(var(--r, 8deg)); } }
     .float { display: none; }   /* only on wide screens, where there's room beside the letter and the founders */
 
@@ -136,22 +136,22 @@
       </svg>
       <!-- Decorative transparent food photography; the full-size PNGs are in assets/story-ingredients. -->
       <div class="ingredients" aria-hidden="true">
-        <div class="ingredient left" style="--y:2%;--tilt:-14deg;--t:11s;--d:-2s"><img src="../assets/story-ingredients/cookie-dough.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
-        <div class="ingredient right" style="--y:18%;--tilt:18deg;--t:12s;--d:-5s"><img src="../assets/story-ingredients/sandwich-cookie.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
-        <div class="ingredient left" style="--y:29%;--tilt:12deg;--t:9s;--d:-3s"><img src="../assets/story-ingredients/mint-leaf.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
-        <div class="ingredient right" style="--y:42%;--tilt:-16deg;--t:13s;--d:-7s"><img src="../assets/story-ingredients/salted-caramel.webp" alt="" width="480" height="400" decoding="async" draggable="false"></div>
-        <div class="ingredient left" style="--y:53%;--tilt:-22deg;--t:12s;--d:-4s"><img src="../assets/story-ingredients/chocolate-chunks.webp" alt="" width="480" height="400" decoding="async" draggable="false"></div>
-        <div class="ingredient right" style="--y:59%;--tilt:15deg;--t:10s;--d:-6s"><img src="../assets/story-ingredients/cookie-dough.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
-        <div class="ingredient left" style="--y:73%;--tilt:-12deg;--t:13s;--d:-1s"><img src="../assets/story-ingredients/sandwich-cookie.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
-        <div class="ingredient right" style="--y:88%;--tilt:-14deg;--t:10s;--d:-5s"><img src="../assets/story-ingredients/chocolate-chunks.webp" alt="" width="480" height="400" decoding="async" draggable="false"></div>
+        <div class="ingredient left" style="--y:3%;--x:0.3;--w:110px;--tilt:-18deg;--t:11s;--d:-2s"><img src="../assets/story-ingredients/cookie-dough.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
+        <div class="ingredient right" style="--y:13%;--x:0.03;--w:132px;--tilt:24deg;--t:12s;--d:-5s"><img src="../assets/story-ingredients/sandwich-cookie.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
+        <div class="ingredient left" style="--y:27%;--x:0.83;--w:98px;--tilt:32deg;--t:9s;--d:-3s"><img src="../assets/story-ingredients/mint-leaf.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
+        <div class="ingredient right" style="--y:39%;--x:0.9;--w:100px;--tilt:-23deg;--t:13s;--d:-7s"><img src="../assets/story-ingredients/salted-caramel.webp" alt="" width="480" height="400" decoding="async" draggable="false"></div>
+        <div class="ingredient left" style="--y:51%;--x:0.05;--w:88px;--tilt:-32deg;--t:12s;--d:-4s"><img src="../assets/story-ingredients/chocolate-chunks.webp" alt="" width="480" height="400" decoding="async" draggable="false"></div>
+        <div class="ingredient right" style="--y:61%;--x:0.12;--w:118px;--tilt:19deg;--t:10s;--d:-6s"><img src="../assets/story-ingredients/cookie-dough.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
+        <div class="ingredient left" style="--y:76%;--x:0.62;--w:130px;--tilt:-19deg;--t:13s;--d:-1s"><img src="../assets/story-ingredients/sandwich-cookie.webp" alt="" width="480" height="480" decoding="async" draggable="false"></div>
+        <div class="ingredient right" style="--y:86%;--x:0.67;--w:94px;--tilt:27deg;--t:10s;--d:-5s"><img src="../assets/story-ingredients/chocolate-chunks.webp" alt="" width="480" height="400" decoding="async" draggable="false"></div>
       </div>
-      <!-- Floating tubs beside the letter (wide screens only) -->
-      <div class="float" style="--w:78px;left:5%;top:250px;--t:6.5s;--r:9deg" data-speed=".10"><img src="../assets/chocolate-fudge-tub-600.webp" alt=""></div>
-      <div class="float" style="--w:64px;right:5%;top:120px;--t:7.5s;--r:-10deg;--d:-2s" data-speed=".16"><img src="../assets/mint-chip-tub-600.webp" alt=""></div>
-      <div class="float" style="--w:120px;left:3%;top:520px;--t:8s;--r:7deg;--d:-3s" data-speed=".22"><img src="../assets/cookies-and-cream-tub-600.webp" alt=""></div>
-      <div class="float" style="--w:104px;right:6%;top:420px;--t:7s;--r:-8deg;--d:-1s" data-speed=".14"><img src="../assets/salted-caramel-tub-600.webp" alt=""></div>
-      <div class="float" style="--w:132px;right:3%;top:980px;--t:9s;--r:6deg;--d:-4s" data-speed=".2"><img src="../assets/cookie-dough-tub-600.webp" alt=""></div>
-      <div class="float" style="--w:96px;left:7%;top:1140px;--t:7.8s;--r:-7deg;--d:-2.5s" data-speed=".12"><img src="../assets/mint-chip-tub-600.webp" alt=""></div>
+      <!-- Open and foil-sealed tubs, scattered within the side margins. -->
+      <div class="float left" style="--y:15%;--x:0.02;--w:125px;--tilt:-16deg;--t:6.5s;--r:5deg;--d:0s" aria-hidden="true"><img src="../assets/story-ingredients/chocolate-fudge-open-480.webp" alt="" width="470" height="480" decoding="async" draggable="false"></div>
+      <div class="float right" style="--y:2%;--x:0.75;--w:90px;--tilt:14deg;--t:7.5s;--r:5deg;--d:-2s" aria-hidden="true"><img src="../assets/mint-chip-tub-600.webp" alt="" width="600" height="720" decoding="async" draggable="false"></div>
+      <div class="float left" style="--y:40%;--x:0.65;--w:135px;--tilt:17deg;--t:8s;--r:4deg;--d:-3s" aria-hidden="true"><img src="../assets/cookies-and-cream-tub-600.webp" alt="" width="600" height="720" decoding="async" draggable="false"></div>
+      <div class="float right" style="--y:27%;--x:0.22;--w:104px;--tilt:-13deg;--t:7s;--r:5deg;--d:-1s" aria-hidden="true"><img src="../assets/salted-caramel-tub-600.webp" alt="" width="600" height="720" decoding="async" draggable="false"></div>
+      <div class="float right" style="--y:73%;--x:0.55;--w:145px;--tilt:13deg;--t:9s;--r:4deg;--d:-4s" aria-hidden="true"><img src="../assets/story-ingredients/cookie-dough-open-480.webp" alt="" width="400" height="480" decoding="async" draggable="false"></div>
+      <div class="float left" style="--y:87%;--x:0.1;--w:125px;--tilt:-17deg;--t:7.8s;--r:5deg;--d:-2.5s" aria-hidden="true"><img src="../assets/story-ingredients/mint-chip-open-480.webp" alt="" width="426" height="480" decoding="async" draggable="false"></div>
 
       <article class="letter">
         <p class="eyebrow">About Happy Spoon</p>
@@ -202,20 +202,5 @@
   </footer>
 
   <script src="../assets/site-header.js?v=3"></script>
-  <script>
-    // Tubs drift at different speeds as the page scrolls (skipped for reduced motion).
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const floats = [...document.querySelectorAll('.float')];
-      let ticking = false;
-      addEventListener('scroll', () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          floats.forEach(f => { f.style.transform = `translateY(${-scrollY * f.dataset.speed}px)`; });
-          ticking = false;
-        });
-      }, { passive: true });
-    }
-  </script>
 </body>
 </html>
