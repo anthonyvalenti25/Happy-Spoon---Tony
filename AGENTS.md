@@ -3,6 +3,12 @@
 This project is shared through `https://github.com/anthonyvalenti25/Happy-Spoon---Tony.git`.
 The user wants synchronization tied to work in the conversation, not a scheduled task.
 
+Standing user preference: always pull the latest GitHub code before making a
+change. After each prompt is complete, if repository files changed, review and
+validate the changes, commit the completed work, and push it to GitHub before
+reporting completion. Apply this preference in future chats for this project.
+If synchronization is blocked, preserve local work and clearly report the blocker.
+
 - At the start of each user prompt in this project, check the current branch, origin,
   working tree, and any Git operation in progress. Fetch origin and pull current
   changes before starting work when it is safe. Prefer a fast-forward pull.
