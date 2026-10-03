@@ -311,7 +311,59 @@
       save(); render(); bump(bar); bump(boxBtn);
     } else if (act === 'checkout') {
       note("Checkout isn't connected yet. This is a design mockup.", true);
+    } else if (act === 'promo-close') promo.close();
+  });
+
+  // ---------- Welcome offer: 25% off, shown 1 second after the page opens, once per visitor ----------
+  // Signups go to the Kit form in data-kit-form (Kit's public endpoint, no secret keys), tagged with where they came from.
+  const promo = $('.promo');
+  const promoForm = $('.promo-form');
+  const promoNote = $('.promo-note');
+  const PROMO_KEY = 'hs-shop-promo';
+  let promoSeen = null;
+  try { promoSeen = localStorage.getItem(PROMO_KEY); } catch {}
+  const remember = v => { try { localStorage.setItem(PROMO_KEY, v); } catch {} };
+  $('.promo-tub').src = TUB(FLAVORS[hero].id);
+  promo.addEventListener('click', e => { if (e.target === promo) promo.close(); });   // tap outside the card
+  promo.addEventListener('close', () => { if (!promo.classList.contains('joined')) remember('dismissed'); });
+  if (!promoSeen || new URLSearchParams(location.search).has('promo')) {
+    setTimeout(() => {
+      if (drawer.open || promo.open) return;
+      $('.promo-tub').src = TUB(FLAVORS[hero].id);   // match whatever flavor is on screen
+      promo.showModal();
+    }, 1000);
+  }
+  let promoSending = false;
+  promoForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (promoSending) return;
+    const email = promoForm.querySelector('input[type="email"]');
+    const address = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(address)) { promoNote.textContent = 'Enter a valid email address.'; email.focus(); return; }
+    promoNote.textContent = '';
+    const kitId = (promoForm.dataset.kitForm || '').trim();
+    const button = promoForm.querySelector('button');
+    if (kitId && !promoForm.querySelector('[name="website"]').value) {
+      promoSending = true;
+      button.textContent = 'Signing up…'; button.disabled = true;
+      try {
+        const body = new FormData();
+        body.append('email_address', address);
+        body.append('fields[source]', 'Shop popup: 25% off');
+        const res = await fetch(`https://app.kit.com/forms/${encodeURIComponent(kitId)}/subscriptions`, { method: 'POST', body, headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || (data.status && data.status !== 'success')) throw new Error(data.error || res.status);
+      } catch {
+        promoNote.textContent = 'Something went wrong. Please try again.';
+        return;
+      } finally {
+        promoSending = false;
+        button.textContent = 'Get 25% off'; button.disabled = false;
+      }
     }
+    remember('joined');
+    promo.classList.add('joined');
+    $('.promo-shop').focus({ preventScroll: true });
   });
 
   paint(true);

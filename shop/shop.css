@@ -230,6 +230,56 @@ dialog.drawer::backdrop { background: rgba(26, 12, 8, .5); animation: fade .3s e
 .d-note { min-height: 18px; margin-top: 10px; text-align: center; font-size: 13px; color: var(--muted); }
 .d-note.warn { color: var(--cocoa); font-weight: 700; }
 
+/* ---------- Welcome offer popup ---------- */
+dialog.promo {
+  width: min(calc(100% - 32px), 420px); max-width: none; max-height: calc(100svh - 32px); margin: auto; padding: 0; border: 0;
+  border-radius: 28px; overflow: hidden; background: #fff; color: var(--cocoa);
+  display: none; flex-direction: column; box-shadow: 0 40px 80px -30px rgba(20,8,4,.6);
+}
+dialog.promo[open] { display: flex; animation: promoIn .55s var(--ease); }
+dialog.promo::backdrop { background: rgba(26, 12, 8, .55); animation: fade .4s ease; }
+@keyframes promoIn { from { opacity: 0; transform: translateY(24px) scale(.96); } }
+.promo-art { position: relative; flex: 0 0 auto; height: 170px; overflow: hidden; background: var(--bg); display: grid; place-items: end center; }
+.promo-halo { position: absolute; left: 50%; top: 50%; width: 220px; height: 220px; margin: -100px 0 0 -110px; border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--glow) 85%, var(--bg)), color-mix(in srgb, var(--glow) 35%, var(--bg)) 70%); }
+.promo-tub { position: relative; width: 122px; margin-bottom: 8px; filter: drop-shadow(0 16px 18px rgba(0,0,0,.25)); }
+.promo-body { position: relative; flex: 1; overflow-y: auto; padding: 26px 24px 22px; text-align: center; }
+.promo-x { position: absolute; top: 12px; right: 12px; z-index: 2; background: rgba(255,255,255,.9); }
+.promo-body .wordmark { width: 92px; margin: 0 auto; color: var(--cocoa); }
+.promo-kicker { margin-top: 16px; font-size: 16px; line-height: 1.4; color: var(--muted); }
+.promo-big { margin-top: 8px; font-size: min(80px, 21vw); line-height: .9; white-space: nowrap; color: var(--cocoa); }
+.promo-sub { margin-top: 12px; font-size: 16px; font-weight: 600; }
+.promo-form { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+.promo-form input[type="email"] {
+  width: 100%; border: 0; border-radius: 16px; padding: 17px 18px; background: #f4eee7; color: #15191d; outline: none;
+  font: 500 16px/1.2 "Archivo", system-ui, sans-serif; box-shadow: inset 0 0 0 1.5px transparent; transition: box-shadow .2s ease;
+}
+.promo-form input[type="email"]:focus { box-shadow: inset 0 0 0 2px var(--cocoa); }
+.promo-form input::placeholder { color: #8a7f78; }
+.promo-form button { border: 0; border-radius: 16px; padding: 18px; background: var(--btn); color: #fff; font-size: 17px; font-weight: 800; transition: transform .15s ease; }
+.promo-form button:active { transform: scale(.98); }
+.promo-form button:disabled { opacity: .7; }
+.promo-note { min-height: 18px; margin-top: 8px; font-size: 13px; font-weight: 600; color: #b3261e; }
+.promo-skip { margin-top: 2px; padding: 8px; border: 0; background: none; font-size: 13.5px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.promo-done { display: none; flex-direction: column; align-items: center; margin-top: 18px; }
+.promo.joined .promo-form-wrap, .promo.joined .promo-kicker { display: none; }
+.promo.joined .promo-done { display: flex; animation: nameIn .6s var(--ease) both; }
+.promo-done .tick { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--btn); }
+.promo-done .tick svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 24; stroke-dashoffset: 24; animation: tick .5s .35s var(--ease) forwards; }
+@keyframes tick { to { stroke-dashoffset: 0; } }
+.promo-done b { margin-top: 14px; font-size: 22px; font-weight: 800; }
+.promo-done > span { margin-top: 6px; font-size: 15px; line-height: 1.4; color: var(--muted); }
+.promo-shop { margin-top: 20px; width: 100%; border: 0; border-radius: 16px; padding: 17px; background: #f4eee7; font-weight: 800; font-size: 16px; }
+
+/* Short phones: a smaller picture so the form still fits */
+@media (max-height: 700px) and (max-width: 899px) {
+  .promo-art { height: 120px; }
+  .promo-tub { width: 86px; }
+  .promo-halo { width: 160px; height: 160px; margin: -70px 0 0 -80px; }
+  .promo-big { font-size: min(66px, 18vw); }
+}
+
 /* ---------- Desktop ---------- */
 @media (min-width: 900px) {
   :root { --gutter: clamp(32px, 4.5vw, 72px); }
@@ -265,6 +315,14 @@ dialog.drawer::backdrop { background: rgba(26, 12, 8, .5); animation: fade .3s e
   .foot p, .foot nav { margin: 0; }
   dialog.drawer { inset: 0 0 0 auto; width: 440px; height: 100%; max-height: 100%; border-radius: 26px 0 0 26px; }
   dialog.drawer[open] { animation-name: sheetIn; }
+  dialog.promo { width: min(calc(100% - 64px), 820px); flex-direction: row; min-height: 520px; }
+  .promo-art { flex: 0 0 46%; height: auto; place-items: center; }
+  .promo-halo { width: 300px; height: 300px; margin: -150px 0 0 -150px; }
+  .promo-tub { width: 240px; margin: 0 0 10px; }
+  .promo-body { display: flex; flex-direction: column; justify-content: center; padding: 48px 44px 36px; }
+  .promo-x { background: #f4eee7; }
+  .promo-body .wordmark { width: 110px; }
+  .promo-big { font-size: 96px; }
 }
 @media (prefers-reduced-motion: reduce) {
   :root { transition-duration: .01s; }
