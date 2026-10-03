@@ -44,6 +44,16 @@ const HS = (() => {
     const bars = document.querySelector('.bars');
     const nameBox = document.querySelector('.name');
     const meta = document.querySelector('meta[name="theme-color"]');
+    // Safari on a Mac in dark mode only tints its tab bar with colors that white text reads well on. The lighter
+    // flavors (blue, orange, green) fell back to grey, so the toolbar gets a deeper shade of them; the page keeps its color.
+    const barColor = hex => {
+      const ch = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+      const lum = c => { const v = c.map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+      let c = ch(hex);
+      for (let k = 0; k < 30 && 1.05 / (lum(c) + .05) < 3.6; k++) c = c.map(x => Math.round(x * .95));
+      return '#' + c.map(x => x.toString(16).padStart(2, '0')).join('');
+    };
+
     root.style.setProperty('--turn', `${turn}ms`);
 
     bars.innerHTML = FLAVORS.map((f, k) => `<button type="button" aria-label="Show ${f.name}"><i></i></button>`).join('') +
@@ -59,7 +69,7 @@ const HS = (() => {
     function colors(i) {
       const f = FLAVORS[i];
       for (const k of ['bg', 'deep', 'glow', 'ink', 'btn']) root.style.setProperty(`--${k}`, f[k]);
-      if (!('fixed' in meta.dataset)) meta.content = f.bg;   // a page can pin its toolbar color
+      if (!('fixed' in meta.dataset)) meta.content = barColor(f.bg);   // a page can pin its toolbar color
     }
     // A flavor someone picks (tap, swipe, bar, arrow key) stays twice as long as an automatic turn.
     function paint(i, first, picked) {

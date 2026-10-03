@@ -116,6 +116,16 @@
   // ---------- Featured flavor: colors and name ----------
   const nameBox = $('.name');
   let meta = $('meta[name="theme-color"]');
+  // Safari on a Mac in dark mode only tints its tab bar with colors that white text reads well on. The lighter
+  // flavors (blue, orange, green) fell back to grey, so the toolbar gets a deeper shade of them; the page keeps its color.
+  const barColor = hex => {
+    const ch = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+    const lum = c => { const v = c.map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+    let c = ch(hex);
+    for (let k = 0; k < 30 && 1.05 / (lum(c) + .05) < 3.6; k++) c = c.map(x => Math.round(x * .95));
+    return '#' + c.map(x => x.toString(16).padStart(2, '0')).join('');
+  };
+
   // While the popup or box drawer is open the page is dimmed. The dialog's own backdrop stops short of
   // Safari's status bar and bottom toolbar on iPhone, so a separate dim layer reaches under both bars.
   let dimmed = false;
@@ -137,13 +147,13 @@
       meta.content = dimColor(FLAVORS[hero].bg);
     } else {
       d.classList.remove('on');
-      meta.content = FLAVORS[hero].bg;
+      meta.content = barColor(FLAVORS[hero].bg);
       dimTimer = setTimeout(() => {
         if (dimmed) return;
         d.hidden = true;
         const fresh = meta.cloneNode();   // a new theme-color tag makes Safari re-read the color
         meta.replaceWith(fresh); meta = fresh;
-        meta.content = FLAVORS[hero].bg;
+        meta.content = barColor(FLAVORS[hero].bg);
       }, 400);
     }
   }
@@ -152,7 +162,7 @@
     const f = FLAVORS[hero];
     const apply = () => {
       for (const k of ['bg', 'deep', 'glow', 'ink', 'btn']) root.style.setProperty(`--${k}`, f[k]);
-      meta.content = dimmed ? dimColor(f.bg) : f.bg;
+      meta.content = dimmed ? dimColor(f.bg) : barColor(f.bg);
     };
     clearTimeout(colorTimer);
     if (first || reduced) apply(); else colorTimer = setTimeout(apply, 350);
