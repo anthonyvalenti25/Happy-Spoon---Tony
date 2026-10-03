@@ -11,7 +11,9 @@ const HS = (() => {
   const N = FLAVORS.length;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const mod = n => ((n % N) + N) % N;
-  const src = f => `../../assets/${f.id}-tub-600.webp`;
+  // Resolve images from this script's location so pages in any folder (like the homepage) can use it
+  const ASSETS = new URL('../../assets/', document.currentScript.src).href;
+  const src = f => `${ASSETS}${f.id}-tub-600.webp`;
   FLAVORS.forEach(f => { new Image().src = src(f); });
 
   function tub(f, cls = '') {

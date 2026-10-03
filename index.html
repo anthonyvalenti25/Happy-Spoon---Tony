@@ -2,547 +2,234 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Happy Spoon is high-protein dessert yogurt for cravings that fit your goals.">
-  <meta name="theme-color" content="#f7f1e8">
-  <title>Happy Spoon — Cravings, handled.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ef4c3c">
+  <meta name="description" content="Happy Spoon is high-protein dessert yogurt for cravings that fit your goals. Join the waitlist and get a free 32 oz tub when we launch.">
+  <title>Happy Spoon | Join the waitlist</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23271410'/%3E%3Cpath d='M14 34c10 12 26 12 36 0' fill='none' stroke='%23ff6b4a' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='23' r='3' fill='%23fff8ed'/%3E%3Ccircle cx='41' cy='23' r='3' fill='%23fff8ed'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <link rel="stylesheet" href="waitlist/concepts/shared.css?v=3">
   <style>
-    :root {
-      --ink: #281511;
-      --cream: #f7f1e8;
-      --paper: #fffaf2;
-      --coral: #ff6547;
-      --blue: #4aa9f7;
-      --amber: #f2a313;
-      --mint: #6ed7ac;
-      --violet: #7c4dcc;
-      --line: rgba(40, 21, 17, .16);
-      --shadow: 0 26px 80px rgba(71, 42, 24, .15);
-      --radius: 1.4rem;
-    }
+    /* Lineup: all five wait on a shelf. Each takes its turn leaping up to center stage, then hops back into line. */
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--cream);
-      color: var(--ink);
-      font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
-      font-size: 1rem;
-      line-height: 1.55;
-      overflow-x: hidden;
+    /* Phones: iOS Safari only tints its toolbars once at load, so instead the page itself reaches
+       under the status bar and the floating search bar. The document is slightly taller than the
+       screen (a color strip after the app) and touch scrolling is blocked, so it still reads as one screen. */
+    @media (max-width: 899px), (orientation: portrait) {
+      html, body { height: auto; overflow: visible; }
+      body { position: static; min-height: 100%; }
+      .under-bar { height: 220px; background: var(--bg); }
+      /* Roomier text block, with the form sitting low near the thumb */
+      .app { padding-bottom: max(env(safe-area-inset-bottom), 10px); }
+      .eyebrow { margin-top: 4px; }
+      .name { margin-top: 10px; }
+      .offer { margin-top: 14px; }
+      .join, .done-msg { margin-top: 24px; }
+      .note:empty { display: none; }
+      .consent { margin-top: 10px; }
+      .note { margin-top: 10px; }
     }
-    button, input { font: inherit; }
-    a { color: inherit; }
-    img { display: block; max-width: 100%; }
-    .shell { width: min(1180px, calc(100% - 2rem)); margin-inline: auto; }
-    .eyebrow {
-      margin: 0 0 .85rem;
-      font-size: .78rem;
-      font-weight: 900;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-    h1, h2, h3, p { margin-top: 0; }
-    h1, h2, .wordmark, .flavor-title {
-      font-family: "Arial Rounded MT Bold", "Avenir Next", sans-serif;
-      letter-spacing: -.055em;
-    }
-    h1 { font-size: clamp(3.6rem, 8.5vw, 7.7rem); line-height: .86; margin-bottom: 1.5rem; }
-    h2 { font-size: clamp(2.7rem, 6vw, 5.7rem); line-height: .93; margin-bottom: 1.2rem; }
-    h3 { font-size: 1.2rem; line-height: 1.2; }
-    p { color: rgba(40, 21, 17, .78); }
+    .top { height: 58px; }
+    .top .wordmark { width: 84px; }
+    /* The turn bars are hidden for a cleaner screen. They stay in the page (zero height, invisible)
+       because their fill animation is the rotation timer. */
+    .bars, .app .bars { height: 0; margin: 0; overflow: hidden; visibility: hidden; }
+    .stage { margin-top: 10px; }
 
-    .nav-wrap {
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: 20;
-      padding: 1rem 0;
+    /* Signed-up state: same pill shape and height as the form it replaces */
+    .done-msg { align-items: center; gap: 14px; padding: 6px 22px 6px 6px; border-radius: 999px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.35); }
+    .app.joined .done-msg { display: flex; }
+    .app.joined .note, .app.joined .consent { display: none; }
+    .consent { font-size: 11.5px; line-height: 1.35; opacity: .72; text-align: center; }
+    .join button:disabled { opacity: .7; }
+    .done-msg .tick { flex: 0 0 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--btn); transition: background-color .9s var(--ease); }
+    .done-msg .tick svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 24; stroke-dashoffset: 24; animation: tick .5s .35s var(--ease) forwards; }
+    @keyframes tick { to { stroke-dashoffset: 0; } }
+    .done-msg b { display: block; font-size: 16px; margin: 0 0 1px; color: #15191d; }
+    .done-msg span:last-child { font-size: 14px; line-height: 1.3; color: #4b555d; }
+    .tub { transform-origin: 50% 100%; }
+    .halo {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--glow) 85%, var(--bg)), color-mix(in srgb, var(--glow) 35%, var(--bg)) 70%);
+      box-shadow: inset 0 -30px 60px -30px color-mix(in srgb, var(--deep) 60%, transparent);
     }
-    nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-    .wordmark { font-size: 1.38rem; font-weight: 1000; line-height: .82; text-decoration: none; text-transform: uppercase; }
-    .wordmark span { display: block; }
-    .nav-links { display: flex; align-items: center; gap: 1.7rem; font-size: .9rem; font-weight: 800; }
-    .nav-links a { text-decoration: none; }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 3rem;
-      padding: .75rem 1.25rem;
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      background: var(--ink);
-      color: white;
-      font-weight: 900;
-      text-decoration: none;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .pill:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--coral); }
-    .pill:focus-visible, button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+    .halo.pulse { animation: pulse 1.1s var(--ease); }
+    @keyframes pulse { 40% { transform: scale(.94); } 70% { transform: scale(1.025); } }
 
-    .hero {
-      position: relative;
-      min-height: 780px;
-      display: grid;
-      place-items: center;
-      padding: 8rem 0 4rem;
-      isolation: isolate;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      z-index: -2;
-      width: 34rem;
-      height: 34rem;
-      right: -8rem;
-      top: -11rem;
-      border-radius: 50%;
-      background: var(--amber);
-      opacity: .92;
-    }
-    .hero-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(2rem, 5vw, 5rem); }
-    .hero-copy { position: relative; z-index: 2; }
-    .hero-copy h1 span { color: var(--coral); display: block; }
-    .lede { max-width: 34rem; font-size: clamp(1.1rem, 1.7vw, 1.35rem); line-height: 1.5; }
-    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2rem; }
-    .text-link { font-weight: 900; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-    .hero-visual { position: relative; }
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: 5% -4% 1% 4%;
-      z-index: -1;
-      border-radius: 48% 52% 45% 55%;
-      background: var(--blue);
-      transform: rotate(-4deg);
-    }
-    .hero-image {
-      width: 100%;
-      aspect-ratio: 3 / 2;
-      object-fit: cover;
-      border: 2px solid var(--ink);
-      border-radius: 44% 56% 46% 54% / 52% 43% 57% 48%;
-      box-shadow: var(--shadow);
-      transform: rotate(2deg);
-    }
-    .hero-stamp {
-      position: absolute;
-      right: -1rem;
-      bottom: -2rem;
-      width: 9rem;
-      height: 9rem;
-      display: grid;
-      place-items: center;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: var(--mint);
-      font-size: .75rem;
-      font-weight: 1000;
-      letter-spacing: .1em;
-      text-align: center;
-      text-transform: uppercase;
-      transform: rotate(9deg);
-    }
-    .spoon-line { display: block; width: 7.5rem; height: 1.3rem; margin-top: .5rem; border-bottom: .42rem solid currentColor; border-radius: 0 0 60% 60%; }
+    /* The shelf. ?shelf=glass (default) | ledge | risers | floor picks a style for comparison. */
+    .shelf { position: absolute; top: 0; left: -18px; width: calc(100% + 36px); height: 100%; pointer-events: none; z-index: 1; }
+    .shelf > * { position: absolute; }
+    .face { left: 0; right: 0; overflow: hidden; }
+    .edge, .under { left: 0; right: 0; }
+    .refl { position: absolute; opacity: .32; transform: scaleY(-1); transition: opacity .35s ease .8s;
+      -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 38%); mask-image: linear-gradient(to top, #000 0%, transparent 38%); }
+    .cshadow { border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.32), rgba(0,0,0,0)); transition: opacity .35s ease .8s; }
+    .gone { opacity: 0 !important; transition-delay: 0s !important; }
 
-    .ticker { overflow: hidden; border-block: 2px solid var(--ink); background: var(--coral); color: var(--ink); transform: rotate(-1deg) scale(1.01); }
-    .ticker-track { display: flex; width: max-content; animation: ticker 22s linear infinite; }
-    .ticker span { padding: .85rem 1.3rem; font-size: 1rem; font-weight: 1000; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
-    .ticker b { color: var(--paper); }
-    @keyframes ticker { to { transform: translateX(-50%); } }
+    /* Glass: a clear ledge that reflects the tubs, with a bright front edge */
+    [data-shelf="glass"] .face { background: linear-gradient(rgba(255,255,255,.05), rgba(255,255,255,.22)); }
+    [data-shelf="glass"] .edge { background: linear-gradient(rgba(255,255,255,.7), rgba(255,255,255,.22)); }
+    [data-shelf="glass"] .under { background: radial-gradient(60% 100% at 50% 0, rgba(0,0,0,.2), transparent); }
 
-    section { padding: clamp(5rem, 10vw, 9rem) 0; }
-    .section-head { max-width: 58rem; margin-bottom: 3rem; }
-    .section-head p { max-width: 42rem; font-size: 1.12rem; }
+    /* Ledge: a solid display shelf, lit from underneath */
+    [data-shelf="ledge"] .face { background: linear-gradient(color-mix(in srgb, var(--glow) 55%, var(--bg)), color-mix(in srgb, var(--glow) 80%, #fff)); }
+    [data-shelf="ledge"] .edge { background: linear-gradient(var(--deep), color-mix(in srgb, var(--deep) 75%, #000)); }
+    [data-shelf="ledge"] .under { background: radial-gradient(55% 100% at 50% 0, color-mix(in srgb, var(--glow) 90%, #fff), transparent); opacity: .8; }
+    [data-shelf="ledge"] .refl { display: none; }
 
-    .flavor-section { background: var(--paper); }
-    .flavor-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 2rem; align-items: stretch; }
-    .flavor-tabs { display: grid; gap: .7rem; align-content: start; }
-    .flavor-tab {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1.1rem 1fr auto;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.15rem;
-      border: 2px solid var(--ink);
-      border-radius: 1rem;
-      background: transparent;
-      color: var(--ink);
-      text-align: left;
-      font-weight: 900;
-      cursor: pointer;
-      transition: transform .2s, background .2s;
-    }
-    .flavor-tab:hover { transform: translateX(5px); }
-    .flavor-tab[aria-selected="true"] { background: var(--active, var(--coral)); }
-    .dot { width: 1.1rem; height: 1.1rem; border: 2px solid var(--ink); border-radius: 50%; background: var(--swatch); }
-    .tab-no { font-size: .76rem; letter-spacing: .08em; }
-    .flavor-stage {
-      --stage: var(--coral);
-      min-height: 33rem;
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
-      align-items: center;
-      gap: 1rem;
-      padding: clamp(2rem, 4vw, 3.5rem);
-      overflow: hidden;
-      border: 2px solid var(--ink);
-      border-radius: 2.2rem;
-      background: var(--stage);
-      transition: background .35s ease;
-    }
-    .flavor-word {
-      position: absolute;
-      left: 50%;
-      bottom: -.14em;
-      transform: translateX(-50%);
-      color: white;
-      font-size: clamp(6rem, 15vw, 12.5rem);
-      font-weight: 1000;
-      line-height: .8;
-      white-space: nowrap;
-      text-transform: uppercase;
-      opacity: .14;
-      pointer-events: none;
-    }
-    .flavor-copy { position: relative; z-index: 2; }
-    .flavor-copy .eyebrow { display: inline-block; padding: .35rem .6rem; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--paper); }
-    .flavor-title { font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: .86; margin-bottom: 1rem; }
-    .flavor-copy p { color: var(--ink); font-size: 1.1rem; font-weight: 650; max-width: 22rem; }
-    .flavor-showcase { position: relative; z-index: 1; width: calc(100% + 1.5rem); max-width: 27rem; aspect-ratio: 1; justify-self: end; margin-right: -1.5rem; }
-    .flavor-disc {
-      position: absolute;
-      inset: 4%;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: var(--paper);
-      box-shadow: .55rem .55rem 0 var(--ink);
-    }
-    .flavor-floor {
-      position: absolute;
-      left: 20%;
-      right: 20%;
-      bottom: 9%;
-      height: 9%;
-      border-radius: 50%;
-      background: radial-gradient(closest-side, rgba(40, 21, 17, .32), transparent);
-      animation: floor 5s ease-in-out infinite;
-    }
-    .flavor-lift { position: absolute; inset: -9% -7% 12%; animation: float 5s ease-in-out infinite; }
-    .flavor-product {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center bottom;
-      filter: drop-shadow(0 .9rem 1rem rgba(53, 25, 20, .22));
-      transition: opacity .2s ease, transform .35s cubic-bezier(.2, .9, .3, 1.25);
-    }
-    .flavor-product.is-leaving { opacity: 0; transform: translateY(1.2rem) scale(.94); }
-    @keyframes float { 50% { transform: translateY(-.7rem); } }
-    @keyframes floor { 50% { transform: scaleX(.86); opacity: .75; } }
+    /* Risers: each flavor waits on its own little pedestal */
+    .riser { border-radius: 0 0 50% 50% / 0 0 9px 9px;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--deep) 70%, #000), var(--deep) 30%, color-mix(in srgb, var(--glow) 40%, var(--deep)) 55%, var(--deep) 75%, color-mix(in srgb, var(--deep) 70%, #000)); }
+    .riser::before { content: ""; position: absolute; left: 0; right: 0; top: -6px; height: 12px; border-radius: 50%; background: color-mix(in srgb, var(--glow) 70%, var(--bg)); }
+    [data-shelf="risers"] .refl { display: none; }
 
-    .promise { position: relative; }
-    .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--ink); border-radius: var(--radius); overflow: hidden; }
-    .promise-card { min-height: 19rem; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; border-right: 2px solid var(--ink); }
-    .promise-card:last-child { border-right: 0; }
-    .promise-card:nth-child(1) { background: var(--blue); }
-    .promise-card:nth-child(2) { background: var(--amber); }
-    .promise-card:nth-child(3) { background: var(--mint); }
-    .promise-no { font-size: 4.5rem; font-weight: 1000; line-height: 1; opacity: .24; }
-    .promise-card p { color: var(--ink); margin-bottom: 0; }
-    .promise-note { margin-top: 1rem; font-size: .82rem; }
+    /* Floor: no shelf, just a glossy floor that reflects */
+    [data-shelf="floor"] .face { background: linear-gradient(transparent, color-mix(in srgb, var(--deep) 80%, transparent) 30%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
+    [data-shelf="floor"] .refl { opacity: .4; }
 
-    .test-section { padding-top: 1rem; }
-    .test-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: hidden;
-      border: 2px solid var(--ink);
-      border-radius: 2rem;
-      background: var(--violet);
-      color: white;
-    }
-    .test-copy { padding: clamp(2.2rem, 6vw, 5.5rem); }
-    .test-copy p { color: rgba(255,255,255,.82); font-size: 1.08rem; }
-    .test-steps { display: grid; align-content: center; padding: 2rem; border-left: 2px solid var(--ink); background: var(--paper); color: var(--ink); }
-    .test-step { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.35rem 0; border-bottom: 1px solid var(--line); }
-    .test-step:last-child { border-bottom: 0; }
-    .test-step strong { font-size: 1.7rem; color: var(--coral); }
-    .test-step p { margin: 0; }
-
-    .story { background: var(--ink); color: white; }
-    .story-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(3rem, 8vw, 8rem); align-items: start; }
-    .story h2 { color: var(--amber); }
-    .story p { color: rgba(255,255,255,.72); }
-    .story-quote { font-size: clamp(1.5rem, 3vw, 2.45rem); line-height: 1.25; font-weight: 800; }
-    .four { display: flex; gap: .75rem; margin-top: 2rem; }
-    .four span { width: 3.5rem; height: 3.5rem; display: grid; place-items: center; border: 2px solid white; border-radius: 50%; font-weight: 1000; }
-    .four span:nth-child(1) { background: var(--coral); }
-    .four span:nth-child(2) { background: var(--blue); }
-    .four span:nth-child(3) { background: var(--amber); }
-    .four span:nth-child(4) { background: var(--mint); color: var(--ink); }
-
-    .waitlist { position: relative; text-align: center; overflow: hidden; }
-    .waitlist::before, .waitlist::after { content: ""; position: absolute; border: 2px solid var(--ink); border-radius: 50%; z-index: -1; }
-    .waitlist::before { width: 16rem; height: 16rem; background: var(--blue); left: -6rem; top: 3rem; }
-    .waitlist::after { width: 12rem; height: 12rem; background: var(--amber); right: -4rem; bottom: 2rem; }
-    .waitlist .section-head { margin-inline: auto; }
-    .waitlist .section-head p { margin-inline: auto; }
-    .signup { width: min(620px, 100%); display: flex; gap: .7rem; margin: 2rem auto 1rem; padding: .55rem; border: 2px solid var(--ink); border-radius: 999px; background: white; }
-    .signup input { min-width: 0; flex: 1; padding: .7rem 1rem; border: 0; outline: 0; background: transparent; color: var(--ink); }
-    .signup button { border: 2px solid var(--ink); cursor: pointer; }
-    .form-note { min-height: 1.5rem; font-size: .84rem; }
-
-    footer { padding: 2.5rem 0; border-top: 2px solid var(--ink); }
-    .footer-grid { display: flex; justify-content: space-between; gap: 2rem; align-items: end; }
-    .footer-grid p { margin: .5rem 0 0; font-size: .85rem; }
-    .footer-links { display: flex; gap: 1.2rem; font-weight: 800; font-size: .9rem; }
-
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    @media (max-width: 800px) {
-      .nav-links a:not(.pill):not(.nav-3d) { display: none; }
-      .hero { min-height: auto; padding-top: 8.5rem; }
-      .hero-grid, .flavor-layout, .test-card, .story-grid { grid-template-columns: 1fr; }
-      .hero-visual { margin-top: 1rem; }
-      .hero-stamp { width: 7rem; height: 7rem; right: .2rem; bottom: -2.2rem; }
-      .flavor-stage { min-height: 27rem; }
-      .promise-grid { grid-template-columns: 1fr; }
-      .promise-card { min-height: 13rem; border-right: 0; border-bottom: 2px solid var(--ink); }
-      .promise-card:last-child { border-bottom: 0; }
-      .test-steps { border-left: 0; border-top: 2px solid var(--ink); }
-      .footer-grid { align-items: start; flex-direction: column; }
-    }
-    @media (max-width: 640px) {
-      .flavor-stage { grid-template-columns: 1fr; gap: .5rem; }
-      .flavor-showcase { order: -1; width: 100%; max-width: 19rem; margin: 0 auto; justify-self: center; }
-      .flavor-word { bottom: auto; top: 1.5rem; }
-    }
-    @media (max-width: 540px) {
-      .shell { width: min(100% - 1.25rem, 1180px); }
-      h1 { font-size: clamp(3.25rem, 18vw, 5.2rem); }
-      h2 { font-size: clamp(2.6rem, 14vw, 4.5rem); }
-      .hero::before { width: 23rem; height: 23rem; }
-      .hero-image { aspect-ratio: 1 / 1; }
-      .flavor-tabs { grid-template-columns: 1fr 1fr; }
-      .flavor-tab { grid-template-columns: 1rem 1fr; font-size: .78rem; }
-      .flavor-tab .tab-no { display: none; }
-      .flavor-stage { min-height: 24rem; padding: 1.5rem; }
-      .signup { border-radius: 1.2rem; flex-direction: column; }
-      .signup .pill { width: 100%; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-      .reveal { opacity: 1; transform: none; }
+    /* Desktop: text and form on the left, the stage on the right, color edge to edge */
+    @media (min-width: 900px) and (orientation: landscape) {
+      .under-bar { display: none; }
+      .app {
+        max-width: 1440px; column-gap: clamp(32px, 4vw, 72px);
+        padding: 24px clamp(32px, 4.5vw, 72px) 28px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+        grid-template-rows: auto 1fr auto auto 1fr;
+        grid-template-areas: "top top" ". stage" "bars stage" "bottom stage" ". stage";
+      }
+      .top { grid-area: top; height: 56px; }
+      .top .wordmark { width: 128px; }
+      .chip { font-size: 12px; padding: 8px 14px; }
+      .stage { grid-area: stage; margin-top: 12px; }
+      .bars { grid-area: bars; max-width: 420px; margin: 0 0 22px; }
+      .bottom { grid-area: bottom; max-width: 640px; container-type: inline-size; }
+      .eyebrow { font-size: 13px; }
+      .name { font-size: min(11.8cqi, 96px); margin-top: 10px; }   /* longest name fills the column */
+      .offer { font-size: 20px; margin-top: 16px; }
+      .join { margin-top: 26px; max-width: 520px; padding: 6px; }
+      .join input { font-size: 17px; padding: 0 18px; }
+      .join button { padding: 18px 24px; font-size: 16px; }
+      .done-msg { max-width: 520px; margin-top: 26px; }
+      .note { text-align: left; padding-left: 20px; max-width: 520px; }
+      .tub { cursor: pointer; }
+      .shelf { left: -48px; width: calc(100% + 48px + clamp(32px, 4.5vw, 72px));
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 140px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, transparent, #000 140px, #000 calc(100% - 48px), transparent); }
     }
   </style>
 </head>
 <body>
-  <header class="nav-wrap">
-    <nav class="shell" aria-label="Main navigation">
-      <a class="wordmark" href="#top" aria-label="Happy Spoon home"><span>Happy</span><span>Spoon</span></a>
-      <div class="nav-links">
-        <a href="#flavors">Flavors</a>
-        <a class="nav-3d" href="viewer/">3D studio</a>
-        <a href="#why">Why Happy Spoon</a>
-        <a href="#story">Our story</a>
-        <a class="pill" href="#waitlist">Get first dibs</a>
-      </div>
-    </nav>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">High-protein dessert yogurt</p>
-          <h1>Cravings,<span>handled.</span></h1>
-          <p class="lede">Thick, creamy yogurt inspired by the desserts you actually want—made for people who care about flavor and their goals.</p>
-          <div class="hero-actions">
-            <a class="pill" href="#waitlist">Join the first spoonful</a>
-            <a class="text-link" href="#flavors">Meet the flavors</a>
-          </div>
-        </div>
-        <div class="hero-visual" aria-label="Happy Spoon flavor lineup">
-          <img class="hero-image" src="assets/hero.jpg" alt="Five colorful Happy Spoon high-protein dessert yogurt cups in Chocolate Fudge, Cookies and Cream, Salted Caramel, Mint Chip, and Cookie Dough flavors">
-          <div class="hero-stamp" aria-hidden="true">Dessert first<br>Goals intact<span class="spoon-line"></span></div>
-        </div>
-      </div>
-    </section>
-
-    <div class="ticker" aria-label="Happy Spoon product qualities">
-      <div class="ticker-track" aria-hidden="true">
-        <span>Dessert-inspired <b>✦</b></span><span>High protein <b>✦</b></span><span>Cold &amp; creamy <b>✦</b></span><span>Craving approved <b>✦</b></span><span>Dessert-inspired <b>✦</b></span><span>High protein <b>✦</b></span><span>Cold &amp; creamy <b>✦</b></span><span>Craving approved <b>✦</b></span>
-      </div>
-    </div>
-
-    <section id="flavors" class="flavor-section">
-      <div class="shell">
-        <div class="section-head reveal">
-          <p class="eyebrow">The dessert case, rebuilt</p>
-          <h2>No fruit at the party.</h2>
-          <p>Five flavors that belong after dinner, after a workout, or whenever the craving starts negotiating.</p>
-        </div>
-        <div class="flavor-layout reveal">
-          <div class="flavor-tabs" role="tablist" aria-label="Choose a Happy Spoon flavor">
-            <button class="flavor-tab" role="tab" aria-selected="true" data-color="#ff6547" data-name="Chocolate Fudge" data-word="Fudge" data-image="assets/chocolate-fudge.png" data-alt="Open Happy Spoon Chocolate Fudge yogurt cup with thick chocolate yogurt on a spoon" data-copy="Deep cocoa flavor with the full dessert energy your nightly spoon deserves." style="--active:#ff6547"><span class="dot" style="--swatch:#5a211b"></span><span>Chocolate Fudge</span><span class="tab-no">01</span></button>
-            <button class="flavor-tab" role="tab" aria-selected="false" data-color="#4aa9f7" data-name="Cookies &amp; Cream" data-word="Cookies" data-image="assets/cookies-and-cream-cutout.png" data-alt="Open Happy Spoon Cookies and Cream yogurt cup with cookie-specked yogurt on a spoon" data-copy="Creamy, cookie-specked satisfaction with a familiar crunch-shop attitude." style="--active:#4aa9f7"><span class="dot" style="--swatch:#262323"></span><span>Cookies &amp; Cream</span><span class="tab-no">02</span></button>
-            <button class="flavor-tab" role="tab" aria-selected="false" data-color="#f2a313" data-name="Salted Caramel" data-word="Caramel" data-image="assets/salted-caramel.png" data-alt="Open Happy Spoon Salted Caramel yogurt cup with a salted caramel yogurt swirl" data-copy="Sweet, buttery caramel character sharpened with a salty finish." style="--active:#f2a313"><span class="dot" style="--swatch:#c26914"></span><span>Salted Caramel</span><span class="tab-no">03</span></button>
-            <button class="flavor-tab" role="tab" aria-selected="false" data-color="#6ed7ac" data-name="Mint Chip" data-word="Mint" data-image="assets/mint-chip.png" data-alt="Open Happy Spoon Mint Chip yogurt cup with pale green yogurt and dark chocolate chips" data-copy="Cool mint and dark chocolate attitude for the most refreshing spoon in the lineup." style="--active:#6ed7ac"><span class="dot" style="--swatch:#15384a"></span><span>Mint Chip</span><span class="tab-no">04</span></button>
-            <button class="flavor-tab" role="tab" aria-selected="false" data-color="#9a73dc" data-name="Cookie Dough" data-word="Dough" data-image="assets/cookie-dough.png" data-alt="Open Happy Spoon Cookie Dough yogurt cup with Greek yogurt and cookie dough pieces" data-copy="Brown-sugar nostalgia and chocolate-chip flavor made for one-more-bite people." style="--active:#9a73dc"><span class="dot" style="--swatch:#d7ab77"></span><span>Cookie Dough</span><span class="tab-no">05</span></button>
-          </div>
-          <div class="flavor-stage" role="tabpanel" aria-live="polite">
-            <div class="flavor-word" id="flavorWord">Fudge</div>
-            <div class="flavor-copy">
-              <p class="eyebrow">Flavor 01 / 05</p>
-              <h3 class="flavor-title" id="flavorName">Chocolate Fudge</h3>
-              <p id="flavorCopy">Deep cocoa flavor with the full dessert energy your nightly spoon deserves.</p>
-            </div>
-            <div class="flavor-showcase">
-              <div class="flavor-disc"></div>
-              <div class="flavor-floor"></div>
-              <div class="flavor-lift">
-                <img class="flavor-product" id="flavorProduct" src="assets/chocolate-fudge.png" alt="Open Happy Spoon Chocolate Fudge yogurt cup with thick chocolate yogurt on a spoon">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="why" class="promise">
-      <div class="shell">
-        <div class="section-head reveal">
-          <p class="eyebrow">A better kind of compromise</p>
-          <h2>Built for both sides of your brain.</h2>
-        </div>
-        <div class="promise-grid reveal">
-          <article class="promise-card"><div class="promise-no">01</div><div><h3>Dessert-level flavor</h3><p>Every flavor begins with a real craving—not the usual fruit-yogurt playbook.</p></div></article>
-          <article class="promise-card"><div class="promise-no">02</div><div><h3>Protein that shows up</h3><p>Designed to make protein easier to look forward to, one cold spoonful at a time.</p></div></article>
-          <article class="promise-card"><div class="promise-no">03</div><div><h3>Made for real routines</h3><p>Breakfast, post-workout, afternoon snack, late-night dessert. Your call.</p></div></article>
-        </div>
-        <p class="promise-note">Specific nutrition information will be published when the final formulations are complete.</p>
-      </div>
-    </section>
-
-    <section class="test-section">
-      <div class="shell">
-        <div class="test-card reveal">
-          <div class="test-copy">
-            <p class="eyebrow">The Happy Spoon test</p>
-            <h2>Would you want another bite?</h2>
-            <p>Macros can earn the first try. Flavor earns the second cup. We’re building Happy Spoon to pass both tests.</p>
-          </div>
-          <div class="test-steps">
-            <div class="test-step"><strong>1</strong><div><h3>Open</h3><p>It should look like dessert before the spoon goes in.</p></div></div>
-            <div class="test-step"><strong>2</strong><div><h3>Scoop</h3><p>Thick, smooth, satisfying—not thin or chalky.</p></div></div>
-            <div class="test-step"><strong>3</strong><div><h3>Finish</h3><p>No negotiation. No backup snack. Craving handled.</p></div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="story" class="story">
-      <div class="shell story-grid">
-        <div class="reveal">
-          <p class="eyebrow">How it started</p>
-          <h2>Four friends. One nightly dessert problem.</h2>
-          <div class="four" aria-label="Four founders"><span>1</span><span>2</span><span>3</span><span>4</span></div>
-        </div>
-        <div class="reveal">
-          <p class="story-quote">“We loved dessert, cared about our nutrition, and were tired of choosing between the two.”</p>
-          <p>So four fraternity brothers started building the yogurt they wanted in their own refrigerators: a high-protein option with the unapologetic flavors of the dessert aisle. Happy Spoon is for everyone whose sweet tooth and goals refuse to break up.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="waitlist" class="waitlist">
-      <div class="shell">
-        <div class="section-head reveal">
-          <p class="eyebrow">Launching soon</p>
-          <h2>Get the first spoonful.</h2>
-          <p>Join the tasting list for product drops, sampling events, and a chance to help choose what launches first.</p>
-        </div>
-        <form class="signup reveal" id="signupForm">
-          <label for="email" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Email address</label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
-          <button class="pill" type="submit">Save my spoon</button>
-        </form>
-        <p class="form-note" id="formNote">Concept waitlist preview—no information is sent or stored yet.</p>
-      </div>
+  <main class="app">
+    <header class="top"><span class="wordmark" role="img" aria-label="Happy Spoon"></span><span class="chip">Launching soon</span></header>
+    <nav class="bars" aria-label="Flavors"></nav>
+    <section class="stage" id="stage" aria-hidden="true"></section>
+    <section class="bottom">
+      <p class="eyebrow">High-protein dessert yogurt</p>
+      <h1 class="name"></h1>
+      <p class="offer">Join the waitlist and get a <b>free 32&nbsp;oz tub</b> when we launch.</p>
+      <form class="join" data-kit-form="9989336" novalidate><label class="sr" for="email">Email address</label><input id="email" type="email" name="email_address" inputmode="email" autocomplete="email" placeholder="Your email" required><input class="sr" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">Get my free tub</button></form>
+      <p class="consent">By joining, you agree to get emails from Happy Spoon. Unsubscribe anytime.</p>
+      <div class="done-msg" role="status"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>You're on the list.</b>Watch your inbox for your free tub.</span></div>
+      <p class="note" aria-live="polite"></p>
     </section>
   </main>
-
-  <footer>
-    <div class="shell footer-grid">
-      <div><a class="wordmark" href="#top"><span>Happy</span><span>Spoon</span></a><p>High-protein dessert yogurt. Cravings, handled.</p></div>
-      <div class="footer-links"><a href="#flavors">Flavors</a><a href="#story">Story</a><a href="#waitlist">Waitlist</a></div>
-    </div>
-  </footer>
-
+  <div class="under-bar" aria-hidden="true"></div>
   <script>
-    const tabs = [...document.querySelectorAll('.flavor-tab')];
-    const stage = document.querySelector('.flavor-stage');
-    const name = document.getElementById('flavorName');
-    const word = document.getElementById('flavorWord');
-    const copy = document.getElementById('flavorCopy');
-    const product = document.getElementById('flavorProduct');
-    const count = stage.querySelector('.eyebrow');
-    let swapTimer;
-    tabs.forEach(tab => { new Image().src = tab.dataset.image; });
+    // Keep the page pinned at the top: block touch scrolling (typing in the email field still works)
+    // and return to the top after the keyboard closes.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    addEventListener('touchmove', e => { if (e.target.tagName !== 'INPUT') e.preventDefault(); }, { passive: false });
+    document.addEventListener('focusout', () => setTimeout(() => scrollTo(0, 0), 50));
+  </script>
+  <script src="waitlist/concepts/shared.js?v=9"></script>
+  <script>
+    const stage = document.getElementById('stage');
+    const STYLE = ['glass', 'ledge', 'risers', 'floor'].find(v => v === new URLSearchParams(location.search).get('shelf')) || 'glass';
+    document.body.dataset.shelf = STYLE;
+    const halo = document.createElement('div'); halo.className = 'halo';
+    const shelf = document.createElement('div'); shelf.className = 'shelf';
+    const face = document.createElement('div'); face.className = 'face';
+    const edge = document.createElement('div'); edge.className = 'edge';
+    const under = document.createElement('div'); under.className = 'under';
+    if (STYLE === 'glass' || STYLE === 'ledge') shelf.append(under, face, edge);
+    if (STYLE === 'floor') shelf.append(face);
+    stage.append(halo, shelf);
+    // Per-flavor extras that stay on the shelf: a reflection, a contact shadow, and (risers) a pedestal
+    const refls = HS.FLAVORS.map(f => { const r = document.createElement('img'); r.className = 'refl'; r.src = HS.src(f); r.alt = ''; face.append(r); return r; });
+    const shadows = HS.FLAVORS.map(() => { const d = document.createElement('div'); d.className = 'cshadow'; shelf.append(d); return d; });
+    const risers = STYLE === 'risers' ? HS.FLAVORS.map(() => { const d = document.createElement('div'); d.className = 'riser'; shelf.prepend(d); return d; }) : [];
+    const tubs = HS.FLAVORS.map((f, k) => { const t = HS.tub(f); t.dataset.flavor = k; stage.append(t); return t; });
 
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(item => item.setAttribute('aria-selected', 'false'));
-        tab.setAttribute('aria-selected', 'true');
-        stage.style.setProperty('--stage', tab.dataset.color);
-        name.textContent = tab.dataset.name;
-        word.textContent = tab.dataset.word;
-        copy.textContent = tab.dataset.copy;
-        product.classList.add('is-leaving');
-        clearTimeout(swapTimer);
-        swapTimer = setTimeout(() => {
-          product.src = tab.dataset.image;
-          product.alt = tab.dataset.alt;
-          product.decode().catch(() => {}).then(() => product.classList.remove('is-leaving'));
-        }, 180);
-        count.textContent = `Flavor ${String(index + 1).padStart(2, '0')} / 05`;
+    let W, H, tw, th, hero = 0, spots = [], heroSpot;
+    // A spot is where a tub's bottom center sits, plus its scale relative to the hero size.
+    const tf = p => `translate(${p.x - tw / 2}px, ${p.y - th}px) scale(${p.s})`;
+    const px = n => `${n}px`;
+    function layout() {
+      W = stage.clientWidth; H = stage.clientHeight;
+      const pad = Math.max(8, W * 0.03), sw = (W - pad * 4) / 5, stw = sw * 0.92, sth = stw * 1.2;
+      const below = { glass: 44, ledge: 46, risers: 34, floor: 30 }[STYLE];
+      const shelfY = H - below;
+      const heroRoom = shelfY - sth - 26;
+      th = Math.min(heroRoom * 0.94, W * (W > 500 ? 0.74 : 0.6) * 1.2); tw = th / 1.2;   // bigger hero on desktop
+      const heroY = Math.min(heroRoom, heroRoom / 2 + th / 2 + 6);
+      heroSpot = { x: W / 2, y: heroY, s: 1 };
+      spots = HS.FLAVORS.map((_, k) => ({ x: sw / 2 + k * (sw + pad), y: shelfY, s: stw / tw }));
+      tubs.forEach(t => { t.style.width = px(tw); });
+
+      // Shelf parts, in shelf coordinates (the shelf bleeds past the stage edges)
+      const off = -shelf.offsetLeft;
+      const faceTop = STYLE === 'floor' ? shelfY - 8 : shelfY - 13, faceH = STYLE === 'floor' ? H - faceTop + 14 : STYLE === 'glass' ? 32 : 22;
+      Object.assign(face.style, { top: px(faceTop), height: px(faceH) });
+      Object.assign(edge.style, { top: px(faceTop + faceH), height: px(STYLE === 'ledge' ? 14 : 6) });
+      Object.assign(under.style, { top: px(faceTop + faceH + (STYLE === 'ledge' ? 14 : 6)), height: px(30) });
+      spots.forEach((p, k) => {
+        Object.assign(refls[k].style, { left: px(p.x + off - stw / 2), top: px(shelfY - faceTop - 2), width: px(stw), height: px(sth) });
+        Object.assign(shadows[k].style, { left: px(p.x + off - stw * 0.55), top: px(shelfY - 7), width: px(stw * 1.1), height: px(14) });
+        if (risers[k]) Object.assign(risers[k].style, { left: px(p.x + off - stw * 0.5), top: px(shelfY - 3), width: px(stw), height: px(below - 4) });
       });
-      tab.addEventListener('keydown', event => {
-        if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(event.key)) return;
-        event.preventDefault();
-        const direction = ['ArrowDown', 'ArrowRight'].includes(event.key) ? 1 : -1;
-        tabs[(index + direction + tabs.length) % tabs.length].focus();
-      });
-    });
-
-    document.getElementById('signupForm').addEventListener('submit', event => {
-      event.preventDefault();
-      const email = document.getElementById('email');
-      const note = document.getElementById('formNote');
-      note.textContent = `Thanks—${email.value} is ready for the real waitlist connection.`;
-      email.value = '';
-    });
-
-    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: .12 });
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    } else {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      const d = Math.min(th * 1.02, W * 0.92);
+      Object.assign(halo.style, { left: px(W / 2 - d / 2), top: px(heroY - th / 2 - d / 2 - th * 0.02), width: px(d), height: px(d) });
+      place();
     }
+    function mark() {
+      refls.forEach((r, k) => r.classList.toggle('gone', k === hero));
+      shadows.forEach((d, k) => d.classList.toggle('gone', k === hero));
+    }
+    function place() {
+      tubs.forEach((t, k) => {
+        t.getAnimations().forEach(a => a.cancel());
+        t.style.transform = tf(k === hero ? heroSpot : spots[k]);
+        t.style.zIndex = k === hero ? 3 : 2;
+      });
+      mark();
+    }
+    // Fly along an arc rather than a straight line.
+    function fly(t, a, b, delay, lift) {
+      const mid = { x: (a.x + b.x) / 2, y: Math.min(a.y, b.y) - lift, s: (a.s + b.s) / 2 };
+      return t.animate([{ transform: tf(a) }, { transform: tf(mid), offset: .45 }, { transform: tf(b) }],
+        { duration: 1000, delay, easing: 'cubic-bezier(.6,0,.3,1)', fill: 'backwards' });
+    }
+
+    layout();
+    HS.start({
+      stage, paintDelay: 350, tapOnly: true,
+      onChange(i, prev) {
+        if (i === prev || HS.reduced) { hero = i; place(); return; }
+        place();
+        hero = i;
+        const up = tubs[i], down = tubs[prev];
+        up.style.transform = tf(heroSpot); up.style.zIndex = 4;
+        down.style.transform = tf(spots[prev]); down.style.zIndex = 3;
+        mark();
+        fly(down, heroSpot, spots[prev], 0, th * 0.12);
+        fly(up, spots[i], heroSpot, 180, th * 0.18);
+        halo.classList.remove('pulse'); void halo.offsetWidth; halo.classList.add('pulse');
+      }
+    });
+    new ResizeObserver(() => layout()).observe(stage);
   </script>
 </body>
 </html>

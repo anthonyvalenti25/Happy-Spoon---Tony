@@ -8,7 +8,8 @@ The site is published with GitHub Pages from the `main` branch. After a push, ch
 
 | Name | Link | Source |
 | --- | --- | --- |
-| Home page | [/](https://happyspoonyogurt.com/) | `index.html` |
+| Home page (Lineup waitlist, connected to Kit) | [/](https://happyspoonyogurt.com/) | `index.html` |
+| Previous home page | [/old-home/](https://happyspoonyogurt.com/old-home/) | `old-home/index.html` |
 | Site redesign | [/new/](https://happyspoonyogurt.com/new/) | `new/index.html` |
 | 3D Flavor Studio | [/viewer/](https://happyspoonyogurt.com/viewer/) | `viewer/index.html` |
 | Waitlist concepts (overview) | [/waitlist/concepts/](https://happyspoonyogurt.com/waitlist/concepts/) | `waitlist/concepts/index.html` |
@@ -16,7 +17,7 @@ The site is published with GitHub Pages from the `main` branch. After a push, ch
 | Waitlist 02 · Horizon | [/waitlist/concepts/02-horizon.html](https://happyspoonyogurt.com/waitlist/concepts/02-horizon.html) | `waitlist/concepts/02-horizon.html` |
 | Waitlist 03 · Runway | [/waitlist/concepts/03-runway.html](https://happyspoonyogurt.com/waitlist/concepts/03-runway.html) | `waitlist/concepts/03-runway.html` |
 | Waitlist 04 · Drop | [/waitlist/concepts/04-drop.html](https://happyspoonyogurt.com/waitlist/concepts/04-drop.html) | `waitlist/concepts/04-drop.html` |
-| Waitlist 05 · Lineup (connected to Kit) | [/waitlist/concepts/05-lineup.html](https://happyspoonyogurt.com/waitlist/concepts/05-lineup.html) | `waitlist/concepts/05-lineup.html` |
+| Waitlist 05 · Lineup (now the home page; old link forwards there) | [/waitlist/concepts/05-lineup.html](https://happyspoonyogurt.com/waitlist/concepts/05-lineup.html) | `index.html` |
 
 When you add a new page, add a row here too.
 
