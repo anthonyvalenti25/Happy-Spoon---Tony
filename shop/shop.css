@@ -172,10 +172,10 @@ img { display: block; max-width: 100%; }
 }
 .cards::-webkit-scrollbar { display: none; }
 .card { scroll-snap-align: start; display: flex; flex-direction: column; border-radius: 22px; overflow: hidden; background: var(--paper); scroll-margin-top: 20px; }
-.card .art { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--c-bg); color: #fff; display: grid; place-items: end center; container-type: inline-size; }
-.card .art .ghost { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-size: 17cqi; opacity: .22; }
-.card .art img { position: relative; width: 58%; margin-bottom: 9%; filter: drop-shadow(0 14px 14px rgba(0,0,0,.25)); transition: transform .6s var(--ease); }
-.card:hover .art img { transform: translateY(-4px) rotate(-2deg); }
+.card .art { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: var(--c-bg); }
+/* Flavor display photos (assets/flavor-displays/) already carry the flavor color, so they fill the square */
+.card .art img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.card:hover .art img { transform: scale(1.04); }
 .card .body { flex: 1; display: flex; flex-direction: column; padding: 16px 16px 16px; }
 .card .body { container-type: inline-size; }
 .card h3 { font-size: 7.6cqi; white-space: nowrap; }   /* longest name (Chocolate Fudge) fits on one line */

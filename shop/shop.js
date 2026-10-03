@@ -212,7 +212,7 @@
   const STATS = `<div class="stats"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">180</b><small>Calories</small></div></div>`;
   $('.cards').innerHTML = FLAVORS.map(f => `
     <article class="card" style="--c-bg:${f.bg};--c-btn:${f.btn}" data-card="${f.id}" id="card-${f.id}">
-      <div class="art"><span class="ghost wide" aria-hidden="true">${f.two}</span><img src="${TUB(f.id)}" alt="Happy Spoon ${f.name} tub" loading="lazy" decoding="async"></div>
+      <div class="art"><img src="${ASSETS}flavor-displays/${f.id}.webp" alt="Happy Spoon ${f.name} tub" width="900" height="900" loading="lazy" decoding="async"></div>
       <div class="body">
         <h3 class="wide">${f.name}</h3>
         ${STATS}
