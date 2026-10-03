@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Happy Spoon | Email signature</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+  <style>
+    :root { --coral: #ef4c3c; --deep: #2a0f0b; --cream: #fff8ed; --muted: #6b5a55; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cream); color: var(--deep); font: 16px/1.5 Archivo, system-ui, sans-serif; }
+    main { max-width: 680px; margin: 0 auto; padding: 48px 16px 64px; }
+    h1 { font-size: 32px; font-stretch: 112%; font-weight: 850; line-height: 1.1; margin: 0 0 8px; }
+    .lede { color: var(--muted); margin: 0 0 28px; }
+    .card { background: #fff; border-radius: 18px; padding: 28px 24px; box-shadow: 0 1px 0 rgba(42,15,11,.06), 0 10px 30px rgba(42,15,11,.06); overflow-x: auto; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 18px 0 40px; }
+    button { font: inherit; font-weight: 700; border: 0; border-radius: 999px; padding: 12px 22px; cursor: pointer; background: var(--deep); color: var(--cream); }
+    button.ghost { background: transparent; color: var(--deep); box-shadow: inset 0 0 0 2px var(--deep); }
+    .status { font-size: 14px; color: var(--muted); }
+    h2 { font-size: 20px; font-stretch: 110%; font-weight: 800; margin: 32px 0 8px; }
+    ol { padding-left: 22px; margin: 0; }
+    li { margin: 4px 0; }
+    code { background: rgba(42,15,11,.07); padding: 1px 6px; border-radius: 6px; font-size: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Happy Spoon email signature</h1>
+  <p class="lede">Copy it once and paste it into your email app's signature settings.</p>
+
+  <div class="card">
+    <div id="signature"><!-- Email-safe signature: tables and inline styles only, logo hosted on the live site -->
+<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;">
+  <tr>
+    <td style="padding:0 16px 0 0;vertical-align:middle;">
+      <a href="https://happyspoonyogurt.com" style="text-decoration:none;"><img src="https://happyspoonyogurt.com/email-signature/happy-spoon-logo.png" width="120" height="89" alt="Happy Spoon" style="display:block;width:120px;height:89px;border:0;"></a>
+    </td>
+    <td style="padding:2px 0 2px 16px;vertical-align:middle;border-left:2px solid #ef4c3c;">
+      <div style="font-size:16px;line-height:20px;font-weight:bold;color:#2a0f0b;">Happy Spoon</div>
+      <div style="font-size:13px;line-height:18px;color:#6b5a55;padding:0 0 8px;">High-protein dessert yogurt</div>
+      <div style="font-size:13px;line-height:20px;"><a href="mailto:hello@happyspoonyogurt.com" style="color:#ef4c3c;text-decoration:none;font-weight:bold;">hello@happyspoonyogurt.com</a></div>
+      <div style="font-size:13px;line-height:20px;"><a href="https://happyspoonyogurt.com" style="color:#2a0f0b;text-decoration:none;">happyspoonyogurt.com</a></div>
+    </td>
+  </tr>
+</table>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="copy">Copy signature</button>
+    <button id="copy-html" class="ghost">Copy HTML code</button>
+    <span class="status" id="status" aria-live="polite"></span>
+  </div>
+
+  <h2>Gmail</h2>
+  <ol>
+    <li>Click <b>Copy signature</b> above.</li>
+    <li>In Gmail, open <b>Settings</b> (gear) → <b>See all settings</b> → <b>General</b>.</li>
+    <li>Scroll to <b>Signature</b>, click <b>Create new</b>, and paste into the box.</li>
+    <li>Choose it under <b>Signature defaults</b>, then <b>Save Changes</b> at the bottom.</li>
+  </ol>
+
+  <h2>Apple Mail (Mac)</h2>
+  <ol>
+    <li>Open this page in Safari and click <b>Copy signature</b>.</li>
+    <li>In Mail, go to <b>Settings</b> → <b>Signatures</b>, pick the account, and click <b>+</b>.</li>
+    <li>Untick <b>Always match my default message font</b>, then paste into the preview area.</li>
+  </ol>
+
+  <h2>iPhone Mail</h2>
+  <ol>
+    <li>Open this page on the phone, long-press to select the signature, and copy it.</li>
+    <li>Go to <b>Settings</b> → <b>Apps</b> → <b>Mail</b> → <b>Signature</b> and paste.</li>
+  </ol>
+
+  <h2>Outlook and others</h2>
+  <ol>
+    <li>Paste with <b>Copy signature</b> into the signature editor, or use <b>Copy HTML code</b> if the app accepts HTML.</li>
+  </ol>
+</main>
+<script>
+  const sig = document.getElementById('signature');
+  const status = document.getElementById('status');
+  const say = msg => { status.textContent = msg; setTimeout(() => { status.textContent = ''; }, 3000); };
+  const html = () => sig.innerHTML.replace(/<!--[\s\S]*?-->/g, '').trim();
+
+  document.getElementById('copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html()], { type: 'text/html' }),
+        'text/plain': new Blob([sig.innerText], { type: 'text/plain' })
+      })]);
+      say('Copied. Paste it into your signature settings.');
+    } catch (e) {
+      // Fallback: select the rendered signature so the browser copies it as rich text
+      const range = document.createRange();
+      range.selectNodeContents(sig);
+      const sel = getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      say(document.execCommand('copy') ? 'Copied. Paste it into your signature settings.' : 'Press Cmd+C to copy the highlighted signature.');
+    }
+  });
+
+  document.getElementById('copy-html').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(html()); say('HTML copied.'); }
+    catch (e) { say('Could not copy. Your browser blocked clipboard access.'); }
+  });
+</script>
+</body>
+</html>
