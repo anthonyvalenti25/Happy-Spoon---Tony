@@ -171,7 +171,7 @@
     // Why Happy Spoon tub follows the spotlight (fades out, swaps, fades back in)
     const whyTub = $('.why-tub');
     if (whyTub) {
-      const src = `${ASSETS}flavor-displays/${f.id}.webp`;
+      const src = `${ASSETS}flavor-displays-open/${f.id}.webp`;
       if (first) { whyTub.src = src; whyTub.alt = `Happy Spoon ${f.name} tub`; }
       else if (!whyTub.src.endsWith(src.split('/').pop())) {
         whyTub.classList.add('swap');
@@ -470,7 +470,7 @@
   }
 
   // Preload the Why section's tub art once the page is idle, so flavor swaps don't flash empty
-  addEventListener('load', () => setTimeout(() => FLAVORS.forEach(f => { new Image().src = `${ASSETS}flavor-displays/${f.id}.webp`; }), 1500));
+  addEventListener('load', () => setTimeout(() => FLAVORS.forEach(f => { new Image().src = `${ASSETS}flavor-displays-open/${f.id}.webp`; }), 1500));
   paint(true);
   layout();
   render();
