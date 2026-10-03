@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
   <link rel="stylesheet" href="../assets/site-header.css?v=5">
   <link rel="stylesheet" href="../assets/site-footer.css?v=2">
-  <link rel="stylesheet" href="shop.css?v=13">
+  <link rel="stylesheet" href="shop.css?v=15">
 </head>
 <body>
   <!-- Builder: the featured flavor floods the page, tubs wait on the glass shelf (same as the waitlist) -->
@@ -35,7 +35,7 @@
       <p class="eyebrow">Build your box · tap a flavor</p>
       <h1 class="name wide"></h1>
       <p class="desc"></p>
-      <div class="stats hero-stats"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>
+      <div class="stats hero-stats"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">180</b><small>Calories</small></div></div>
       <p class="price"><b class="unit"></b> per 32&nbsp;oz tub</p>
       <div class="adder">
         <button class="add-main" type="button" data-act="add" data-from="hero">Add to box</button>
@@ -54,8 +54,8 @@
   </header>
 
   <main>
-    <!-- Laid out like Our story: a white sheet on the flavor color, flavor circles down its left edge,
-         tubs drifting in the margins and ribbons behind, all in the featured flavor's colors. -->
+    <!-- Laid out like Our story: a white sheet on the flavor color, tubs drifting in the margins
+         and ribbons behind, all in the featured flavor's colors. -->
     <section class="story">
       <svg class="ribbons" viewBox="0 0 1440 2400" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false">
         <g fill="none" stroke-linecap="round">
@@ -66,9 +66,9 @@
         </g>
       </svg>
       <!-- Tubs drifting beside the sheet (wide screens only) -->
-      <div class="float" style="--w:78px;left:4%;top:980px;--t:6.5s;--r:9deg" data-speed=".10"><img src="../assets/chocolate-fudge-tub-600.webp" alt=""></div>
+      <div class="float" style="--w:78px;left:2%;top:160px;--t:6.5s;--r:9deg" data-speed=".10"><img src="../assets/chocolate-fudge-tub-600.webp" alt=""></div>
       <div class="float" style="--w:66px;right:4%;top:90px;--t:7.5s;--r:-10deg;--d:-2s" data-speed=".16"><img src="../assets/mint-chip-tub-600.webp" alt=""></div>
-      <div class="float" style="--w:118px;left:2.5%;top:1420px;--t:8s;--r:7deg;--d:-3s" data-speed=".22"><img src="../assets/cookies-and-cream-tub-600.webp" alt=""></div>
+      <div class="float" style="--w:118px;left:1.5%;top:620px;--t:8s;--r:7deg;--d:-3s" data-speed=".22"><img src="../assets/cookies-and-cream-tub-600.webp" alt=""></div>
       <div class="float" style="--w:104px;right:3%;top:440px;--t:7s;--r:-8deg;--d:-1s" data-speed=".14"><img src="../assets/salted-caramel-tub-600.webp" alt=""></div>
       <div class="float" style="--w:128px;right:2.5%;top:1040px;--t:9s;--r:6deg;--d:-4s" data-speed=".2"><img src="../assets/cookie-dough-tub-600.webp" alt=""></div>
 
@@ -76,11 +76,8 @@
         <p class="eyebrow dim">Why Happy Spoon</p>
         <h2 class="cond big">Big flavor, bigger numbers.</h2>
 
-        <!-- Flavor circles: tap one to feature it and jump to its card -->
-        <ul class="rail" aria-label="Flavors"></ul>
-
         <div class="numbers">
-          <div class="stats big-stats"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>
+          <div class="stats big-stats"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">180</b><small>Calories</small></div></div>
           <p class="fine">Per serving. Final numbers come with the final recipes.</p>
         </div>
 
@@ -172,6 +169,6 @@
     </div>
   </dialog>
 
-  <script src="shop.js?v=6"></script>
+  <script src="shop.js?v=8"></script>
 </body>
 </html>

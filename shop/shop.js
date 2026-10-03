@@ -1,5 +1,5 @@
 // Happy Spoon shop mockup: pick a flavor on the shelf, fill a box of at least 4 tubs, review it in the drawer.
-// Checkout is not connected. PRICE is a sample, and protein/calories show XX until the recipes are final.
+// Checkout is not connected. PRICE is a sample, and protein (20 g) and calories (180) are placeholders until the recipes are final.
 (() => {
   const PRICE = 8.99;   // sample price per 32 oz tub
   const MIN = 4, MAX = 24;
@@ -124,7 +124,6 @@
     $('.desc').textContent = f.desc;
     $$('.adder [data-act]').forEach(b => { b.dataset.id = f.id; });
     $('.adder .add-main').textContent = `Add ${f.name} to box`;
-    $$('.rail button').forEach(b => b.setAttribute('aria-current', Number(b.dataset.k) === hero));
   }
   function feature(k) {
     if (k === hero) return;
@@ -148,15 +147,13 @@
     if (t && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pick(Number(t.dataset.k)); }
   });
 
-  // ---------- Flavor circles, flavor cards and the lineup strip ----------
+  // ---------- Flavor cards and the lineup strip ----------
   const stepHTML = (f, label) => `<div class="step">
       <button type="button" data-act="sub" data-id="${f.id}" aria-label="Remove one ${f.name}"><svg viewBox="0 0 16 16"><path d="M3 8h10"/></svg></button>
       <output>${label}</output>
       <button type="button" data-act="add" data-id="${f.id}" data-from="card" aria-label="Add one ${f.name}"><svg viewBox="0 0 16 16"><path d="M3 8h10M8 3v10"/></svg></button>
     </div>`;
-  const STATS = `<div class="stats"><div class="stat"><b class="wide">XX<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">XXX</b><small>Calories</small></div></div>`;
-  $('.rail').innerHTML = FLAVORS.map((f, k) => `<li><button type="button" data-act="feature" data-k="${k}" style="--c:${f.bg}">
-      <span class="dot"><img src="${TUB(f.id)}" alt="" loading="lazy"></span><span>${f.short}</span></button></li>`).join('');
+  const STATS = `<div class="stats"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">180</b><small>Calories</small></div></div>`;
   $('.cards').innerHTML = FLAVORS.map(f => `
     <article class="card" style="--c-bg:${f.bg};--c-btn:${f.btn}" data-card="${f.id}" id="card-${f.id}">
       <div class="art"><span class="ghost wide" aria-hidden="true">${f.two}</span><img src="${TUB(f.id)}" alt="Happy Spoon ${f.name} tub" loading="lazy" decoding="async"></div>
@@ -318,10 +315,6 @@
     else if (act === 'all') {
       FLAVORS.forEach(f => { if (box.length < MAX) box.push(f.id); });
       save(); render(); bump(bar); bump(boxBtn);
-    } else if (act === 'feature') {
-      const k = Number(b.dataset.k);
-      pick(k);
-      document.getElementById(`card-${FLAVORS[k].id}`).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center', inline: 'center' });
     } else if (act === 'checkout') {
       note("Checkout isn't connected yet. This is a design mockup.", true);
     } else if (act === 'promo-close') promo.close();
