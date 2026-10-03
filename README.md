@@ -9,6 +9,7 @@ The site is published with GitHub Pages from the `main` branch. After a push, ch
 | Name | Link | Source |
 | --- | --- | --- |
 | Home page (Lineup waitlist, connected to Kit) | [/](https://happyspoonyogurt.com/) | `index.html` |
+| Our story (About page) | [/about/](https://happyspoonyogurt.com/about/) | `about/index.html` |
 | Shop mockup (4 tub minimum) | [/shop/](https://happyspoonyogurt.com/shop/) | `shop/index.html` |
 | Previous home page | [/old-home/](https://happyspoonyogurt.com/old-home/) | `old-home/index.html` |
 | Site redesign | [/new/](https://happyspoonyogurt.com/new/) | `new/index.html` |
