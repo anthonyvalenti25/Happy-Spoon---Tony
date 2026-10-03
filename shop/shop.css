@@ -141,6 +141,9 @@ img { display: block; max-width: 100%; }
 .numbers { margin-top: 30px; }
 .big-stats { --ss: clamp(38px, 10.5vw, 112px); }
 .fine { margin-top: 12px; font-size: 13px; color: var(--sub); }
+.why-lede { font-size: 19px; color: var(--text); font-weight: 600; }
+.why-close { margin-top: 18px; font: 880 clamp(26px, 6vw, 40px)/1 "Archivo", sans-serif; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; }
+.benefits a { color: var(--text); font-weight: 700; }
 .benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; padding: 0; list-style: none; }
 .benefits li { padding: 16px; border-radius: 18px; background: var(--paper); }
 .benefits b { display: block; font-size: 16px; font-weight: 800; }
