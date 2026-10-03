@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
-  <link rel="stylesheet" href="shop.css?v=4">
+  <link rel="stylesheet" href="shop.css?v=5">
 </head>
 <body>
   <header class="hero">
@@ -100,28 +100,33 @@
     <div class="promo-art" aria-hidden="true"><span class="promo-halo"></span><img class="promo-tub" src="" alt=""></div>
     <div class="promo-body">
       <span class="wordmark" role="img" aria-label="Happy Spoon"></span>
-      <p class="promo-kicker">Here's a deal on your first box.</p>
+      <p class="promo-kicker">Join the waitlist and save on your first box.</p>
       <h2 id="promo-title" class="promo-big cond">25% off</h2>
       <div class="promo-form-wrap">
-        <p class="promo-sub">Sign up to get the deal.</p>
+        <ul class="promo-perks">
+          <li>Join the Happy Spoon waitlist</li>
+          <li>Get our newsletter</li>
+          <li>Your 25% off code, sent to your inbox</li>
+        </ul>
         <form class="promo-form" data-kit-form="9989336" novalidate>
           <label class="sr" for="promo-email">Email address</label>
           <input id="promo-email" type="email" name="email_address" inputmode="email" autocomplete="email" placeholder="Your email" required>
           <input class="sr" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button type="submit">Get 25% off</button>
+          <button type="submit">Send my 25% off code</button>
         </form>
         <p class="promo-note" aria-live="polite"></p>
+        <p class="promo-fine">By signing up, you agree to get emails from Happy Spoon. Unsubscribe anytime.</p>
         <button class="promo-skip" type="button" data-act="promo-close">No thanks, I'll pay full price</button>
       </div>
       <div class="promo-done" role="status">
         <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-        <b>You're in.</b>
-        <span>We'll email your 25% off code when the shop opens.</span>
+        <b>You're on the waitlist.</b>
+        <span>Check your inbox for your 25% off code. You're signed up for our newsletter too.</span>
         <button class="promo-shop" type="button" data-act="promo-close">Keep shopping</button>
       </div>
     </div>
   </dialog>
 
-  <script src="shop.js?v=2"></script>
+  <script src="shop.js?v=3"></script>
 </body>
 </html>

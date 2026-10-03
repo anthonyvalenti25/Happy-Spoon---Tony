@@ -358,7 +358,7 @@
         return;
       } finally {
         promoSending = false;
-        button.textContent = 'Get 25% off'; button.disabled = false;
+        button.textContent = 'Send my 25% off code'; button.disabled = false;
       }
     }
     remember('joined');
