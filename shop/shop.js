@@ -168,6 +168,16 @@
     if (old) s.className = 'in';
     nameBox.append(s);
     nameBox.setAttribute('aria-label', f.name);
+    // Why Happy Spoon tub follows the spotlight (fades out, swaps, fades back in)
+    const whyTub = $('.why-tub');
+    if (whyTub) {
+      const src = `${ASSETS}${f.id}-scene-900.webp`;
+      if (first) { whyTub.src = src; whyTub.alt = `Happy Spoon ${f.name} tub`; }
+      else if (!whyTub.src.endsWith(src.split('/').pop())) {
+        whyTub.classList.add('swap');
+        setTimeout(() => { whyTub.src = src; whyTub.alt = `Happy Spoon ${f.name} tub`; whyTub.classList.remove('swap'); }, 350);
+      }
+    }
     $$('.adder [data-act]').forEach(b => { b.dataset.id = f.id; });
     $('.adder .add-main').textContent = `Add ${f.name} to box`;
   }
@@ -459,6 +469,8 @@
     }, ms);
   }
 
+  // Preload the Why section's tub art once the page is idle, so flavor swaps don't flash empty
+  addEventListener('load', () => setTimeout(() => FLAVORS.forEach(f => { new Image().src = `${ASSETS}${f.id}-scene-900.webp`; }), 1500));
   paint(true);
   layout();
   render();

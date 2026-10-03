@@ -138,16 +138,32 @@ img { display: block; max-width: 100%; }
 .sheet .lede { margin-top: 10px; max-width: 520px; font-size: 17px; line-height: 1.45; color: var(--sub); }
 
 
-.numbers { margin-top: 30px; }
-.big-stats { --ss: clamp(38px, 10.5vw, 112px); }
-.fine { margin-top: 12px; font-size: 13px; color: var(--sub); }
-.why-lede { font-size: 19px; color: var(--text); font-weight: 600; }
-.why-close { margin-top: 18px; font: 880 clamp(26px, 6vw, 40px)/1 "Archivo", sans-serif; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; }
-.benefits a { color: var(--text); font-weight: 700; }
-.benefits { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; padding: 0; list-style: none; }
-.benefits li { padding: 16px; border-radius: 18px; background: var(--paper); }
-.benefits b { display: block; font-size: 16px; font-weight: 800; }
-.benefits span { display: block; margin-top: 4px; font-size: 14px; line-height: 1.35; color: var(--sub); }
+/* Why Happy Spoon: centered; the spotlighted flavor's tub on a disc of its color, protein and calories either side */
+.why { text-align: center; }
+.why .big { margin-top: 10px; }
+.why-by { margin: 14px auto 0; max-width: 520px; font-size: clamp(17px, 1.8vw, 21px); line-height: 1.4; color: var(--sub); }
+.why-by a { color: var(--text); font-weight: 800; }
+.why-stage { display: grid; gap: 18px; align-items: center; margin: 32px auto 0; max-width: 1100px; }
+.why-disc { position: relative; width: min(440px, 86vw); height: min(440px, 86vw); margin: 0 auto; border-radius: 50%; background: var(--bg); transition: background-color .9s var(--ease); }
+.why-tub { position: absolute; left: 9%; top: 7%; width: 82%; height: 82%; max-width: none; object-fit: contain; transition: opacity .35s ease;
+  filter: drop-shadow(0 22px 26px rgba(0,0,0,.22)); }
+.why-tub.swap { opacity: 0; }
+.callout b { display: block; font-size: clamp(64px, 9vw, 120px); }
+.callout b i { font-style: normal; font-size: .45em; text-transform: none; margin-left: .04em; }
+.callout small { display: block; margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sub); }
+.callout p { margin-top: 8px; font-size: 14px; color: var(--sub); }
+.why-close { margin-top: 30px; font: 880 clamp(26px, 3.2vw, 42px)/1 "Archivo", sans-serif; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; }
+.fine { margin-top: 10px; font-size: 13px; color: var(--sub); }
+@media (max-width: 899px) {
+  /* Phones: tub first, then the two numbers side by side */
+  .why-stage { grid-template-columns: 1fr 1fr; gap: 22px 12px; }
+  .why-disc { grid-column: 1 / -1; grid-row: 1; width: min(320px, 78vw); height: min(320px, 78vw); }
+  .callout b { font-size: clamp(54px, 16vw, 76px); }
+}
+@media (min-width: 900px) {
+  .why-stage { grid-template-columns: 1fr auto 1fr; gap: 40px; }
+  .callout.l { text-align: right; } .callout.r { text-align: left; }
+}
 
 /* Flavor cards: tub on its flood, faint giant name behind */
 .cards {
@@ -323,9 +339,6 @@ dialog.promo::backdrop { background: transparent; }
   .adder { max-width: 460px; margin-top: 20px; }
 
   .sheet { padding: 80px var(--gutter) 96px; }
-  .numbers { margin-top: 36px; }
-  .benefits { grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 36px; }
-  .benefits li { padding: 20px 18px; }
   .sheet .mid { margin-top: 80px; }
   .cards { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; margin: 30px 0 0; padding: 0; }
   .card[data-clone] { display: none; }   /* looping copies are for the phone scroller only */
