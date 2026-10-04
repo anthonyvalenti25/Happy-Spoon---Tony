@@ -17,7 +17,7 @@ The site is published with GitHub Pages from the `main` branch. After a push, ch
 
 The waitlist's flavor shelf code lives in `waitlist/concepts/shared.js` and `shared.css`, and the shop's in `shop/shop.css` and `shop/shop.js`, so keep those files.
 
-When you add a new page, add a row here too.
+When you add a new page, add a row here too. If the page should show up on Google, also add it to `sitemap.xml` and give it a `<link rel="canonical">` and `<meta name="description">` (pages that should stay out of search get `<meta name="robots" content="noindex">`).
 
 ## Team resources
 
