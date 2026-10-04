@@ -1,1 +1,4 @@
 .DS_Store
+
+# Private recipe work. Never publish: this repo is public and is the live website.
+formula-lab/
