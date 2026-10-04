@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logos/happy-spoon-icon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/logos/happy-spoon-icon-32.png">
+<link rel="apple-touch-icon" href="../../assets/logos/happy-spoon-icon-180.png">
+<title>Instagram Playbook · Happy Spoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+<link rel="stylesheet" href="../kit.css?v=4">
+<style>
+:root {
+  --page: #ffffff; --text: #15191d; --sub: #5d6870; --card: #f3f3f1; --line: #e3e3df; --accent: #1497ec;
+  --hf: "Archivo", system-ui, sans-serif; --bf: "Archivo", system-ui, sans-serif;
+  --f: #ef4c3c; --f-btn: #2a0f0b;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+.wide { font-family: "Archivo"; font-weight: 900; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; letter-spacing: -.02em; line-height: .84; }
+.cond { font-family: "Archivo"; font-weight: 880; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; letter-spacing: -.005em; line-height: .94; }
+.eyebrow { font: 700 12px/1.2 "Archivo"; letter-spacing: .16em; text-transform: uppercase; }
+.sec-head h2 { font-family: "Archivo"; font-weight: 880; font-stretch: 72%; font-variation-settings: "wdth" 72; text-transform: uppercase; font-size: clamp(40px, 6vw, 72px); line-height: .92; }
+.btn { display: inline-block; background: var(--f-btn); color: #fff; font: 700 15px/1 "Archivo"; padding: 15px 20px; border-radius: 999px; text-decoration: none; white-space: nowrap; border: 0; cursor: pointer; }
+a { color: inherit; }
+
+/* Cover: the four reels playing side by side */
+.cover { background: var(--f); color: #fff; padding: 72px 0 0; overflow: hidden; transition: background-color .9s var(--ease); }
+.cover .logo { width: 96px; --l: #fff; margin: 0 auto 26px; }
+.cover h1 { margin: 0; text-align: center; font-size: clamp(52px, 10vw, 128px); }
+.cover p { text-align: center; max-width: 620px; margin: 18px auto 0; padding: 0 16px; font: 600 clamp(16px, 2vw, 19px)/1.45 "Archivo"; }
+.reels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; max-width: 1200px; margin: 48px auto 0; padding: 0 16px 0; }
+.phone { position: relative; aspect-ratio: 9 / 16; border-radius: 20px 20px 0 0; overflow: hidden; background: rgba(0,0,0,.18); box-shadow: 0 0 0 6px rgba(255,255,255,.18); cursor: pointer; }
+.phone video, .phone img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.phone figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 10px 10px; font: 800 11px/1.1 "Archivo"; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.4)); }
+.phone.todo { display: grid; place-items: center; text-align: center; background: #f39c1e; padding: 14px; }
+.phone.todo b { display: block; font-size: clamp(16px, 2vw, 22px); margin-bottom: 8px; }
+.phone.todo span { font: 600 13px/1.35 "Archivo"; }
+@media (max-width: 760px) { .reels { grid-template-columns: repeat(5, 62vw); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .phone { scroll-snap-align: center; } }
+
+/* Principles */
+.principles { counter-reset: p; }
+
+/* Beats */
+.pick { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.pick button { border: 0; border-radius: 999px; padding: 10px 16px; font: 700 13px/1 "Archivo"; cursor: pointer; background: var(--card); color: var(--text); }
+.pick button[aria-pressed="true"] { background: var(--c); color: #fff; }
+.beats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.beat img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 14px; background: var(--card); }
+.beat .t { display: flex; justify-content: space-between; gap: 8px; margin: 12px 0 4px; font: 800 13px/1.1 "Archivo"; text-transform: uppercase; letter-spacing: .04em; }
+.beat .t span { font: 600 12px ui-monospace, Menlo, monospace; color: var(--sub); text-transform: none; letter-spacing: 0; }
+.beat p { margin: 0; font-size: 14px; color: var(--sub); line-height: 1.45; }
+@media (max-width: 900px) { .beats { grid-template-columns: repeat(5, 46vw); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; } .beat { scroll-snap-align: start; } }
+
+/* End card */
+.ends { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.ends a { display: block; text-decoration: none; }
+.ends img { width: 100%; border-radius: 14px; aspect-ratio: 9 / 16; object-fit: cover; }
+.ends small { display: block; margin-top: 8px; font-size: 12.5px; color: var(--sub); line-height: 1.4; }
+.ends small a { display: inline; text-decoration: underline; }
+@media (max-width: 760px) { .ends { grid-template-columns: repeat(2, 1fr); } }
+.drift { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14.5px; }
+.drift li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; }
+.drift li::before { content: "×"; width: 20px; height: 20px; border-radius: 50%; background: #c62f24; color: #fff; font: 700 13px/20px system-ui; text-align: center; margin-top: 1px; }
+.drift li.ok::before { content: "✓"; background: #1b7a43; }
+.spec { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14px; }
+.spec li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.spec li b { font-weight: 600; } .spec li span { color: var(--sub); text-align: right; }
+
+/* Prompts */
+.prompt { background: #15191d; color: #e9ecef; border-radius: 14px; padding: 18px; font: 500 13.5px/1.6 ui-monospace, Menlo, monospace; white-space: pre-wrap; margin: 0; max-height: 440px; overflow: auto; }
+.prompt mark { background: color-mix(in srgb, var(--f) 45%, transparent); color: #fff; border-radius: 3px; padding: 0 2px; }
+.prompt-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.prompt-bar .btn { background: var(--f); padding: 11px 16px; font-size: 14px; }
+.prompt-bar span { font-size: 13px; color: var(--sub); }
+.steps { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 14.5px; }
+.steps b { font-weight: 700; }
+code { font: 500 .9em ui-monospace, Menlo, monospace; background: var(--page); padding: 1px 5px; border-radius: 5px; }
+
+/* Grid preview */
+.profile { max-width: 470px; background: var(--card); border-radius: 22px; padding: 18px; }
+.profile .who { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.profile .av { width: 64px; height: 64px; border-radius: 50%; background: #ef4c3c; display: grid; place-items: center; flex: 0 0 auto; }
+.profile .av .mark { width: 60%; --l: #fff; }
+.profile .who b { display: block; font-size: 15px; }
+.profile .who span { font-size: 13px; color: var(--sub); line-height: 1.4; display: block; }
+.feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-radius: 6px; overflow: hidden; }
+.feed div { position: relative; aspect-ratio: 3 / 4; overflow: hidden; }
+.feed img { width: 100%; height: 100%; object-fit: cover; }
+.feed i { position: absolute; top: 6px; right: 7px; font-style: normal; color: #fff; font-size: 13px; text-shadow: 0 1px 3px rgba(0,0,0,.4); }
+.week { width: 100%; border-collapse: collapse; font-size: 14px; }
+.week th, .week td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.week th { font: 700 11.5px/1.2 "Archivo"; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); }
+.week td:first-child { font-weight: 700; white-space: nowrap; }
+.pill { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
+
+/* Captions */
+.cap-ex { background: var(--page); border-radius: 12px; padding: 14px 16px; font-size: 15px; line-height: 1.5; border-left: 5px solid var(--c); }
+.cap-ex + .cap-ex { margin-top: 10px; }
+.cap-ex small { display: block; font: 700 11px/1.2 "Archivo"; letter-spacing: .12em; text-transform: uppercase; color: var(--sub); margin-bottom: 4px; }
+
+/* Accounts */
+.acct { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.acct a { display: block; background: var(--card); border-radius: 16px; padding: 18px; text-decoration: none; transition: transform .2s var(--ease); }
+.acct a:hover { transform: translateY(-2px); }
+.acct b { display: block; font-size: 16px; margin-bottom: 2px; }
+.acct small { display: block; font: 700 11px/1.2 "Archivo"; letter-spacing: .1em; text-transform: uppercase; color: var(--sub); margin-bottom: 10px; }
+.acct p { margin: 0; font-size: 14px; line-height: 1.45; }
+.acct .tag { display: inline-block; margin-top: 10px; font: 700 11px/1 "Archivo"; letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; background: var(--page); }
+
+.flag { background: #fff4e5; border-radius: 18px; padding: 20px; }
+.flag h3 { margin: 0 0 6px; font-size: 17px; }
+.flag p { margin: 0; font-size: 14.5px; }
+.flag p + p { margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="back" href="../">← Brand guide</a>
+  <span class="title">Instagram playbook</span>
+  <nav class="toc"><a href="#look">Look</a><a href="#formula">Formula</a><a href="#end">End card</a><a href="#make">Make one</a><a href="#grid">Grid</a><a href="#captions">Captions</a><a href="#study">Study</a><a href="#post">Before posting</a></nav>
+</div></header>
+
+<section class="cover" id="cover">
+  <span class="logo"></span>
+  <h1 class="wide">Flavor Burst</h1>
+  <p>Our Instagram style. A real dessert breaks open on its flavor's color, swirls into yogurt, and the tub comes out of the swirl. Every reel ends on the same card.</p>
+  <div class="reels" id="reels"></div>
+</section>
+
+<!-- 01 LOOK -->
+<section class="sec" id="look"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01 · The look</span><h2>Five things make it ours.</h2>
+    <p class="lede">This is Flavor Flood in motion. If a post breaks one of these, it doesn't go up.</p></div>
+  <div class="grid principles">
+    <div class="card s4"><h3>One flavor, one color, full bleed.</h3><p>The flavor's flood fills the whole frame: a seamless studio color, no gradient, no props, no set. Never two flavors in one post, except the lineup.</p></div>
+    <div class="card s4"><h3>The real dessert is the hook.</h3><p>The first second is the dessert the flavor is named after: fudge, a cookie, caramel, mint and chocolate, cookie dough. Macro, glossy, sharp. It stops the scroll before anyone knows it's yogurt.</p></div>
+    <div class="card s4"><h3>Break, swirl, reveal.</h3><p>Slow-motion break, then the pieces fall into a yogurt swirl, then the tub rises out of the swirl. Same three moves every time, so people learn the pattern.</p></div>
+    <div class="card s6"><h3>Same ending, every time.</h3><p>White logo, tub, HIGH PROTEIN DESSERT, the numbers, one button, and the lineup strip along the bottom. The ending is what makes five different reels look like one brand.</p></div>
+    <div class="card s6"><h3>Numbers go big.</h3><p>Protein and calories are the headline, not fine print. Until the recipes are final, use the no-numbers ending (see <a href="#post">Before posting</a>).</p></div>
+  </div>
+</div></section>
+
+<!-- 02 FORMULA -->
+<section class="sec" id="formula"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02 · The formula</span><h2>Ten seconds, five beats.</h2>
+    <p class="lede">All four reels follow this exact timing. Pick a flavor to see its version.</p></div>
+  <div class="pick" id="pick"></div>
+  <div class="beats" id="beats"></div>
+</div></section>
+
+<!-- 03 END CARD -->
+<section class="sec" id="end"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03 · The end card</span><h2>Locked. Don't let the AI write it.</h2>
+    <p class="lede">The video tool makes great dessert shots but invents its own text, and the endings came out different every time. From now on, generate the video with no text and put our end card on top in CapCut.</p></div>
+  <div class="grid">
+    <div class="card s7"><span class="label">What drifted in the first four</span>
+      <ul class="drift">
+        <li>Chocolate Fudge says HIGH PROTEIN LOW CALORIE and has no numbers or button.</li>
+        <li>Cookie Dough puts the text above the tub, adds periods ("Dessert."), uses a brown button, and the last second drops the logo.</li>
+        <li>Mint Chip and Cookies & Cream use different text sizes and button sizes.</li>
+        <li>The lineup strip is in a different order in each one (it should always run Fudge → Dough).</li>
+        <li class="ok">Every reel used the right flood color, a white logo and the real tub. Keep all of that.</li>
+      </ul></div>
+    <div class="card s5"><span class="label">The spec</span>
+      <ul class="spec">
+        <li><b>Size</b><span>1080 × 1920, 9:16</span></li>
+        <li><b>Logo</b><span>White, top center</span></li>
+        <li><b>Headline</b><span>HIGH PROTEIN DESSERT, Archivo Expanded Black</span></li>
+        <li><b>Numbers</b><span>Protein first, then calories</span></li>
+        <li><b>Button</b><span>Join the waitlist, in the flavor's dark button color</span></li>
+        <li><b>Strip</b><span>All five, Fudge → Dough</span></li>
+        <li><b>On screen</b><span>Last 3 seconds, fades in over 0.3 s</span></li>
+      </ul></div>
+    <div class="s12"><div class="ends" id="ends"></div>
+      <p class="note">The overlays have a transparent middle so the tub from the video shows through. Files are in <code>assets/instagram/end-cards/</code>. The full cards double as Stories. Need a different button? Open <a href="end-card.html?f=salted-caramel&amp;cta=box">end-card.html</a> with <code>?cta=box</code> and screenshot it.</p></div>
+  </div>
+</div></section>
+
+<!-- 04 MAKE ONE -->
+<section class="sec" id="make"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04 · Make the next one</span><h2>Copy, paste, generate.</h2>
+    <p class="lede">One prompt per reel for Meta AI (or any video generator). Attach the flavor's tub image as the reference. Salted Caramel doesn't have a reel yet, so start there.</p></div>
+  <div class="grid">
+    <div class="s7">
+      <div class="pick" id="pick2"></div>
+      <div class="prompt-bar"><button class="btn" id="copy" type="button">Copy prompt</button><span id="ref"></span></div>
+      <pre class="prompt" id="prompt"></pre>
+    </div>
+    <div class="card s5"><span class="label">From prompt to post</span>
+      <ol class="steps">
+        <li><b>Generate.</b> Paste the prompt and attach the tub image. Make 3 or 4 versions and keep the one where the tub looks most like ours.</li>
+        <li><b>Check the tub.</b> Same lid, logo, label and flavor name as the reference. If the label is warped or misspelled, throw it out.</li>
+        <li><b>Edit in CapCut.</b> New 9:16 project, drop in the clip, add the flavor's end card overlay as a layer over the last 3 seconds, fade it in.</li>
+        <li><b>Sound.</b> Keep the generated snaps and whooshes, or add a trending sound underneath at low volume.</li>
+        <li><b>Cover.</b> Use the full end card PNG as the reel's cover so the grid stays clean.</li>
+        <li><b>Post</b> with the caption formula below and the AI label turned on.</li>
+      </ol></div>
+  </div>
+</div></section>
+
+<!-- 05 GRID -->
+<section class="sec" id="grid"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">05 · The grid</span><h2>A rainbow you scroll through.</h2>
+    <p class="lede">Post flavors in lineup order (Fudge, Cookies & Cream, Caramel, Mint, Dough, repeat) so the same color never lands twice in a row and the profile reads as all five.</p></div>
+  <div class="grid">
+    <div class="s5"><div class="profile">
+      <div class="who"><div class="av"><span class="mark"></span></div><div><b>happyspoon</b><span>High protein dessert. 5 flavors, 32 oz tubs.<br>Join the waitlist ↓</span></div></div>
+      <div class="feed" id="feed"></div>
+    </div><p class="cap">Profile grid tiles are 3:4. Keep the tub and logo inside the middle of every post so the crop doesn't cut them.</p></div>
+    <div class="card s7"><span class="label">A pre-launch week</span>
+      <table class="week">
+        <tr><th>Day</th><th>Post</th><th>Why</th></tr>
+        <tr><td>Mon</td><td>Flavor Burst reel (next flavor in line)</td><td>The hero. Reels reach people who don't follow us yet.</td></tr>
+        <tr><td>Wed</td><td>Static flavor post or a carousel (flavor, the numbers, then the waitlist)</td><td>Easy to save and share. Uses the posts we already have.</td></tr>
+        <tr><td>Fri</td><td>Flavor Burst reel, or the lineup (all five)</td><td>Second reach shot of the week.</td></tr>
+        <tr><td>Stories</td><td>The end card with a link sticker, "Which flavor should launch first?" polls, reshares of the founders' own posts</td><td>Turns viewers into waitlist signups.</td></tr>
+      </table>
+      <p class="note">Behind-the-scenes and founder videos go on the founders' personal accounts, and Happy Spoon reshares them to Stories. The brand account always speaks as Happy Spoon.</p></div>
+  </div>
+</div></section>
+
+<!-- 06 CAPTIONS -->
+<section class="sec" id="captions"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">06 · Captions</span><h2>Name it. Back it up. Send them.</h2>
+    <p class="lede">Flavor name, then the numbers (once they're real), then one short line with a little fun, then the button. Two to four lines, three hashtags max.</p></div>
+  <div class="grid">
+    <div class="card s7" id="caps"></div>
+    <div class="card s5"><span class="label">Rules</span>
+      <ul class="drift">
+        <li class="ok">Start with the flavor name. It's the first thing people read.</li>
+        <li class="ok">Jokes are about the food or the craving, never about anyone's body or diet.</li>
+        <li class="ok">End with the action: "Join the waitlist, link in bio."</li>
+        <li class="ok">Hashtags: #HappySpoon #HighProteinDessert, plus one for the flavor.</li>
+        <li>No flavor descriptions or taglines under the name.</li>
+        <li>Don't say cup, thick, creamy or sinful.</li>
+        <li>Don't name other companies' cookies or candy (say "cookies & cream", not the brand name).</li>
+      </ul></div>
+  </div>
+</div></section>
+
+<!-- 07 STUDY -->
+<section class="sec" id="study"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">07 · Accounts to study</span><h2>Steal like a dessert brand.</h2>
+    <p class="lede">Yogurt brands and high-protein food brands doing what we want to do. Look at their last 30 posts: which ones got the most likes, what happens in the first second, and how the grid holds together.</p></div>
+  <div class="acct" id="acct"></div>
+</div></section>
+
+<!-- 08 BEFORE POSTING -->
+<section class="sec" id="post"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">08 · Before posting</span><h2>Three checks before going public.</h2></div>
+  <div class="grid">
+    <div class="flag s4"><h3>1. Real numbers only</h3><p>20 g protein and 180 calories are placeholders. Once a post is public, people screenshot it, so wait until the recipe's nutrition panel is final. Until then, use the <b>no-numbers</b> overlay.</p></div>
+    <div class="flag s4"><h3>2. Check "low calorie"</h3><p>"High protein" and "low calorie" are FDA label terms with set minimums, and ads are held to the same claims. "Low calorie" usually means 40 calories or less per serving, so a 180-calorie serving likely can't use it. That's why the locked line is HIGH PROTEIN DESSERT. The Chocolate Fudge reel and the five static posts say LOW CALORIE, so swap those lines or confirm the term before they go up.</p></div>
+    <div class="flag s4"><h3>3. Label it as AI</h3><p>These reels are AI-generated and look real, so turn on Instagram's AI label when posting. Once real tubs exist, film real spoonfuls too. Real footage next to the Flavor Burst reels builds trust.</p></div>
+  </div>
+</div></section>
+
+<p class="wrap end">Happy Spoon Instagram playbook · Flavor Burst · last updated 2026-10-04</p>
+
+<script>
+const A = '../../assets/', M = 'media/';
+const F = [
+  { id: 'chocolate-fudge', name: 'Chocolate Fudge', bg: '#ef4c3c', btn: '#2a0f0b', reel: true,
+    hero: 'a glossy chunk of dark chocolate fudge, with a single drop of melted chocolate falling onto it',
+    brk: 'a thick stream of melted chocolate pours down onto it and splashes up into a crown, fudge cubes tumbling',
+    swirl: 'glossy melted chocolate and white yogurt swirling together, fudge cubes orbiting',
+    bits: 'fudge cubes', tag: '#ChocolateFudge', line: "Dessert's back on the menu." },
+  { id: 'cookies-and-cream', name: 'Cookies & Cream', bg: '#1497ec', btn: '#0b1d33', reel: true,
+    hero: 'a single chocolate sandwich cookie with a white cream filling, floating and slowly turning',
+    brk: 'the cookie snaps in half in slow motion, crumbs and cookie pieces bursting outward',
+    swirl: 'white yogurt swirling with cookie crumbs and cookie pieces',
+    bits: 'cookie pieces', tag: '#CookiesAndCream', line: 'Still dessert.' },
+  { id: 'salted-caramel', name: 'Salted Caramel', bg: '#f39c1e', btn: '#2e1604', reel: false,
+    hero: 'a glossy cube of soft caramel topped with flaky sea salt, floating and slowly turning',
+    brk: 'the caramel is pulled apart in slow motion, a gooey ribbon of caramel stretching between the halves, salt flakes scattering',
+    swirl: 'golden caramel ribbons swirling through white yogurt, caramel cubes orbiting',
+    bits: 'caramel cubes', tag: '#SaltedCaramel', line: 'Same dessert. Different feeling.' },
+  { id: 'mint-chip', name: 'Mint Chip', bg: '#4fc690', btn: '#0d2c3d', reel: true,
+    hero: 'a fresh mint leaf drifting down above a thick slab of dark chocolate',
+    brk: 'the chocolate cracks into shards and chips in slow motion, mint leaves spinning past',
+    swirl: 'pale mint-green yogurt swirling, full of chocolate chips and chocolate curls',
+    bits: 'chocolate chips and mint leaves', tag: '#MintChip', line: "Dessert for breakfast? We won't tell." },
+  { id: 'cookie-dough', name: 'Cookie Dough', bg: '#8740cf', btn: '#1f0b38', reel: true,
+    hero: 'a ball of chocolate chip cookie dough with a chocolate chip on top, floating and slowly turning',
+    brk: 'the dough pulls apart in slow motion in soft, gooey strands, crumbs and chocolate chips scattering',
+    swirl: 'white yogurt swirling with cookie dough bites and chocolate chips',
+    bits: 'cookie dough bites', tag: '#CookieDough', line: 'Cheat meal, minus the cheat.' }
+];
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+// Cover reels
+document.getElementById('reels').innerHTML = F.map(f => f.reel
+  ? `<figure class="phone" style="margin:0" data-bg="${f.bg}"><video src="${M + f.id}-reel.mp4" poster="${M + f.id}-beat1.jpg" muted loop playsinline autoplay preload="metadata"></video><figcaption>${esc(f.name)}</figcaption></figure>`
+  : `<figure class="phone todo" style="margin:0" data-bg="${f.bg}"><div><b class="wide">${esc(f.name)}</b><span>Not made yet. The prompt is ready in <a href="#make">Make one</a>.</span></div></figure>`).join('');
+document.querySelectorAll('.phone').forEach(p => p.addEventListener('mouseenter', () => { document.querySelector('.cover').style.background = p.dataset.bg; }));
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('.reels video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+
+// Beats
+const BEATS = [
+  ['Hook', '0–1.5 s', 'The dessert alone on the flood, macro and sharp. No tub, no text. This is what stops the scroll.'],
+  ['Break', '1.5–3 s', 'Slow-motion snap, pour or pull. Crumbs and splashes fly toward the camera.'],
+  ['Swirl', '3–4.5 s', 'The pieces fall into a swirl of yogurt that fills the frame.'],
+  ['Reveal', '4.5–6.5 s', 'The tub rises out of the middle of the swirl, ingredients orbiting it.'],
+  ['End card', '6.5–10 s', 'The swirl clears, the tub settles on the flood, and the locked end card fades in.']
+];
+const reelFlavors = F.filter(f => f.reel);
+function beats(f) {
+  document.getElementById('beats').innerHTML = BEATS.map((b, i) => `<div class="beat"><img src="${M + f.id}-beat${i + 1}.jpg" alt="${esc(f.name)}: ${b[0]}" loading="lazy"><div class="t">${b[0]}<span>${b[1]}</span></div><p>${b[2]}</p></div>`).join('');
+  document.querySelectorAll('#pick button').forEach(x => x.setAttribute('aria-pressed', x.dataset.id === f.id));
+}
+document.getElementById('pick').innerHTML = reelFlavors.map(f => `<button type="button" data-id="${f.id}" style="--c:${f.bg}">${esc(f.name)}</button>`).join('');
+document.getElementById('pick').addEventListener('click', e => { const b = e.target.closest('button'); if (b) beats(F.find(f => f.id === b.dataset.id)); });
+
+// End cards
+document.getElementById('ends').innerHTML = F.map(f => {
+  const base = A + 'instagram/end-cards/' + f.id + '-end-card';
+  return `<div><a href="${base}.png" target="_blank" rel="noopener"><img src="${M + f.id}-end.jpg" alt="${esc(f.name)} end card" loading="lazy"></a><small><b>${esc(f.name)}</b><br><a href="${base}-overlay-no-numbers.png" download>Overlay, no numbers</a> · <a href="${base}-overlay.png" download>with numbers</a> · <a href="${base}.png" download>full card</a></small></div>`;
+}).join('');
+
+// Prompt
+const prompt = f => `Vertical 9:16 video for Instagram Reels, 10 seconds. High-end macro food commercial, high-speed camera, smooth slow motion, ultra sharp, glossy and saturated.
+
+Background: a seamless solid <mark>${f.name.toLowerCase()} color ${f.bg.toUpperCase()}</mark> studio backdrop the whole time. No gradient, no table, no props, soft even light.
+
+Shot 1: <mark>${f.hero}</mark>, alone in the center of the frame.
+Shot 2: <mark>${f.brk}</mark>.
+Shot 3: the pieces fall into <mark>${f.swirl}</mark>, filling the frame.
+Shot 4: the camera pushes into the swirl and the Happy Spoon tub from the reference image rises out of the center, with <mark>${f.bits}</mark> orbiting around it.
+Shot 5: the swirl clears. The tub settles in the center of the plain ${f.bg.toUpperCase()} background, front label facing the camera, a soft shadow underneath. Hold still for the last 3 seconds with empty space above and below the tub.
+
+Product lock: copy the tub in the reference image exactly. Same shape, same printed foil lid, same logo, same label art, same flavor name and colors. Do not redraw, rename, warp or add anything to the tub.
+
+No on-screen text, no captions, no extra logos, no hands, no people.
+Sound: a crisp snap, soft whooshes and a smooth swirl, no music, no voice.`;
+function showPrompt(f) {
+  const make = document.getElementById('make');
+  make.style.setProperty('--f', f.bg); make.style.setProperty('--f-btn', f.btn);
+  document.getElementById('prompt').innerHTML = prompt(f);
+  document.getElementById('ref').innerHTML = `Reference image: <code>assets/${f.id}/${f.id}-display-closed.png</code>`;
+  document.querySelectorAll('#pick2 button').forEach(x => x.setAttribute('aria-pressed', x.dataset.id === f.id));
+  document.getElementById('copy').textContent = 'Copy prompt';
+}
+document.getElementById('pick2').innerHTML = F.map(f => `<button type="button" data-id="${f.id}" style="--c:${f.bg}">${esc(f.name)}${f.reel ? '' : ' · next'}</button>`).join('');
+document.getElementById('pick2').addEventListener('click', e => { const b = e.target.closest('button'); if (b) showPrompt(F.find(f => f.id === b.dataset.id)); });
+document.getElementById('copy').addEventListener('click', async () => {
+  const text = document.getElementById('prompt').textContent, b = document.getElementById('copy');
+  try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById('prompt')); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = 'Press ⌘C'; }
+});
+
+// Grid preview: newest first, lineup order so colors never repeat side by side
+const T = (id, kind) => ({ id, kind });
+const FEED = [T('chocolate-fudge', 'reel'), T('cookies-and-cream', 'post'), T('salted-caramel', 'end'),
+              T('mint-chip', 'reel'), T('cookie-dough', 'post'), T('chocolate-fudge', 'post'),
+              T('cookies-and-cream', 'reel'), T('salted-caramel', 'post'), T('mint-chip', 'post')];
+document.getElementById('feed').innerHTML = FEED.map(t => {
+  const src = t.kind === 'reel' ? `${M + t.id}-beat5.jpg` : t.kind === 'end' ? `${M + t.id}-end.jpg` : `${M + t.id}-post.jpg`;
+  return `<div><img src="${src}" alt="" loading="lazy">${t.kind === 'post' ? '' : '<i>▶</i>'}</div>`;
+}).join('');
+
+// Captions
+document.getElementById('caps').innerHTML = '<span class="label">One per flavor</span>' + F.map(f =>
+  `<div class="cap-ex" style="--c:${f.bg}"><small>${esc(f.name)}</small>${esc(f.name)}. 20 g protein, 180 calories per serving.<br>${esc(f.line)}<br>Join the waitlist, link in bio.<br><span style="color:var(--sub)">#HappySpoon #HighProteinDessert ${f.tag}</span></div>`).join('') +
+  '<p class="note">Until the numbers are final, drop the second line\'s numbers: "Chocolate Fudge. High protein dessert, coming soon."</p>';
+
+// Accounts to study
+const ACCTS = [
+  ['magicspooncereal', 'Magic Spoon', 'High-protein cereal', 'The closest playbook to ours: protein plus nostalgic dessert flavors, and every flavor owns a color.', 'Flavor = color'],
+  ['halotopcreamery', 'Halo Top', 'Lighter, higher-protein ice cream', 'Same promise in the freezer aisle. Watch how they put the numbers up front and still sound fun.', 'Numbers + fun'],
+  ['drinkolipop', 'OLIPOP', 'Better-for-you soda', 'Flavor-colored backgrounds and ingredient shots on solid color. One of the cleanest grids to copy.', 'Grid'],
+  ['drinkpoppi', 'poppi', 'Better-for-you soda', 'Loud color and fast reels. Study what happens in their first second.', 'Hooks'],
+  ['yasso', 'Yasso', 'Frozen Greek yogurt', 'Greek yogurt sold as dessert. The positioning closest to ours.', 'Dessert positioning'],
+  ['oikos', 'Oikos', 'High-protein yogurt', 'Protein-first yogurt. How to talk about grams without sounding clinical.', 'Protein talk'],
+  ['siggisdairy', "siggi's", 'Icelandic skyr', 'Simple, confident numbers and very consistent product shots.', 'Consistency'],
+  ['noosayoghurt', 'noosa', 'Dessert-style yogurt', 'Indulgent flavors and a playful voice in the yogurt aisle.', 'Voice'],
+  ['chobani', 'Chobani', 'Category leader', 'How a big yogurt brand launches a new flavor. Their creative team also posts at @underthelid.', 'Flavor launches'],
+  ['ratiofood', ':ratio', 'Macro-focused snacks', 'Protein and sugar numbers as the headline, on the pack and in posts.', 'Macros as headline']
+];
+document.getElementById('acct').innerHTML = ACCTS.map(a => `<a href="https://www.instagram.com/${a[0]}/" target="_blank" rel="noopener"><b>@${a[0]}</b><small>${esc(a[1])} · ${esc(a[2])}</small><p>${esc(a[3])}</p><span class="tag">Study: ${esc(a[4])}</span></a>`).join('');
+
+beats(reelFlavors[0]);
+showPrompt(F.find(f => f.id === 'salted-caramel'));
+</script>
+</body>
+</html>

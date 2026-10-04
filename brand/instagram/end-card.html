@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<meta name="robots" content="noindex">
+<title>Reel End Card · Happy Spoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap">
+<style>
+/* The Flavor Burst end card at 1080 x 1920. ?f=<flavor id> picks the flavor, ?clear leaves the
+   middle and the background transparent so it can sit on top of a reel in CapCut, ?nostats hides
+   the numbers (use it until the recipes are final), ?cta=box swaps the button. */
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; }
+body { background: var(--f); color: #fff; font-family: "Archivo", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body.clear { background: transparent; }
+.card { position: relative; width: 1080px; height: 1920px; }
+.logo { position: absolute; left: 50%; top: 180px; width: 340px; aspect-ratio: 640 / 422; transform: translateX(-50%); background: #fff;
+  -webkit-mask: url(../../assets/logos/happy-spoon-wordmark-mask.png) center / contain no-repeat; mask: url(../../assets/logos/happy-spoon-wordmark-mask.png) center / contain no-repeat; }
+.tub { position: absolute; left: 50%; top: 440px; width: 580px; transform: translateX(-50%); filter: drop-shadow(0 40px 46px rgba(0,0,0,.3)); }
+body.clear .tub { display: none; }
+.copy { position: absolute; left: 0; right: 0; top: 1214px; text-align: center; }
+body.nostats .stats { display: none; }
+.wide { font-weight: 900; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; letter-spacing: -.02em; line-height: .9; }
+h1 { margin: 0; font-size: 96px; }
+.stats { display: flex; justify-content: center; margin-top: 44px; }
+.stat { padding: 0 44px; }
+.stat + .stat { box-shadow: -3px 0 0 rgba(255,255,255,.35); }
+.stat b { display: block; font-size: 92px; line-height: .84; font-variant-numeric: tabular-nums; }
+.stat b i { font-style: normal; font-size: .5em; margin-left: .04em; text-transform: none; }
+.stat small { display: block; margin-top: 14px; font: 700 22px/1 "Archivo"; letter-spacing: .14em; text-transform: uppercase; opacity: .9; }
+.btn { display: inline-block; margin-top: 56px; background: var(--btn); color: #fff; font: 700 40px/1 "Archivo"; padding: 30px 52px; border-radius: 999px; }
+.strip { position: absolute; left: 0; right: 0; bottom: 0; height: 28px; display: grid; grid-template-columns: repeat(5, 1fr); }
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="logo"></span>
+  <img class="tub" alt="">
+  <div class="copy">
+    <h1 class="wide" id="line">High protein<br>dessert</h1>
+    <div class="stats"><div class="stat"><b class="wide">20<i>g</i></b><small>Protein</small></div><div class="stat"><b class="wide">180</b><small>Calories</small></div></div>
+    <span class="btn" id="cta">Join the waitlist</span>
+  </div>
+  <div class="strip" id="strip"></div>
+</div>
+<script>
+const F = {
+  'chocolate-fudge':   { bg: '#ef4c3c', btn: '#2a0f0b' },
+  'cookies-and-cream': { bg: '#1497ec', btn: '#0b1d33' },
+  'salted-caramel':    { bg: '#f39c1e', btn: '#2e1604' },
+  'mint-chip':         { bg: '#4fc690', btn: '#0d2c3d' },
+  'cookie-dough':      { bg: '#8740cf', btn: '#1f0b38' }
+};
+const q = new URLSearchParams(location.search);
+const id = F[q.get('f')] ? q.get('f') : 'chocolate-fudge', f = F[id];
+document.body.style.setProperty('--f', f.bg);
+document.body.style.setProperty('--btn', f.btn);
+document.body.classList.toggle('clear', q.has('clear'));
+document.body.classList.toggle('nostats', q.has('nostats'));
+document.querySelector('.tub').src = '../../assets/' + id + '/' + id + '-tub-600.webp';
+if (q.get('cta') === 'box') document.getElementById('cta').textContent = 'Build your box';
+document.getElementById('strip').innerHTML = Object.values(F).map(c => `<i style="background:${c.bg}"></i>`).join('');
+</script>
+</body>
+</html>
