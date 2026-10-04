@@ -1,0 +1,35 @@
+Generated with the built-in image_gen tool.
+Source: user-provided nutrition table screenshot, October 4, 2026.
+Visual draft preserving supplied label values and percentages; nutrition and regulatory compliance were not independently evaluated.
+
+Use case: infographic-diagram.
+Create a realistic, clean American-style Nutrition Facts label based on the attached reference nutrition table. The reference is DATA ONLY; transform the dark screen table into a classic black-on-white vertical printed nutrition facts panel. Flat front-on graphic, no product or scene, no shadows, no perspective, no paper texture. Crisp readable typography, white background, thin rectangular black border, compact professional hierarchy, heavy condensed sans-serif Nutrition Facts header, large bold calorie number, right-aligned percentages, thin and thick black horizontal rules as appropriate. Portrait layout with small white margins. This is a visual draft using supplied data; do not alter, recalculate or add nutrient values. No extra claims or logos.
+Exact content, in this order:
+Nutrition Facts
+About 5 servings per container
+Serving size 3/4 cup (170g)
+[thick black rule]
+Amount per serving
+Calories 120
+[thick black rule]
+% Daily Value*
+Total Fat 0.5g [right: 1%]
+  Saturated Fat 0g [right: 0%]
+  Trans Fat 0g [no percent]
+Cholesterol 25mg [right: 9%]
+Sodium 190mg [right: 8%]
+Total Carbohydrate 18g [right: 6%]
+  Dietary Fiber 0g [right: 0%]
+  Total Sugars 4g [no percent]
+    Includes 0g Added Sugars [right: 0%]
+  Sugar Alcohol 13g [no percent]
+Protein 21g [no percent]
+[thick black rule]
+Vitamin D 0.3mcg [right: 2%]
+Calcium 200mg [right: 15%]
+Iron 1.3mg [right: 7%]
+Potassium 270mg [right: 6%]
+[medium black rule]
+* The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.
+
+Typesetting instructions: square brackets are layout instructions, never literal printed text. Nutrient amounts are inline with names at left; percentage values flush right. Bold Total Fat, Cholesterol, Sodium, Total Carbohydrate, Protein and the percentage values. Indent subnutrients. Italicize Trans. Make all label content visible, no cropping. Spell every nutrient correctly, reproduce all numbers exactly, no Calculated column.
