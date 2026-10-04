@@ -1,0 +1,41 @@
+{
+  "generator": "Built-in image_gen",
+  "mockups": [
+    {
+      "role": "CTO",
+      "title": "CHIEF TASTING OFFICER",
+      "color": "#1497ec",
+      "person": "fictional adult man in his mid twenties, short wavy blond hair, light stubble, friendly relaxed smile, cream crewneck",
+      "department": "TASTE TESTING",
+      "prompt": "Use case: ads-marketing. Generate a finished Happy Spoon novelty team ID card mockup for CTO. Image 1 is a layout reference ONLY, do not reuse its real person's face or name. Image 2 is the exact logo. Match the reference's landscape 3:2 canvas, cream rounded rectangular card, soft pale background and restrained shadow, portrait on left occupying 42% of card, text right, five-color stripe across bottom (coral blue orange mint purple). Create a head-and-shoulders studio portrait of a fictional adult man in his mid twenties, short wavy blond hair, light stubble, friendly relaxed smile, cream crewneck, completely fictional placeholder person clearly different from the reference. Portrait background uses #1497ec, softly lit. On right use exact HAPPY SPOON chocolate brown wordmark and blue smile; preserve its shape. Under logo, small text \"YOUR NAME\", then very large bold \"CTO\" in #1497ec, then bold chocolate-brown \"CHIEF TASTING OFFICER\". Thin accent rule. Two aligned fields: \"DEPARTMENT:\" followed by \"TASTE TESTING\", and \"ACCESS:\" followed by \"ALL FLAVORS\". Bottom footer \"TEAM MOCKUP \u2022 FICTIONAL PORTRAIT\". All text clean, correctly spelled, comfortably inside card without overlap; long fields may wrap neatly. Consistent clean Archivo-like typography. The role is the main typographic focal point. High quality photoreal portrait and sharp brand graphics. Use same layout for all four role variants. No government logos or features, no barcode, no signatures, no dates, no extra text, no actual person's name, no company title CEO anywhere unless requested for this specific role. Whole card visible, flat front-on.",
+      "destination": "assets/instagram/team-mockups/happy-spoon-cto-mockup.png"
+    },
+    {
+      "role": "CFO",
+      "title": "CHIEF FLAVOR OFFICER",
+      "color": "#f39c1e",
+      "person": "fictional adult woman in her late twenties, medium brown skin, shoulder-length dark curly hair, friendly confident smile, cream crewneck",
+      "department": "FLAVOR DEVELOPMENT",
+      "prompt": "Use case: ads-marketing. Generate a finished Happy Spoon novelty team ID card mockup for CFO. Image 1 is a layout reference ONLY, do not reuse its real person's face or name. Image 2 is the exact logo. Match the reference's landscape 3:2 canvas, cream rounded rectangular card, soft pale background and restrained shadow, portrait on left occupying 42% of card, text right, five-color stripe across bottom (coral blue orange mint purple). Create a head-and-shoulders studio portrait of a fictional adult woman in her late twenties, medium brown skin, shoulder-length dark curly hair, friendly confident smile, cream crewneck, completely fictional placeholder person clearly different from the reference. Portrait background uses #f39c1e, softly lit. On right use exact HAPPY SPOON chocolate brown wordmark and blue smile; preserve its shape. Under logo, small text \"YOUR NAME\", then very large bold \"CFO\" in #f39c1e, then bold chocolate-brown \"CHIEF FLAVOR OFFICER\". Thin accent rule. Two aligned fields: \"DEPARTMENT:\" followed by \"FLAVOR DEVELOPMENT\", and \"ACCESS:\" followed by \"ALL FLAVORS\". Bottom footer \"TEAM MOCKUP \u2022 FICTIONAL PORTRAIT\". All text clean, correctly spelled, comfortably inside card without overlap; long fields may wrap neatly. Consistent clean Archivo-like typography. The role is the main typographic focal point. High quality photoreal portrait and sharp brand graphics. Use same layout for all four role variants. No government logos or features, no barcode, no signatures, no dates, no extra text, no actual person's name, no company title CEO anywhere unless requested for this specific role. Whole card visible, flat front-on.",
+      "destination": "assets/instagram/team-mockups/happy-spoon-cfo-mockup.png"
+    },
+    {
+      "role": "CEO",
+      "title": "CHIEF EATING OFFICER",
+      "color": "#ef4c3c",
+      "person": "fictional adult man in his late twenties, dark skin, close cropped black hair and neat beard, warm confident smile, cream crewneck",
+      "department": "DESSERT OPERATIONS",
+      "prompt": "Use case: ads-marketing. Generate a finished Happy Spoon novelty team ID card mockup for CEO. Image 1 is a layout reference ONLY, do not reuse its real person's face or name. Image 2 is the exact logo. Match the reference's landscape 3:2 canvas, cream rounded rectangular card, soft pale background and restrained shadow, portrait on left occupying 42% of card, text right, five-color stripe across bottom (coral blue orange mint purple). Create a head-and-shoulders studio portrait of a fictional adult man in his late twenties, dark skin, close cropped black hair and neat beard, warm confident smile, cream crewneck, completely fictional placeholder person clearly different from the reference. Portrait background uses #ef4c3c, softly lit. On right use exact HAPPY SPOON chocolate brown wordmark and blue smile; preserve its shape. Under logo, small text \"YOUR NAME\", then very large bold \"CEO\" in #ef4c3c, then bold chocolate-brown \"CHIEF EATING OFFICER\". Thin accent rule. Two aligned fields: \"DEPARTMENT:\" followed by \"DESSERT OPERATIONS\", and \"ACCESS:\" followed by \"ALL FLAVORS\". Bottom footer \"TEAM MOCKUP \u2022 FICTIONAL PORTRAIT\". All text clean, correctly spelled, comfortably inside card without overlap; long fields may wrap neatly. Consistent clean Archivo-like typography. The role is the main typographic focal point. High quality photoreal portrait and sharp brand graphics. Use same layout for all four role variants. No government logos or features, no barcode, no signatures, no dates, no extra text, no actual person's name, no company title CEO anywhere unless requested for this specific role. Whole card visible, flat front-on.",
+      "destination": "assets/instagram/team-mockups/happy-spoon-ceo-mockup.png"
+    },
+    {
+      "role": "CES",
+      "title": "CHIEF EXECUTIVE SPOON",
+      "color": "#8740cf",
+      "person": "fictional adult woman in her mid twenties, East Asian appearance, straight dark chin-length hair, friendly relaxed smile, cream crewneck",
+      "department": "SPOON SUPERVISION",
+      "prompt": "Use case: ads-marketing. Generate a finished Happy Spoon novelty team ID card mockup for CES. Image 1 is a layout reference ONLY, do not reuse its real person's face or name. Image 2 is the exact logo. Match the reference's landscape 3:2 canvas, cream rounded rectangular card, soft pale background and restrained shadow, portrait on left occupying 42% of card, text right, five-color stripe across bottom (coral blue orange mint purple). Create a head-and-shoulders studio portrait of a fictional adult woman in her mid twenties, East Asian appearance, straight dark chin-length hair, friendly relaxed smile, cream crewneck, completely fictional placeholder person clearly different from the reference. Portrait background uses #8740cf, softly lit. On right use exact HAPPY SPOON chocolate brown wordmark and blue smile; preserve its shape. Under logo, small text \"YOUR NAME\", then very large bold \"CES\" in #8740cf, then bold chocolate-brown \"CHIEF EXECUTIVE SPOON\". Thin accent rule. Two aligned fields: \"DEPARTMENT:\" followed by \"SPOON SUPERVISION\", and \"ACCESS:\" followed by \"ALL FLAVORS\". Bottom footer \"TEAM MOCKUP \u2022 FICTIONAL PORTRAIT\". All text clean, correctly spelled, comfortably inside card without overlap; long fields may wrap neatly. Consistent clean Archivo-like typography. The role is the main typographic focal point. High quality photoreal portrait and sharp brand graphics. Use same layout for all four role variants. No government logos or features, no barcode, no signatures, no dates, no extra text, no actual person's name, no company title CEO anywhere unless requested for this specific role. Whole card visible, flat front-on.",
+      "destination": "assets/instagram/team-mockups/happy-spoon-ces-mockup.png"
+    }
+  ]
+}
