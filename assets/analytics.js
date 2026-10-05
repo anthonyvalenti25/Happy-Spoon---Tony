@@ -2,7 +2,7 @@
 // and the clicks that matter (adding tubs, opening the box, checkout, email signups).
 // Paste the Measurement ID from GA4 (Admin → Data streams → Web → "G-…") below. Empty = analytics off.
 (() => {
-  const GA_ID = '';
+  const GA_ID = 'G-7H5H8NRGEF';
 
   window.hsTrack = (name, params) => { if (window.gtag) gtag('event', name, params); };
   // Only the live site counts, so local previews don't inflate the numbers
