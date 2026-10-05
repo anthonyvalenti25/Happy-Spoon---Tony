@@ -13,6 +13,8 @@ Happy Spoon deliverable.
 
 Generation prompts are saved in chocolate-fudge/generation.json and
 remaining-flavors-generation.json. All stories used built-in image_gen.
-The two earlier repetitive quote drafts are excluded.
+Earlier quote versions shown in the chat are preserved in alternates/.
+Use the five flavor folders for the final distinct-quote set.
 
-No Happy Spoon animation has been rendered as part of this collection.
+happy_spoon_1080x1920.mp4: supplied Happy Spoon animation, 15 seconds,
+1080 x 1920, H.264. Stored alongside the flavor story collection.
