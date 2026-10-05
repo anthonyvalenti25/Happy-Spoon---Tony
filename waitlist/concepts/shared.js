@@ -187,6 +187,7 @@ const HS = (() => {
       } else if (!kitForm) {
         note.textContent = 'Design preview. Signups are not saved yet.';
       }
+      window.hsTrack?.('sign_up', { method: 'Waitlist' });
       app.classList.add('joined');
     });
 

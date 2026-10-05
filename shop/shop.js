@@ -451,6 +451,7 @@
       }
     }
     remember('joined');
+    window.hsTrack?.('sign_up', { method: 'Shop popup' });
     promo.classList.add('joined');
     $('.promo-shop').focus({ preventScroll: true });
   });

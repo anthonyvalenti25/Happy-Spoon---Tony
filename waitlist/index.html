@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="./concepts/shared.css?v=4">
   <link rel="stylesheet" href="../assets/site-header.css?v=8">
   <link rel="stylesheet" href="../assets/site-footer.css?v=2">
+  <script src="../assets/analytics.js?v=1" defer></script>
   <style>
     /* Lineup: all five wait on a shelf. Each takes its turn leaping up to center stage, then hops back into line. */
 
@@ -170,7 +171,7 @@
     // Start at the top on navigation; visitors can scroll down to the contact footer.
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   </script>
-  <script src="./concepts/shared.js?v=13"></script>
+  <script src="./concepts/shared.js?v=14"></script>
   <script>
     const stage = document.getElementById('stage');
     const STYLE = ['glass', 'ledge', 'risers', 'floor'].find(v => v === new URLSearchParams(location.search).get('shelf')) || 'glass';
