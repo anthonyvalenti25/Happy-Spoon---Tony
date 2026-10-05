@@ -1,0 +1,73 @@
+HAPPY SPOON: FIND YOUR FLAVOR
+
+DELIVERABLE
+Render the animation and deliver the finished 15-second, 1080 x 1920,
+vertical 9:16 MP4. You may use code internally, but do not stop at providing
+a script. If this tool cannot render video, state that limitation clearly.
+
+REFERENCE ROLES
+Use video-references/motion-reference.mov for timing, layout and movement only.
+Use the five supplied *-closed-cutout.png files as the exact product artwork.
+Use video-references/happy-spoon-logo.png for the Happy Spoon brand identity.
+
+PRODUCT ACCURACY
+Animate the supplied product cutouts as intact, rigid image layers. Preserve
+every label, logo, word, foil lid, color, tub shape and proportion. Do not
+redraw, reinterpret, morph or invent packaging. Keep the reference viewing
+angle throughout.
+
+Include all five flavors:
+- Chocolate Fudge: coral red
+- Cookie Dough: purple
+- Cookies & Cream: bright blue
+- Mint Chip: mint green
+- Salted Caramel: golden orange
+
+VISUAL STYLE
+Playful, clean, polished Happy Spoon motion graphics. Warm cream background,
+chocolate-brown typography and small accents in the five flavor colors.
+Use chunky, rounded lettering that complements the supplied Happy Spoon logo.
+
+TIMELINE
+
+0-3 seconds:
+Centered headline:
+"Find your"
+"FLAVOR"
+
+Make FLAVOR large and bold. Alternate it between solid chocolate-brown
+lettering and a chocolate-brown outline, with a subtle rhythmic bounce.
+Add a few small floating smile-shaped curves and simple sparkle accents.
+Keep the composition uncluttered.
+
+3-5 seconds:
+Happy Spoon tubs slide into view from both sides, forming three evenly
+spaced horizontal rows. The rows progressively cover the headline until
+it disappears behind the products.
+
+5-15 seconds:
+Fill the frame with a continuous scrolling pattern of the five exact
+product cutouts. Top row moves left. Middle row moves right. Bottom row
+moves left.
+
+Repeat the five flavors in a consistent sequence, with the starting
+position offset between rows. Give every flavor equal visibility.
+Maintain uniform tub size, spacing and vertical alignment. Show roughly
+three tubs across each row, with partial tubs naturally entering and
+exiting the frame edges.
+
+Use smooth, steady movement after a gentle entrance easing. Keep the
+camera fixed and every product sharp. Finish while the rows are still
+scrolling, with positions suitable for a seamless loop of this scrolling
+section.
+
+CONSTRAINTS
+No product rotation, changing perspective, opening lids, melting, label
+distortion, floating ingredients, hands, people or added nutrition claims.
+No competitor branding or cereal boxes.
+No Instagram interface, progress bars, usernames, cursor or watermarks.
+No voiceover or subtitles. Silent video.
+
+PRODUCTION NOTE
+For truly exact packaging, animate the original image layers. A generator
+that redraws the entire scene may alter labels despite this prompt.
