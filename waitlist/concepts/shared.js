@@ -188,6 +188,7 @@ const HS = (() => {
         note.textContent = 'Design preview. Signups are not saved yet.';
       }
       window.hsTrack?.('sign_up', { method: 'Waitlist' });
+      try { localStorage.setItem('hs-joined', '1'); } catch {}   // the welcome popups on the shop and waitlist skip people already on the list
       app.classList.add('joined');
     });
 

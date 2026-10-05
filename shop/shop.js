@@ -406,13 +406,15 @@
 
   // ---------- Welcome offer: a free tub in your first box, shown 1 second after the page opens, once per visitor ----------
   // Signups go to the Kit form in data-kit-form (Kit's public endpoint, no secret keys), tagged with where they came from.
+  // The waitlist page has the same popup with its own once-per-visitor key. Signing up on either page sets
+  // hs-joined, so someone already on the list never sees it again.
   const promo = $('.promo');
   const promoForm = $('.promo-form');
   const promoNote = $('.promo-note');
   const PROMO_KEY = 'hs-shop-promo';
   let promoSeen = null;
-  try { promoSeen = localStorage.getItem(PROMO_KEY); } catch {}
-  const remember = v => { try { localStorage.setItem(PROMO_KEY, v); } catch {} };
+  try { promoSeen = localStorage.getItem(PROMO_KEY) || localStorage.getItem('hs-joined'); } catch {}
+  const remember = v => { try { localStorage.setItem(PROMO_KEY, v); if (v === 'joined') localStorage.setItem('hs-joined', '1'); } catch {} };
   promo.addEventListener('click', e => { if (e.target === promo) promo.close(); });   // tap outside the card
   promo.addEventListener('close', () => { if (!promo.classList.contains('joined')) remember('dismissed'); dialogClosed(); });
   // ?promo always shows it; ?nopromo never does (handy for screenshots)
