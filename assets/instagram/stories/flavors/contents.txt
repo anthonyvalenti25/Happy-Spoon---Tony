@@ -1,6 +1,6 @@
 HAPPY SPOON INSTAGRAM STORIES
 
-Five flavor folders contain the 10 final shop and quote story PNGs.
+All 10 final shop and quote story PNGs are directly in this folder.
 Each PNG is 941 x 1672 pixels, approximately 9:16.
 The quote cards use original Happy Spoon brand copy, not customer reviews.
 Add the real destination with an Instagram link sticker on each shop story.
@@ -11,10 +11,10 @@ video-references/: five exact product cutouts, the logo and supplied motion
 reference recording. The recording is an inspiration reference, not a
 Happy Spoon deliverable.
 
-Generation prompts are saved in chocolate-fudge/generation.json and
+Generation prompts are saved in chocolate-fudge-generation.json and
 remaining-flavors-generation.json. All stories used built-in image_gen.
 Earlier quote versions shown in the chat are preserved in alternates/.
-Use the five flavor folders for the final distinct-quote set.
+Use the 10 PNGs directly in this folder for the final distinct-quote set.
 
 happy_spoon_1080x1920.mp4: supplied Happy Spoon animation, 15 seconds,
 1080 x 1920, H.264. Stored alongside the flavor story collection.
