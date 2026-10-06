@@ -2,3 +2,6 @@
 
 # Private recipe work. Never publish: this repo is public and is the live website.
 formula-lab/
+
+# Private team notes (meeting transcripts, supplier pricing). Never publish.
+private/
