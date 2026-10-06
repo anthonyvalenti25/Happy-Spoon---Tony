@@ -108,6 +108,13 @@ Full-service dairy manufacturer offering custom formulation, Greek yogurt, brand
 - Phone: 323-838-1225
 - Website: https://www.rexcreamery.com/what-we-do
 
+### 9. Black River Valley Natural — Upstate New York
+
+Small creamery that co-manufactures for startups, from back-of-the-napkin R&D through medium-volume production, with no huge minimums. It uses a four-phase pathway: $1,500 initial engagement, then $10,000–$12,000 for R&D with three full trial batches, then per-batch runs, then reserved capacity. Intro call held October 5, 2026; James is sending an NDA and agreement.
+
+- Contact: James (co-owner and co-founder)
+- Meeting notes and transcript: [2026-10-05 intro call](meetings/2026-10-05-black-river-valley-natural-intro-call.md)
+
 ## Packaging strategy
 
 Do not purchase containers before choosing the co-manufacturer. The manufacturer's filling and sealing equipment determines the cup diameter, height, rim, material, fill weight and compatible lid structure.
